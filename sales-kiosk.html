@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Kiosk | Gymshim</title>
+    <meta name="description" content="A front-desk touchscreen that captures the lead, plays the offer, and closes the membership — before your staff even reach for a pen.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="sales-kiosk.css">
@@ -16,15 +18,16 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 
-
-
 </head>
 <body>
 
-  <div class="skx-grain"></div>
+<!-- Scroll progress -->
+<div class="skx-progress"><span class="skx-progress-bar" id="skxProgressBar"></span></div>
+
+<div class="skx-grain"></div>
 <div class="skx-cursor-ring" id="skxCursorRing"></div>
 
-  <div class="skx-objects" id="skxObjects"></div>
+<div class="skx-page">
 
     <header class="navbar">
   <div class="nav-container">
@@ -34,11 +37,9 @@
 
     <nav class="nav-links" id="navLinks">
       <a href="index.html#plans">Business Booster</a>
-      <!-- <a href="workout.html">Workout+</a>
-      <a href="sales-kiosk.html" class="active-link">Sales Kiosk</a> -->
      <div class="nav-dropdown" id="servicesDropdown">
         <button type="button" class="nav-dropdown-toggle" id="servicesToggle" aria-haspopup="true" aria-expanded="false">
-         Products & Services <span class="nav-dropdown-caret">&#9662;</span>
+         Products &amp; Services <span class="nav-dropdown-caret">&#9662;</span>
         </button>
       </div>
       <a href="about.html">About Us</a>
@@ -53,12 +54,6 @@
 </div>
 
     </div>
-  </div>
-</header>
-
-
-
-
 </header>
 
 <div class="services-overlay" id="servicesOverlay" aria-hidden="true" data-lenis-prevent>
@@ -252,29 +247,28 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-<!-- HERO -->
-<!-- HERO -->
+<!-- ============================================================
+     HERO — fullscreen video, floating kiosk device, live flow
+     ============================================================ -->
 <section class="skx-hero">
+  <div class="skx-hero-video-wrap">
+    <!-- Drop a looped front-desk / kiosk-in-use clip here -->
+    <video class="skx-hero-video" autoplay muted loop playsinline poster="assets/image/sales-kiosk-hero-poster.jpg">
+      <source src="assets/video/sales-kiosk-hero.mp4" type="video/mp4">
+    </video>
+    <div class="skx-hero-video-overlay"></div>
+  </div>
+
   <div class="skx-mesh"></div>
   <div class="skx-grid-overlay"></div>
   <div class="skx-particles" id="skxParticles"></div>
   <div class="skx-spotlight" id="skxSpotlight"></div>
-  <div class="skx-hero-glow"></div>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
+  <div class="skx-objects" id="skxObjects"></div>
 
   <div class="skx-hero-inner">
     <div class="skx-hero-copy">
-     <span class="hero-tag reveal-up">Sales Kiosk</span>
-<span class="skx-divider reveal-up" style="--reveal-delay:0.15s"></span>
+      <span class="skx-eyebrow reveal-up">Sales Kiosk</span>
+      <span class="skx-divider reveal-up" style="--reveal-delay:0.15s"></span>
       <h1 class="skx-hero-title">
         <span class="skx-word" style="--d:0">Every</span>
         <span class="skx-word" style="--d:1">walk-in.</span><br>
@@ -283,205 +277,508 @@
         <span class="skx-word" style="--d:4">the</span>
         <span class="skx-word" style="--d:5">spot.</span>
       </h1>
-      <p class="reveal-up" style="--reveal-delay:0.5s">A front-desk touchscreen that captures the lead, plays the offer, and closes the membership — before your staff even reach for a pen.</p>
-      <a href="booking.html" class="btn-primary skx-glow-btn reveal-up" style="--reveal-delay:0.6s">Book a Demo</a>
+      <p class="skx-hero-sub reveal-up" style="--reveal-delay:0.5s">A front-desk touchscreen that captures the lead, plays the offer, and closes the membership — before your staff even reach for a pen.</p>
+
+      <div class="skx-hero-actions reveal-up" style="--reveal-delay:0.6s">
+        <a href="booking.html" class="btn-primary skx-glow-btn skx-magnetic skx-ripple">Book a Demo</a>
+        <a href="#showcase" class="skx-btn-ghost skx-magnetic">See it in action</a>
+      </div>
+
+      <div class="skx-hero-stat reveal-up skx-glass" style="--reveal-delay:0.7s; border-radius:999px;">
+        <span class="skx-live-dot"></span>
+        Memberships closed today <strong id="skxCounter">0</strong>
+      </div>
     </div>
 
-    
+    <div class="skx-hero-visual" id="skxHeroVisual">
+      <div class="skx-device skx-tilt">
+        <div class="skx-device-frame">
+          <div class="skx-device-notch"></div>
+          <div class="skx-device-screen">
+            <div class="skx-device-screen-glow"></div>
+            <span class="skx-device-brand">Gymshim · Front Desk</span>
+            <h4 class="skx-device-headline">New member sign-up</h4>
+            <div class="skx-flow" id="skxFlow">
+              <div class="skx-flow-step"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Lead captured</span></div>
+              <div class="skx-flow-step"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Offer applied — 20% off</span></div>
+              <div class="skx-flow-step"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Payment confirmed</span></div>
+              <div class="skx-flow-step"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Membership active</span></div>
+            </div>
+            <div class="skx-device-cta">Receipt printed ✓</div>
+          </div>
+        </div>
+        <div class="skx-device-stand"></div>
+        <div class="skx-device-base"></div>
+      </div>
+
+      <div class="skx-float-badge skx-badge-1 skx-glass">⚡ <span>90-second signup</span></div>
+      <div class="skx-float-badge skx-badge-2 skx-glass">🔒 <span>Secure payments</span></div>
+      <div class="skx-float-badge skx-badge-3 skx-glass">📈 <span>+31% conversion</span></div>
+    </div>
+  </div>
+
+  <div class="skx-scroll-indicator">
+    <span class="skx-mouse"></span>
+    Scroll
   </div>
 </section>
 
-<!-- MARQUEE DIVIDER (scrolls right) -->
+<!-- Trust marquee strip -->
+<div class="skx-marquee-strip">
+  <div class="skx-marquee-track">
+    <span><b>500+</b> gyms live</span>
+    <span><b>20K+</b> memberships closed</span>
+    <span>24/7 self-service</span>
+    <span><b>90 sec</b> average signup</span>
+    <span>UPI · Cards · Wallets</span>
+    <span><b>500+</b> gyms live</span>
+    <span><b>20K+</b> memberships closed</span>
+    <span>24/7 self-service</span>
+    <span><b>90 sec</b> average signup</span>
+    <span>UPI · Cards · Wallets</span>
+  </div>
+</div>
 
-    <!-- <div class="skx-terminal reveal-up" style="--reveal-delay:0.3s" id="skxTerminal">
-      <div class="skx-terminal-head">
-        <span class="skx-dot skx-dot-r"></span>
-        <span class="skx-dot skx-dot-y"></span>
-        <span class="skx-dot skx-dot-g"></span>
-        <span class="skx-terminal-title">sales-kiosk — front desk</span>
-      </div>
-      <div class="skx-terminal-body" id="skxLog"></div>
-      <div class="skx-terminal-stat">
-        <span class="skx-stat-label">Memberships closed today</span>
-        <span class="skx-stat-value" id="skxCounter">0</span>
-      </div>
-    </div> -->
+<!-- ============================================================
+     PRODUCT SHOWCASE
+     ============================================================ -->
+<section class="skx-showcase skx-band" id="showcase">
+  <div class="skx-container">
+    <div class="skx-section-head reveal-up">
+      <span class="skx-eyebrow">Product Showcase</span>
+      <h2>One kiosk, sized for every front desk.</h2>
+      <p>Same software, same conversion flow — pick the screen that fits your entrance.</p>
+    </div>
+
+    <div class="skx-showcase-grid">
+      <article class="skx-product-card skx-tilt">
+        <div class="skx-product-glow"></div>
+        <div class="skx-product-media" data-lightbox-title="Compact Kiosk — 21.5&quot;" data-lightbox-desc="Wall or stand mounted. Built for tight entrances and busy front desks, with the full sign-up and payment flow on a 21.5-inch display.">
+          <div class="skx-device">
+            <div class="skx-device-frame">
+              <div class="skx-device-notch"></div>
+              <div class="skx-device-screen">
+                <div class="skx-device-screen-glow"></div>
+                <span class="skx-device-brand">Compact · 21.5&quot;</span>
+                <h4 class="skx-device-headline">Choose your plan</h4>
+                <div class="skx-flow">
+                  <div class="skx-flow-step done"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Monthly — ₹1,499</span></div>
+                  <div class="skx-flow-step active"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Quarterly — ₹3,999</span></div>
+                  <div class="skx-flow-step"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Annual — ₹12,999</span></div>
+                </div>
+                <div class="skx-device-cta">Continue to payment</div>
+              </div>
+            </div>
+            <div class="skx-device-stand"></div>
+            <div class="skx-device-base"></div>
+          </div>
+          <span class="skx-product-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="skx-product-body">
+          <h3>Compact Kiosk</h3>
+          <p>The entry-level footprint for boutique studios and satellite branches.</p>
+          <ul class="skx-product-specs">
+            <li>21.5&quot; touchscreen</li>
+            <li>Thermal printer</li>
+            <li>Wall or floor stand</li>
+          </ul>
+          <button class="skx-product-cta" data-lightbox-title="Compact Kiosk — 21.5&quot;" data-lightbox-desc="Wall or stand mounted. Built for tight entrances and busy front desks, with the full sign-up and payment flow on a 21.5-inch display.">
+            View details
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </article>
+
+      <article class="skx-product-card skx-tilt">
+        <div class="skx-product-glow"></div>
+        <div class="skx-product-media" data-lightbox-title="Pro Kiosk — 32&quot;" data-lightbox-desc="Floor-standing flagship for high-traffic lobbies. Bigger screen for upsells, bundles and a front-desk presence that sells itself.">
+          <div class="skx-device">
+            <div class="skx-device-frame">
+              <div class="skx-device-notch"></div>
+              <div class="skx-device-screen">
+                <div class="skx-device-screen-glow"></div>
+                <span class="skx-device-brand">Pro · 32&quot;</span>
+                <h4 class="skx-device-headline">Upgrade &amp; save</h4>
+                <div class="skx-flow">
+                  <div class="skx-flow-step done"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">+ Personal training</span></div>
+                  <div class="skx-flow-step done"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">+ Nutrition plan</span></div>
+                  <div class="skx-flow-step active"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Bundle saves ₹2,400</span></div>
+                </div>
+                <div class="skx-device-cta">Confirm bundle</div>
+              </div>
+            </div>
+            <div class="skx-device-stand"></div>
+            <div class="skx-device-base"></div>
+          </div>
+          <span class="skx-product-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="skx-product-body">
+          <h3>Pro Kiosk</h3>
+          <p>The flagship floor unit for high-footfall gyms that want to upsell hard.</p>
+          <ul class="skx-product-specs">
+            <li>32&quot; touchscreen</li>
+            <li>Dual-side branding</li>
+            <li>Built-in card reader</li>
+          </ul>
+          <button class="skx-product-cta" data-lightbox-title="Pro Kiosk — 32&quot;" data-lightbox-desc="Floor-standing flagship for high-traffic lobbies. Bigger screen for upsells, bundles and a front-desk presence that sells itself.">
+            View details
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
-<!-- MARQUEE DIVIDER (scrolls right) -->
-<!-- <div class="skx-textway" aria-hidden="true">
-  <div class="skx-textway-track skx-textway-right">
-    <span>WHY SALES KIOSK</span><span>·</span>
-    <span>WHY SALES KIOSK</span><span>·</span>
-    <span>WHY SALES KIOSK</span><span>·</span>
-    <span>WHY SALES KIOSK</span><span>·</span>
+<!-- ============================================================
+     FEATURES  (the original 7 benefit points, now as cards)
+     ============================================================ -->
+<section class="skx-features skx-band" id="features">
+  <div class="skx-container">
+    <div class="skx-section-head reveal-up">
+      <span class="skx-eyebrow">Why It Works</span>
+      <h2>Built to sell, not just to check people in.</h2>
+      <p>Everything your front desk does manually, the kiosk does automatically — around the clock.</p>
+    </div>
+
+    <div class="skx-features-grid">
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">🧑‍💼</div>
+        <h3>Less Staff Workload</h3>
+        <p>Plans, forms, payments and receipts — handled without a rep at the desk.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">📈</div>
+        <h3>Higher Conversion</h3>
+        <p>Limited-time offers and bundles surface automatically at the moment of decision.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">🧲</div>
+        <h3>Better Lead Capture</h3>
+        <p>Not ready to join? Name, phone and goals are saved for a same-day follow-up.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">🕐</div>
+        <h3>24/7 Membership Sales</h3>
+        <p>Sells memberships after hours and during rush, with zero staff involved.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">📊</div>
+        <h3>Analytics &amp; Insights</h3>
+        <p>Visitors, conversion rate, peak hours and top plans — tracked automatically.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">💰</div>
+        <h3>Lower Operating Costs</h3>
+        <p>One kiosk absorbs the busy-period workload of an extra front-desk hire.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">🏆</div>
+        <h3>A Sharper Brand Image</h3>
+        <p>A modern touchscreen at the door signals a gym worth joining before they even talk to staff.</p>
+      </div>
+    </div>
   </div>
-</div> -->
-
-<!-- 7 BENEFITS — alternating image/text rows, sliding in from each side -->
-<section class="skx-benefits" id="skx-benefits">
-
-  <!-- 01 — media left, content right -->
-  <article class="skx-row" id="point-1" data-index="1" data-side="left">
-    <div class="skx-row-media">
-      <div class="skx-row-media-inner">
-        <span class="skx-row-icon">🧑‍💼</span>
-        <span class="skx-row-watermark">01</span>
-      </div>
-    </div>
-    <div class="skx-row-content">
-      <span class="skx-row-tag">Point 01</span>
-      <h2>Reduces Staff Workload</h2>
-      <p>Reception staff spend less time on repetitive tasks such as:</p>
-      <ul class="skx-tag-links">
-        <li>Explaining membership plans</li>
-        <li>Filling out forms</li>
-        <li>Collecting payments</li>
-        <li>Printing receipts</li>
-      </ul>
-      <p class="skx-row-footnote">Staff can instead focus on customer support and sales.</p>
-    </div>
-  </article>
-
-  <!-- 02 — media right, content left -->
-  <article class="skx-row" id="point-2" data-index="2" data-side="right">
-    <div class="skx-row-media">
-      <div class="skx-row-media-inner">
-        <span class="skx-row-icon">📈</span>
-        <span class="skx-row-watermark">02</span>
-      </div>
-    </div>
-    <div class="skx-row-content">
-      <span class="skx-row-tag">Point 02</span>
-      <h2>Higher Conversion Rate</h2>
-      <p>A kiosk can display:</p>
-      <ul class="skx-tag-links">
-        <li>Limited-time offers</li>
-        <li>Discounted annual plans</li>
-        <li>Personal training bundles</li>
-        <li>Nutrition packages</li>
-        <li>Referral bonuses</li>
-      </ul>
-    </div>
-  </article>
-
-  <!-- 03 — media left, content right -->
-  <article class="skx-row" id="point-3" data-index="3" data-side="left">
-    <div class="skx-row-media">
-      <div class="skx-row-media-inner">
-        <span class="skx-row-icon">🧲</span>
-        <span class="skx-row-watermark">03</span>
-      </div>
-    </div>
-    <div class="skx-row-content">
-      <span class="skx-row-tag">Point 03</span>
-      <h2>Better Lead Capture</h2>
-      <p>Visitors who aren't ready to join can enter:</p>
-      <ul class="skx-tag-links">
-        <li>Name</li>
-        <li>Phone number</li>
-        <li>Email</li>
-        <li>Fitness goals</li>
-      </ul>
-    </div>
-  </article>
-
-  <!-- 04 — media right, content left -->
-  <article class="skx-row" id="point-4" data-index="4" data-side="right">
-    <div class="skx-row-media">
-      <div class="skx-row-media-inner">
-        <span class="skx-row-icon">🕐</span>
-        <span class="skx-row-watermark">04</span>
-      </div>
-    </div>
-    <div class="skx-row-content">
-      <span class="skx-row-tag">Point 04</span>
-      <h2>24/7 Membership Sales</h2>
-      <p>Customers can purchase memberships even when reception is busy or after business hours.</p>
-      <p class="skx-row-footnote">Generates revenue without requiring a salesperson.</p>
-    </div>
-  </article>
-
-  <!-- 05 — media left, content right -->
-  <article class="skx-row" id="point-5" data-index="5" data-side="left">
-    <div class="skx-row-media">
-      <div class="skx-row-media-inner">
-        <span class="skx-row-icon">📊</span>
-        <span class="skx-row-watermark">05</span>
-      </div>
-    </div>
-    <div class="skx-row-content">
-      <span class="skx-row-tag">Point 05</span>
-      <h2>Analytics &amp; Insights</h2>
-      <p>Track:</p>
-      <ul class="skx-tag-links">
-        <li>Number of visitors</li>
-        <li>Conversion rate</li>
-        <li>Most popular plans</li>
-        <li>Peak signup hours</li>
-        <li>Revenue generated</li>
-        <li>Abandoned sign-up flows</li>
-      </ul>
-      <p class="skx-row-footnote">These insights help optimize marketing and operations.</p>
-    </div>
-  </article>
-
-  <!-- 06 — media right, content left -->
-  <article class="skx-row" id="point-6" data-index="6" data-side="right">
-    <div class="skx-row-media">
-      <div class="skx-row-media-inner">
-        <span class="skx-row-icon">💰</span>
-        <span class="skx-row-watermark">06</span>
-      </div>
-    </div>
-    <div class="skx-row-content">
-      <span class="skx-row-tag">Point 06</span>
-      <h2>Reduced Operational Costs</h2>
-      <p>One kiosk can handle work that would otherwise require additional reception staff during busy periods, lowering staffing costs over time.</p>
-    </div>
-  </article>
-
-  <!-- 07 — media left, content right -->
-  <article class="skx-row" id="point-7" data-index="7" data-side="left">
-    <div class="skx-row-media">
-      <div class="skx-row-media-inner">
-        <span class="skx-row-icon">🏆</span>
-        <span class="skx-row-watermark">07</span>
-      </div>
-    </div>
-    <div class="skx-row-content">
-      <span class="skx-row-tag">Point 07</span>
-      <h2>Professional Brand Image</h2>
-      <p>A modern self-service kiosk:</p>
-      <ul class="skx-tag-links">
-        <li>Enhances the gym's image</li>
-        <li>Demonstrates technological innovation</li>
-        <li>Builds trust with new members</li>
-      </ul>
-    </div>
-  </article>
-
 </section>
 
-<!-- MARQUEE DIVIDER (scrolls left) -->
-<!-- <div class="skx-textway" aria-hidden="true">
-  <div class="skx-textway-track skx-textway-left">
-    <span>MORE SALES · LESS STAFFING · 24/7 · </span>
-    <span>MORE SALES · LESS STAFFING · 24/7 · </span>
-    <span>MORE SALES · LESS STAFFING · 24/7 · </span>
-    <span>MORE SALES · LESS STAFFING · 24/7 · </span>
-  </div>
-</div> -->
+<!-- ============================================================
+     BUNDLE OFFER
+     ============================================================ -->
+<section class="skx-bundle skx-band" id="bundle">
+  <div class="skx-container">
+    <div class="skx-section-head reveal-up">
+      <span class="skx-eyebrow">Limited-Time Bundle</span>
+      <h2>Kiosk, software and support — in one box.</h2>
+      <p>Everything you need to go live at the front desk this week.</p>
+    </div>
 
-<!-- CTA -->
+    <div class="skx-bundle-card reveal-up">
+      <div class="skx-bundle-visual">
+        <div class="skx-bundle-stack">
+          <div class="skx-bundle-chip skx-glass">
+            <span class="skx-badge-emoji">🖨️</span>
+            <span class="skx-chip-label">Receipt Printer</span>
+          </div>
+          <div class="skx-device">
+            <div class="skx-device-frame">
+              <div class="skx-device-notch"></div>
+              <div class="skx-device-screen">
+                <div class="skx-device-screen-glow"></div>
+                <span class="skx-device-brand">Sales Kiosk</span>
+                <h4 class="skx-device-headline">Bundle ready</h4>
+                <div class="skx-flow">
+                  <div class="skx-flow-step done"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Kiosk configured</span></div>
+                  <div class="skx-flow-step active"><span class="skx-flow-dot">✓</span><span class="skx-flow-text">Software activated</span></div>
+                </div>
+                <div class="skx-device-cta">Go live</div>
+              </div>
+            </div>
+            <div class="skx-device-stand"></div>
+            <div class="skx-device-base"></div>
+          </div>
+          <div class="skx-bundle-chip skx-glass">
+            <span class="skx-badge-emoji">💳</span>
+            <span class="skx-chip-label">Card Reader</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skx-bundle-info">
+        <span class="skx-bundle-save">Save ₹15,000 instantly</span>
+        <h2>Front-Desk Growth Bundle</h2>
+        <ul class="skx-price-list">
+          <li class="skx-price-row"><span>Sales Kiosk (21.5&quot;)</span><span class="skx-price-leader"></span><span class="skx-price-val">₹55,000*</span></li>
+          <li class="skx-price-row"><span>1-Year Software Subscription</span><span class="skx-price-leader"></span><span class="skx-price-val">₹10,000*</span></li>
+          <li class="skx-price-row"><span>Onboarding &amp; Staff Training</span><span class="skx-price-leader"></span><span class="skx-price-val">₹9,000*</span></li>
+          <li class="skx-price-row"><span>Priority Support (12 months)</span><span class="skx-price-leader"></span><span class="skx-price-val">₹6,000*</span></li>
+          <li class="skx-price-row total"><span>Bundle price</span><span class="skx-price-leader"></span><span class="skx-price-val">₹65,000*</span></li>
+        </ul>
+        <a href="booking.html" class="btn-primary skx-magnetic skx-ripple">Grab this offer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY CHOOSE US
+     ============================================================ -->
+<section class="skx-why skx-band" id="why">
+  <div class="skx-container">
+    <div class="skx-section-head reveal-up">
+      <span class="skx-eyebrow">Why Gymshim</span>
+      <h2>Not just hardware. A conversion system.</h2>
+    </div>
+    <div class="skx-why-grid">
+      <div class="skx-why-item skx-tilt">
+        <div class="skx-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h7l-1 8 11-13h-7l1-7z"/></svg></div>
+        <h4>Cutting-Edge Tech</h4>
+        <p>Fast, reliable touch hardware built for daily gym traffic.</p>
+      </div>
+      <div class="skx-why-item skx-tilt">
+        <div class="skx-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4M12 3l8 4v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/></svg></div>
+        <h4>Seamless Integration</h4>
+        <p>Plugs straight into your existing GOS member database.</p>
+      </div>
+      <div class="skx-why-item skx-tilt">
+        <div class="skx-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg></div>
+        <h4>Up to 5-Year Warranty</h4>
+        <p>Hardware backed for the long run, not just the pilot.</p>
+      </div>
+      <div class="skx-why-item skx-tilt">
+        <div class="skx-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 18a4 4 0 01-1-7.9A5.5 5.5 0 0117 9a4.5 4.5 0 011 8.9"/></svg></div>
+        <h4>Robust &amp; Durable</h4>
+        <p>Built for the traffic, spills and wear of a real gym floor.</p>
+      </div>
+      <div class="skx-why-item skx-tilt">
+        <div class="skx-why-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 15v-3a8 8 0 0116 0v3M4 15a2 2 0 002 2h1v-5H6a2 2 0 00-2 2zM20 15a2 2 0 01-2 2h-1v-5h1a2 2 0 012 2z"/></svg></div>
+        <h4>Real Support</h4>
+        <p>A team that answers when a kiosk needs attention.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS
+     ============================================================ -->
+<section class="skx-stats skx-band" id="stats">
+  <div class="skx-container">
+    <div class="skx-stats-grid">
+      <div class="skx-stat reveal-up">
+        <span class="skx-stat-value" data-count-target="20" data-count-suffix="K+">0</span>
+        <span class="skx-stat-label">Memberships Sold</span>
+      </div>
+      <div class="skx-stat reveal-up" style="--reveal-delay:0.08s">
+        <span class="skx-stat-value" data-count-target="10" data-count-suffix="K+">0</span>
+        <span class="skx-stat-label">Happy Gym Owners</span>
+      </div>
+      <div class="skx-stat reveal-up" style="--reveal-delay:0.16s">
+        <span class="skx-stat-value" data-count-target="10" data-count-suffix="+">0</span>
+        <span class="skx-stat-label">Years Experience</span>
+      </div>
+      <div class="skx-stat reveal-up" style="--reveal-delay:0.24s">
+        <span class="skx-stat-value" data-count-target="80" data-count-suffix="%">0</span>
+        <span class="skx-stat-label">Repeat Clients</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="skx-testimonials skx-band" id="testimonials">
+  <div class="skx-container">
+    <div class="skx-section-head reveal-up">
+      <span class="skx-eyebrow">Testimonials</span>
+      <h2>What gym owners tell us.</h2>
+    </div>
+
+    <div class="skx-testi-viewport">
+      <div class="skx-testi-track" id="skxTestiTrack">
+        <div class="skx-testi-card">
+          <div class="skx-testi-card-inner">
+            <div class="skx-testi-stars">★★★★★</div>
+            <p class="skx-testi-quote">"The kiosk closes memberships even when our front desk is slammed. It paid for itself in six weeks."</p>
+            <div class="skx-testi-person">
+              <span class="skx-testi-avatar">RG</span>
+              <div><strong>Ricky Gupta</strong><span>Owner, Max Bazaar Fitness</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="skx-testi-card">
+          <div class="skx-testi-card-inner">
+            <div class="skx-testi-stars">★★★★★</div>
+            <p class="skx-testi-quote">"Setup, delivery and training were all handled fast. Our members actually enjoy using it."</p>
+            <div class="skx-testi-person">
+              <span class="skx-testi-avatar">SK</span>
+              <div><strong>Simran Kaur</strong><span>Manager, PowerHouse Gym</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="skx-testi-card">
+          <div class="skx-testi-card-inner">
+            <div class="skx-testi-stars">★★★★★</div>
+            <p class="skx-testi-quote">"We track every walk-in now. The analytics alone changed how we run promotions."</p>
+            <div class="skx-testi-person">
+              <span class="skx-testi-avatar">AV</span>
+              <div><strong>Arjun Verma</strong><span>Founder, FitZone Chain</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="skx-testi-card">
+          <div class="skx-testi-card-inner">
+            <div class="skx-testi-stars">★★★★★</div>
+            <p class="skx-testi-quote">"Staff finally has time to actually coach members instead of filling out forms all day."</p>
+            <div class="skx-testi-person">
+              <span class="skx-testi-avatar">NP</span>
+              <div><strong>Neha Patil</strong><span>Owner, CoreFit Studio</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skx-testi-controls">
+      <button class="skx-testi-arrow" id="skxTestiPrev" aria-label="Previous testimonial">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="skx-testi-dots" id="skxTestiDots"></div>
+      <button class="skx-testi-arrow" id="skxTestiNext" aria-label="Next testimonial">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CLIENT LOGOS
+     ============================================================ -->
+<section class="skx-logos" id="logos">
+  <div class="skx-container">
+    <div class="skx-section-head reveal-up" style="margin-bottom:0;">
+      <span class="skx-eyebrow">Our Happy Clients</span>
+    </div>
+    <div class="skx-logo-marquee">
+      <div class="skx-logo-track">
+        <span class="skx-logo-chip">Baked By Love</span>
+        <span class="skx-logo-chip">SuperChai</span>
+        <span class="skx-logo-chip">SJ Café</span>
+        <span class="skx-logo-chip">Sardarji Malai Chaap</span>
+        <span class="skx-logo-chip">PitStop</span>
+        <span class="skx-logo-chip">FitZone</span>
+        <span class="skx-logo-chip">PowerHouse</span>
+        <span class="skx-logo-chip">CoreFit</span>
+        <span class="skx-logo-chip">Baked By Love</span>
+        <span class="skx-logo-chip">SuperChai</span>
+        <span class="skx-logo-chip">SJ Café</span>
+        <span class="skx-logo-chip">Sardarji Malai Chaap</span>
+        <span class="skx-logo-chip">PitStop</span>
+        <span class="skx-logo-chip">FitZone</span>
+        <span class="skx-logo-chip">PowerHouse</span>
+        <span class="skx-logo-chip">CoreFit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="skx-faq skx-band" id="faq">
+  <div class="skx-container">
+    <div class="skx-section-head reveal-up">
+      <span class="skx-eyebrow">FAQ</span>
+      <h2>Questions gym owners usually ask.</h2>
+    </div>
+    <div class="skx-faq-list">
+      <div class="skx-faq-item">
+        <button class="skx-faq-q">How long does installation take?<span class="skx-faq-plus"></span></button>
+        <div class="skx-faq-a"><p>Most gyms are live within a week of delivery — the kiosk ships pre-configured with your plans, offers and payment gateway.</p></div>
+      </div>
+      <div class="skx-faq-item">
+        <button class="skx-faq-q">Does it work with our existing member database?<span class="skx-faq-plus"></span></button>
+        <div class="skx-faq-a"><p>Yes. It connects directly to GOS (Gym Operating System) so every kiosk sign-up appears in your existing dashboard instantly.</p></div>
+      </div>
+      <div class="skx-faq-item">
+        <button class="skx-faq-q">What payment methods are supported?<span class="skx-faq-plus"></span></button>
+        <div class="skx-faq-a"><p>UPI, debit/credit cards, and major wallets — all through the built-in card reader and QR display.</p></div>
+      </div>
+      <div class="skx-faq-item">
+        <button class="skx-faq-q">What if the kiosk needs a repair?<span class="skx-faq-plus"></span></button>
+        <div class="skx-faq-a"><p>Every kiosk ships with a warranty of up to 5 years, plus priority support so a technician is never far away.</p></div>
+      </div>
+      <div class="skx-faq-item">
+        <button class="skx-faq-q">Can it be branded for our gym?<span class="skx-faq-plus"></span></button>
+        <div class="skx-faq-a"><p>Yes — screen wraps, logo placement and offer screens are all customizable to match your brand.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA
+     ============================================================ -->
 <section class="skx-cta">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="reveal-up">
-    <h2>Put a closer at your front desk</h2>
-    <p>See the Sales Kiosk running live and find out how many more members it could sign this month.</p>
-    <a href="booking.html" class="btn-primary">Book a Demo</a>
+  <div class="skx-cta-bg"></div>
+  <div class="skx-cta-inner">
+    <div class="skx-cta-copy reveal-up">
+      <span class="skx-eyebrow">Book a Demo</span>
+      <h2>Put a closer at your front desk.</h2>
+      <p>See the Sales Kiosk running live and find out how many more members it could sign this month.</p>
+      <ul class="skx-cta-points">
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Free on-site or video walkthrough</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>No card required to book</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Live in your gym within a week</li>
+      </ul>
+    </div>
+
+    <div class="skx-cta-form skx-glass reveal-up" id="skxCtaFormCard" style="--reveal-delay:0.15s">
+      <div class="skx-form-body">
+        <h3>Get up to 14% off</h3>
+        <p>Tell us a little about your gym — we'll call you back today.</p>
+        <form id="skxCtaForm" novalidate>
+          <div class="skx-form-field">
+            <label for="skxCtaName">Name</label>
+            <input type="text" id="skxCtaName" name="name" placeholder="Your name" required>
+          </div>
+          <div class="skx-form-field">
+            <label for="skxCtaPhone">Phone</label>
+            <input type="tel" id="skxCtaPhone" name="phone" placeholder="9999XXXXXX" required>
+          </div>
+          <div class="skx-form-field">
+            <label for="skxCtaGym">Gym Name</label>
+            <input type="text" id="skxCtaGym" name="gym" placeholder="Your gym's name">
+          </div>
+          <button type="submit" class="skx-cta-submit skx-magnetic skx-ripple">Get the Offer</button>
+        </form>
+      </div>
+      <div class="skx-cta-success" id="skxCtaSuccess">
+        <div class="skx-check">✓</div>
+        <h4>You're on the list</h4>
+        <p>Our team will call you shortly to schedule your demo.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -497,8 +794,16 @@
   <a href="https://www.facebook.com/GymshimSolutions" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
   <a href="https://www.instagram.com/gymshim?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
 </div>
-      </div>
-    </div>
+
+<div class="skx-newsletter">
+  <p style="margin:0; font-size:13px; color:var(--skx-text-muted);">Get kiosk tips &amp; offers in your inbox.</p>
+  <form class="skx-newsletter-row" id="skxNewsletterForm">
+    <input type="email" placeholder="you@yourgym.com" required aria-label="Email address">
+    <button type="submit" class="skx-magnetic skx-ripple">Join</button>
+  </form>
+  <p class="skx-newsletter-note" id="skxNewsletterNote">No spam — just useful stuff.</p>
+</div>
+      </div><!-- /.footer-brand -->
 
     <div class="footer-links">
       <h4>Company</h4>
@@ -521,12 +826,24 @@
       <a href="privacy-policy.html">Privacy Policy</a>
     </div>
 
-  </div>
+  </div><!-- /.footer-container -->
 
   <div class="footer-bottom">
     <p>© 2026 Fitlyberty Pvt Ltd. All rights reserved.</p>
   </div>
 </footer>
+
+<!-- Product lightbox -->
+<div class="skx-lightbox" id="skxLightbox">
+  <div class="skx-lightbox-backdrop" id="skxLightboxBackdrop"></div>
+  <div class="skx-lightbox-box">
+    <button class="skx-lightbox-close" id="skxLightboxClose" aria-label="Close">&times;</button>
+    <span class="skx-eyebrow">Sales Kiosk</span>
+    <h3 class="skx-lightbox-title" id="skxLightboxTitle">Kiosk</h3>
+    <p class="skx-lightbox-desc" id="skxLightboxDesc">Details</p>
+    <a href="booking.html" class="btn-primary skx-magnetic skx-ripple">Book a Demo</a>
+  </div>
+</div>
 
 <div class="booking-modal-overlay" id="bookingModalOverlay" aria-hidden="true">
   <div class="booking-modal-box" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
@@ -618,6 +935,8 @@
     </div>
   </div>
 </div>
+
+</div><!-- /.skx-page -->
 
 <script src="sales-kiosk.js"></script>
 <script src="booking.js"></script>
