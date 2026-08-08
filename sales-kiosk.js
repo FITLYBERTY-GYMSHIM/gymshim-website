@@ -115,7 +115,7 @@ gsap.utils.toArray('.skx-feature-card, .skx-product-card, .skx-why-item, .skx-te
    ================================================================ */
 const particlesContainer = document.getElementById('skxParticles');
 if (particlesContainer) {
-  const colors = ['#c9a15a', '#d97a4a', '#e8cd94'];
+  const colors = ['#3aa0ff', '#ffffff', '#cfe8ff'];
   for (let i = 0; i < 26; i++) {
     const p = document.createElement('div');
     p.className = 'skx-particle';

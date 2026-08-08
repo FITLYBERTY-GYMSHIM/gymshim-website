@@ -32,6 +32,9 @@
   --red-light:#ff528f;
   --red-dim:#020202;
   --red-glow:oklab(52.701% -0.03513 -0.22896 / 0.45);
+  --blue:#2563ff;
+  --blue-light:#5b8bff;
+  --blue-glow:rgba(37,99,255,.45);
   --display:'Bricolage Grotesque', system-ui, sans-serif;
   --body:'Inter', system-ui, sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);
@@ -1006,6 +1009,202 @@ button{font-family:inherit;}
 
 
 
+/* ==============================================================
+   PREMIUM REDESIGN ADD-ONS — cinematic hero, portfolio, marquee,
+   testimonials, before/after, micro-interactions
+   ============================================================== */
+
+/* ---- Hero: cinematic background photo + trimmed copy ---- */
+.dm-hero-bg-photo{
+  position:absolute;inset:0;background-size:cover;background-position:center 35%;
+  opacity:.42;filter:saturate(1.1) contrast(1.05);
+  animation:dmKenBurns 22s ease-in-out infinite alternate;
+}
+@keyframes dmKenBurns{
+  0%{transform:scale(1.02) translate(0,0);}
+  100%{transform:scale(1.14) translate(-1.5%,-1%);}
+}
+.dm-hero-inner--cinematic{align-items:center;}
+.dm-hero-title--big{font-size:clamp(52px,8vw,108px);line-height:.94;}
+.dm-hero-p--one-line{margin-top:20px;font-size:19px;max-width:440px;}
+@media(max-width:1080px){.dm-hero-title--big{font-size:clamp(40px,11vw,72px);}}
+
+.dm-scroll-indicator{
+  position:absolute;left:50%;bottom:18px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;z-index:3;
+  color:var(--muted-2);text-decoration:none;
+}
+.dm-scroll-mouse{
+  width:24px;height:38px;border-radius:14px;border:1.5px solid var(--line-strong);
+  display:flex;justify-content:center;padding-top:6px;
+}
+.dm-scroll-dot{width:4px;height:8px;border-radius:3px;background:var(--blue-light);animation:dmScrollDot 1.8s ease-in-out infinite;}
+@keyframes dmScrollDot{0%{opacity:1;transform:translateY(0);}70%{opacity:0;transform:translateY(10px);}100%{opacity:0;}}
+.dm-scroll-label{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;}
+
+/* ---- Ghost button used as magnetic secondary CTA ---- */
+.dm-hero-ctas .ghost-btn{padding:16px 28px;}
+
+/* ---- Ripple ---- */
+.dm-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:dmRipple .6s ease-out;pointer-events:none;}
+@keyframes dmRipple{to{transform:scale(3);opacity:0;}}
+.glow-btn, .ghost-btn{position:relative;overflow:hidden;}
+
+/* ---- Portfolio: masonry-style edge-to-edge grid ---- */
+.dm-gallery-grid{grid-auto-flow:dense;}
+.dm-gallery-item{position:relative;}
+.dm-gallery-item--wide{grid-column:span 2;}
+.dm-gallery-item--tall{grid-row:span 2;}
+.dm-gallery-item{border-color:var(--line);transition:transform .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);}
+.dm-gallery-item:hover{transform:scale(1.015);border-color:rgba(91,139,255,.4);box-shadow:0 26px 60px -22px var(--blue-glow);}
+.dm-gallery-caption{
+  position:absolute;left:14px;bottom:14px;z-index:2;
+  font-size:12px;font-weight:600;letter-spacing:.02em;color:#fff;
+  padding:8px 14px;border-radius:100px;
+  background:rgba(10,10,12,.55);border:1px solid rgba(91,139,255,.35);backdrop-filter:blur(10px);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .35s var(--ease), transform .35s var(--ease);
+}
+.dm-gallery-item:hover .dm-gallery-caption{opacity:1;transform:translateY(0);}
+.dm-gallery-item::after{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.55));
+  opacity:0;transition:opacity .35s var(--ease);
+}
+.dm-gallery-item:hover::after{opacity:1;}
+@media(max-width:1080px){.dm-gallery-item--wide{grid-column:span 2;}.dm-gallery-item--tall{grid-row:span 1;}}
+@media(max-width:600px){.dm-gallery-item--wide{grid-column:span 2;}}
+
+/* ---- Before / After compare ---- */
+.dm-compare-wrap{max-width:1000px;margin:64px auto 0;padding:0 40px;}
+.dm-compare-head{text-align:center;margin-bottom:28px;}
+.dm-compare-head h3{font-size:clamp(22px,3vw,30px);margin-top:10px;}
+.dm-compare{
+  position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/9;
+  border:1px solid var(--line-strong);box-shadow:0 30px 70px -24px rgba(0,0,0,.6);
+  user-select:none;
+}
+.dm-compare-base, .dm-compare-after img{width:100%;height:100%;object-fit:cover;display:block;}
+.dm-compare-after{position:absolute;inset:0;width:50%;overflow:hidden;}
+.dm-compare-after img{width:var(--compare-img-w, 1000px);max-width:none;height:100%;position:absolute;left:0;top:0;}
+.dm-compare-tag{
+  position:absolute;top:16px;z-index:3;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 14px;border-radius:100px;background:rgba(5,5,5,.55);border:1px solid var(--line-strong);backdrop-filter:blur(8px);
+}
+.dm-compare-tag--before{left:16px;}
+.dm-compare-tag--after{right:16px;}
+.dm-compare-handle{
+  position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--blue-light);z-index:3;
+  transform:translateX(-50%);box-shadow:0 0 24px var(--blue-glow);pointer-events:none;
+}
+.dm-compare-handle span{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:44px;height:44px;border-radius:50%;background:var(--blue-light);color:#0a0a10;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;
+  box-shadow:0 10px 26px var(--blue-glow);
+}
+.dm-compare-range{
+  position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:4;
+  -webkit-appearance:none;appearance:none;background:transparent;
+}
+@media(max-width:640px){.dm-compare-wrap{padding:0 20px;}}
+
+/* ---- Clients marquee ---- */
+.dm-clients .section-header{margin-bottom:44px;}
+.dm-marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+.dm-marquee-track{display:flex;width:max-content;gap:16px;animation:dmMarquee 26s linear infinite;}
+.dm-marquee:hover .dm-marquee-track{animation-play-state:paused;}
+@keyframes dmMarquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.dm-marquee-item{
+  flex:0 0 auto;padding:18px 34px;border-radius:100px;
+  background:rgba(255,255,255,.03);border:1px solid var(--line);
+  font-family:var(--display);font-weight:700;font-size:18px;color:var(--muted);
+  transition:border-color .3s ease, color .3s ease;
+}
+.dm-marquee-item:hover{border-color:rgba(91,139,255,.5);color:#fff;box-shadow:0 0 30px -8px var(--blue-glow);}
+
+/* ---- Testimonials ---- */
+.dm-testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1280px;margin:0 auto;padding:0 40px;}
+.dm-testimonial-card{padding:30px;transition:transform .5s var(--ease), border-color .5s var(--ease);}
+.dm-testimonial-card:hover{transform:translateY(-6px);border-color:rgba(91,139,255,.4);box-shadow:0 26px 60px -26px var(--blue-glow);}
+.dm-testimonial-card p{font-size:16px;line-height:1.55;color:#fff;font-family:var(--display);font-weight:500;}
+.dm-testimonial-person{display:flex;align-items:center;gap:12px;margin-top:22px;}
+.dm-testimonial-avatar{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;
+  background:linear-gradient(135deg,var(--blue-light),var(--blue));color:#fff;
+}
+.dm-testimonial-person strong{display:block;font-size:13.5px;}
+.dm-testimonial-person span{font-size:12px;color:var(--muted-2);}
+@media(max-width:900px){.dm-testimonials-grid{grid-template-columns:1fr;padding:0 24px;}}
+
+/* ---- CTA background photo ---- */
+.dm-cta--photo{padding:0;min-height:70vh;display:flex;align-items:center;justify-content:center;}
+.dm-cta-bg{position:absolute;inset:0;background-size:cover;background-position:center;animation:dmKenBurns 24s ease-in-out infinite alternate;}
+.dm-cta-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,5,5,.55), rgba(5,5,5,.88) 70%, var(--void));}
+.dm-cta-content{position:relative;z-index:2;}
+
+/* ---- Reveal variant: blur ---- */
+.reveal-up{filter:blur(0);}
+.reveal-up:not(.in-view){filter:blur(4px);}
+
+@media(prefers-reduced-motion: reduce){
+  .dm-hero-bg-photo, .dm-cta-bg, .dm-marquee-track, .dm-scroll-dot{animation:none !important;}
+}
+
+/* ---- Page-load curtain transition ---- */
+.dm-curtain{
+  position:fixed;inset:0;z-index:9999;background:var(--void);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .7s var(--ease), visibility 0s linear .7s;
+}
+.dm-curtain span{
+  font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.3em;
+  color:var(--muted-2);text-transform:uppercase;opacity:.7;
+  animation:dmCurtainPulse 1s ease-in-out infinite alternate;
+}
+@keyframes dmCurtainPulse{to{opacity:1;}}
+.dm-curtain.dm-curtain--out{opacity:0;visibility:hidden;pointer-events:none;}
+
+/* ---- Sticky portfolio header ---- */
+.dm-gallery{position:relative;}
+.dm-gallery .section-header{
+  position:sticky;top:100px;z-index:5;
+  background:linear-gradient(180deg, var(--void) 60%, transparent);
+  padding-bottom:14px;
+}
+
+/* ---- Hover glow utility (feature/offer/ahead cards) ---- */
+.dm-feature-card, .dm-ahead-item, .dm-offer-card{transition:transform .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);}
+.dm-feature-card:hover, .dm-ahead-item:hover, .dm-offer-card:hover{
+  transform:translateY(-8px);border-color:rgba(91,139,255,.35);box-shadow:0 26px 60px -26px var(--blue-glow);
+}
+
+/* ---- Final CTA contact form ---- */
+.dm-cta-form{
+  position:relative;z-index:2;max-width:420px;margin:34px auto 0;
+  display:flex;flex-direction:column;gap:12px;text-align:left;
+}
+.dm-cta-form input, .dm-cta-form textarea{
+  width:100%;padding:14px 18px;border-radius:14px;
+  background:rgba(255,255,255,.05);border:1px solid var(--line-strong);
+  color:#fff;font-family:var(--body);font-size:14.5px;backdrop-filter:blur(12px);
+  transition:border-color .3s ease, background .3s ease;
+}
+.dm-cta-form input::placeholder, .dm-cta-form textarea::placeholder{color:var(--muted-2);}
+.dm-cta-form input:focus, .dm-cta-form textarea:focus{outline:none;border-color:var(--blue-light);background:rgba(37,99,255,.06);}
+.dm-cta-form textarea{resize:vertical;min-height:70px;}
+.dm-cta-form-row{display:flex;gap:12px;}
+.dm-cta-form-row input{width:50%;}
+.dm-cta-form button{width:100%;justify-content:center;}
+.dm-cta-form-note{font-size:12px;color:var(--muted-2);text-align:center;margin-top:2px;}
+.dm-cta-form-success{
+  display:none;align-items:center;gap:10px;justify-content:center;
+  padding:14px 18px;border-radius:14px;background:rgba(37,99,255,.1);border:1px solid rgba(91,139,255,.35);
+  color:#fff;font-size:14px;
+}
+.dm-cta-form-success.show{display:flex;}
+@media(max-width:520px){.dm-cta-form-row{flex-direction:column;}.dm-cta-form-row input{width:100%;}}
 </style>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="booking.css">
@@ -1013,6 +1212,8 @@ button{font-family:inherit;}
 <script src="theme-toggle.js"></script>
 </head>
 <body>
+
+  <div class="dm-curtain" id="dmCurtain" aria-hidden="true"><span>GYMSHIM</span></div>
 
   <header class="navbar">
     <div class="nav-container">
@@ -1137,30 +1338,24 @@ button{font-family:inherit;}
   <!-- ============================================================
       HERO
       ============================================================ -->
-  <section class="dm-hero">
+  <section class="dm-hero" id="dmHero">
     <div class="dm-hero-bg" aria-hidden="true">
+      <div class="dm-hero-bg-photo" id="dmHeroBgPhoto" style="background-image:url('https://static.wixstatic.com/media/7cdf7e_d262bbbae09748a3b8b027688a220fc9~mv2.jpg')"></div>
       <div class="dm-hero-vignette"></div>
       <div class="dm-hero-floor"></div>
       <div class="dm-beam"></div>
       <div class="dm-beam dm-beam-2"></div>
     </div>
 
-    <div class="dm-hero-inner">
+    <div class="dm-hero-inner dm-hero-inner--cinematic">
       <div class="dm-hero-copy reveal-up">
-        <p class="eyebrow dm-hero-eyebrow">Gymshim Partnership</p>
-        <h1 class="dm-hero-title">The infinite benefits of partnering with<br><span class="accent">GYMSHIM</span><br>Business Booster</h1>
-        <p class="dm-hero-p">Unlock endless growth opportunities and connect with India&rsquo;s most engaged fitness audience.</p>
-
-        <div class="dm-hero-points">
-          <div class="dm-hero-point--box"><span class="dm-hero-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></span><div><strong>High Visibility</strong><p>Inside Gyms</p></div></div>
-          <div class="dm-hero-point--box"><span class="dm-hero-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 19c0-3.3 2.9-6 6.5-6s6.5 2.7 6.5 6"/><circle cx="17.5" cy="8.5" r="2.6"/><path d="M15.2 13.3c2.9.4 4.8 2.7 4.8 5.7"/></svg></span><div><strong>Targeted Reach</strong><p>Fitness Audience</p></div></div>
-          <div class="dm-hero-point--box"><span class="dm-hero-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M11 20V4M18 20v-7"/></svg></span><div><strong>Brand Growth</strong><p>Beyond Limits</p></div></div>
-          <div class="dm-hero-point--box"><span class="dm-hero-point-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/><path d="M9 12l2 2 4-4"/></svg></span><div><strong>Measurable Impact</strong><p>Real Results</p></div></div>
-        </div>
+        <p class="eyebrow dm-hero-eyebrow">Gymshim &times; Brands</p>
+        <h1 class="dm-hero-title dm-hero-title--big">Gymshim Partnership<br> <span class="accent">gym.</span></h1>
+        <p class="dm-hero-p dm-hero-p--one-line">The infinite benefits of partnering with Gymshim Business Booster</p>
 
         <div class="dm-hero-ctas">
-          <a href="#dm-why" class="glow-btn">Explore Media Offerings <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <button type="button" class="dm-watch-btn"><span class="dm-watch-play">&#9654;</span> Watch Overview Video</button>
+          <a href="#dm-portfolio" class="glow-btn dm-magnetic">See the work <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="booking.html" class="ghost-btn dm-magnetic"><span class="play-dot">&#9654;</span> Book a demo</a>
         </div>
       </div>
 
@@ -1192,6 +1387,10 @@ button{font-family:inherit;}
           </div>
 
           <div class="dm-app-phone">
+                            <!-- <video id="hero-video" autoplay muted loop playsinline>
+    <source src="./assets/video/disha.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video> -->
             <div class="dm-app-frame">
               <div class="dm-app-notch"></div>
               <div class="dm-app-screen">
@@ -1200,6 +1399,7 @@ button{font-family:inherit;}
                 <p class="dm-app-label">Today&rsquo;s Workout</p>
                 <div class="dm-app-card"><strong>Chest &amp; Triceps</strong><span>Gymshim</span></div>
                 <p class="dm-app-label">Sponsored</p>
+
                 <div class="dm-app-ad">
                   <div class="dm-app-ad-text">
                     <p>FUEL YOUR STRENGTH<br><span class="accent">OWN YOUR DAY.</span></p>
@@ -1232,6 +1432,11 @@ button{font-family:inherit;}
       <div class="dm-stat-item"><span class="dm-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg></span><div><strong>85%+</strong><p>Engagement Rate</p></div></div>
       <div class="dm-stat-item"><span class="dm-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.2 7-11.5A7 7 0 105 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg></span><div><strong>75+</strong><p>Cities Across India</p></div></div>
     </div>
+
+    <a href="#dm-portfolio" class="dm-scroll-indicator" aria-label="Scroll to see our work">
+      <span class="dm-scroll-mouse"><span class="dm-scroll-dot"></span></span>
+      <span class="dm-scroll-label">Scroll</span>
+    </a>
   </section>
 
   <!-- WHY -->
@@ -1242,8 +1447,7 @@ button{font-family:inherit;}
         <h2>Why digital<br>marketing?</h2>
       </div>
       <div class="dm-why-copy">
-        <p class="reveal-up">The internet let brands reach people everywhere — and it gave those same people far more choices than before. A gym membership decision now runs on more than location and price; people watch what a brand says, shows and stands for before they ever walk in. That's exactly the space we work in.</p>
-        <p class="reveal-up" style="--reveal-delay:.1s">Done well, digital reach costs a fraction of a hoarding or a pamphlet drop, and every rupee of it is measurable. You find your real audience, let them get to know your gym before they visit, and turn that familiarity into the kind of loyalty that keeps a membership renewing.</p>
+        <p class="reveal-up">Attention now happens before the walk-in. We put your brand there first — measurable, targeted, a fraction of the cost of a hoarding.</p>
       </div>
     </div>
   </section>
@@ -1258,22 +1462,22 @@ button{font-family:inherit;}
       <div class="glass-card dm-feature-card reveal-up">
         <div class="plan-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11v2a1 1 0 001 1h3l5 4V6l-5 4H4a1 1 0 00-1 1z"/><path d="M16 8a5 5 0 010 8M19 5a9 9 0 010 14"/></svg></div>
         <h3>Paid boosting</h3>
-        <p>We put your gym's posts in front of people who don't follow you yet — filtered to match what your brand actually stands for, so reach isn't wasted on the wrong crowd.</p>
+        <p>Your posts, in front of people who don't follow you yet.</p>
       </div>
       <div class="glass-card dm-feature-card reveal-up" style="--reveal-delay:.08s">
         <div class="plan-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2"/></svg></div>
         <h3>Captivating design</h3>
-        <p>Our designers, copywriters and content creators build posts made to stop a scroll — leaving a clear, likeable impression of your gym in a stranger's mind.</p>
+        <p>Creative made to stop the scroll.</p>
       </div>
       <div class="glass-card dm-feature-card reveal-up" style="--reveal-delay:.16s">
         <div class="plan-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div>
         <h3>Brand positioning</h3>
-        <p>Ads placed with the right audience in mind do more work per rupee. Sharp positioning keeps your gym relevant and ahead of the one down the road.</p>
+        <p>More work per rupee, sharper than the gym down the road.</p>
       </div>
       <div class="glass-card dm-feature-card reveal-up" style="--reveal-delay:.24s">
         <div class="plan-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2a5 5 0 00-5 5c0 3 2 4 2 7a3 3 0 006 0c0-3 2-4 2-7a5 5 0 00-5-5z"/><path d="M9 21h6"/></svg></div>
         <h3>Mindshare</h3>
-        <p>We build awareness of your brand within a 2km radius of your gym — mindshare, so yours is the name that comes to mind first when someone decides to join.</p>
+        <p>The first name people think of, within 2km of your gym.</p>
       </div>
     </div>
   </section>
@@ -1282,28 +1486,28 @@ button{font-family:inherit;}
   <section class="dm-ahead">
     <div class="dm-ahead-head">
       <h2 class="reveal-up">Stay connected.<br>Stay ahead.</h2>
-      <p class="reveal-up" style="--reveal-delay:.1s">This isn't about chasing more traffic — it's proven ways to bring in highly targeted traffic that actually delivers members.</p>
+      <p class="reveal-up" style="--reveal-delay:.1s">Targeted traffic that actually delivers members.</p>
     </div>
     <div class="dm-ahead-grid">
       <div class="glass-card dm-ahead-item reveal-up">
         <span class="dm-ahead-num">01</span>
         <h4>Cost effective</h4>
-        <p>Small gym businesses run on tight budgets. Digital marketing delivers results for a fraction of what conventional advertising costs.</p>
+        <p>Big results, a fraction of the budget.</p>
       </div>
       <div class="glass-card dm-ahead-item reveal-up" style="--reveal-delay:.08s">
         <span class="dm-ahead-num">02</span>
         <h4>Brand positioning</h4>
-        <p>Relevant content, in front of relevant people, keeps your gym visible right up until the moment someone decides where to sign up.</p>
+        <p>Visible right up to the decision.</p>
       </div>
       <div class="glass-card dm-ahead-item reveal-up" style="--reveal-delay:.16s">
         <span class="dm-ahead-num">03</span>
         <h4>Choice of Gen Z</h4>
-        <p>Gen Z — born after 1995 — sources information, education and entertainment online, mostly through social media. That's where they'll find you, or won't.</p>
+        <p>They live on social — that's where you're found.</p>
       </div>
       <div class="glass-card dm-ahead-item reveal-up" style="--reveal-delay:.24s">
         <span class="dm-ahead-num">04</span>
         <h4>Reach them directly</h4>
-        <p>Your target members are typically 18–35. Around 90% of them are active on social media, spending 45+ minutes a day there on their phones.</p>
+        <p>90% of 18–35s scroll daily. We meet them there.</p>
       </div>
     </div>
   </section>
@@ -1317,24 +1521,42 @@ button{font-family:inherit;}
     <p class="dm-stat-cap reveal-up">Facebook users in India, projected</p>
   </section> -->
 
-  <!-- GALLERY -->
-  <section class="dm-gallery">
+  <!-- PORTFOLIO -->
+  <section class="dm-gallery" id="dm-portfolio">
     <div class="section-header reveal-up">
       <span class="eyebrow">Our work</span>
-      <h2>A glimpse of our work</h2>
+      <h2>Campaigns, not slides.</h2>
     </div>
     <div class="dm-gallery-grid" id="dmGalleryGrid">
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_d262bbbae09748a3b8b027688a220fc9~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_d262bbbae09748a3b8b027688a220fc9~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_d262bbbae09748a3b8b027688a220fc9~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_eb42a4fb6ff349e890892da3ca262abe~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_eb42a4fb6ff349e890892da3ca262abe~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_eb42a4fb6ff349e890892da3ca262abe~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_e125000f8a714d888a29414a858af618~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_e125000f8a714d888a29414a858af618~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_e125000f8a714d888a29414a858af618~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_2a6a77fd908146da856627f7d11d2e01~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_2a6a77fd908146da856627f7d11d2e01~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_2a6a77fd908146da856627f7d11d2e01~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_9eefffb14f7f4aed96d913a13c8adc5e~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_9eefffb14f7f4aed96d913a13c8adc5e~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_9eefffb14f7f4aed96d913a13c8adc5e~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_e2c6fa38e96d4235bf78e6ff3e7332be~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_e2c6fa38e96d4235bf78e6ff3e7332be~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_e2c6fa38e96d4235bf78e6ff3e7332be~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_af1f924b826f4e59b545be836aca9841~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_af1f924b826f4e59b545be836aca9841~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_af1f924b826f4e59b545be836aca9841~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_a56fc49dafe0442cb7bec2c42802be12~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_a56fc49dafe0442cb7bec2c42802be12~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_a56fc49dafe0442cb7bec2c42802be12~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_d12ad31aced14c908f0f10856d521ee3~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_d12ad31aced14c908f0f10856d521ee3~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_d12ad31aced14c908f0f10856d521ee3~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_a7a4fd41457349f0a33c0df9ba5f1a6f~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_a7a4fd41457349f0a33c0df9ba5f1a6f~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_a7a4fd41457349f0a33c0df9ba5f1a6f~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
-      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_8cb98764ea5d43beadc36b28479bb60b~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_8cb98764ea5d43beadc36b28479bb60b~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/7cdf7e_8cb98764ea5d43beadc36b28479bb60b~mv2.jpg" alt="Gymshim social post design" loading="lazy"></button>
+      <button class="dm-gallery-item dm-gallery-item--wide reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_d262bbbae09748a3b8b027688a220fc9~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_d262bbbae09748a3b8b027688a220fc9~mv2.jpg/v1/fill/w_800,h_800,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_d262bbbae09748a3b8b027688a220fc9~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Social &middot; Launch creative</span></button>
+      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_eb42a4fb6ff349e890892da3ca262abe~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_eb42a4fb6ff349e890892da3ca262abe~mv2.jpg/v1/fill/w_600,h_600,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_eb42a4fb6ff349e890892da3ca262abe~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Social post</span></button>
+      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_e125000f8a714d888a29414a858af618~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_e125000f8a714d888a29414a858af618~mv2.jpg/v1/fill/w_600,h_600,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_e125000f8a714d888a29414a858af618~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Social post</span></button>
+      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_2a6a77fd908146da856627f7d11d2e01~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_2a6a77fd908146da856627f7d11d2e01~mv2.jpg/v1/fill/w_600,h_600,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_2a6a77fd908146da856627f7d11d2e01~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Campaign creative</span></button>
+      <button class="dm-gallery-item dm-gallery-item--tall reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_9eefffb14f7f4aed96d913a13c8adc5e~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_9eefffb14f7f4aed96d913a13c8adc5e~mv2.jpg/v1/fill/w_600,h_800,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_9eefffb14f7f4aed96d913a13c8adc5e~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Kiosk creative</span></button>
+      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_e2c6fa38e96d4235bf78e6ff3e7332be~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_e2c6fa38e96d4235bf78e6ff3e7332be~mv2.jpg/v1/fill/w_600,h_600,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_e2c6fa38e96d4235bf78e6ff3e7332be~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Social post</span></button>
+      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_af1f924b826f4e59b545be836aca9841~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_af1f924b826f4e59b545be836aca9841~mv2.jpg/v1/fill/w_600,h_600,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_af1f924b826f4e59b545be836aca9841~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Campaign creative</span></button>
+      <button class="dm-gallery-item dm-gallery-item--wide reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_a56fc49dafe0442cb7bec2c42802be12~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_a56fc49dafe0442cb7bec2c42802be12~mv2.jpg/v1/fill/w_800,h_800,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_a56fc49dafe0442cb7bec2c42802be12~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Social &middot; Offer push</span></button>
+      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_d12ad31aced14c908f0f10856d521ee3~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_d12ad31aced14c908f0f10856d521ee3~mv2.jpg/v1/fill/w_600,h_600,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_d12ad31aced14c908f0f10856d521ee3~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Social post</span></button>
+      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_a7a4fd41457349f0a33c0df9ba5f1a6f~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_a7a4fd41457349f0a33c0df9ba5f1a6f~mv2.jpg/v1/fill/w_600,h_600,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_a7a4fd41457349f0a33c0df9ba5f1a6f~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Campaign creative</span></button>
+      <button class="dm-gallery-item reveal-up" data-full="https://static.wixstatic.com/media/7cdf7e_8cb98764ea5d43beadc36b28479bb60b~mv2.jpg"><img src="https://static.wixstatic.com/media/7cdf7e_8cb98764ea5d43beadc36b28479bb60b~mv2.jpg/v1/fill/w_600,h_600,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_8cb98764ea5d43beadc36b28479bb60b~mv2.jpg" alt="Gymshim social post design" loading="lazy"><span class="dm-gallery-caption">Social post</span></button>
+    </div>
+
+    <!-- BEFORE / AFTER -->
+    <div class="dm-compare-wrap reveal-up">
+      <div class="dm-compare-head">
+        <span class="eyebrow">Impact</span>
+        <h3>Before Gymshim. After Gymshim.</h3>
+      </div>
+      <div class="dm-compare" id="dmCompare">
+        <img class="dm-compare-base" src="https://static.wixstatic.com/media/7cdf7e_e125000f8a714d888a29414a858af618~mv2.jpg/v1/fill/w_1200,h_700,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_e125000f8a714d888a29414a858af618~mv2.jpg" alt="Empty gym floor, before campaign" loading="lazy">
+        <div class="dm-compare-after" id="dmCompareAfter">
+          <img src="https://static.wixstatic.com/media/7cdf7e_d262bbbae09748a3b8b027688a220fc9~mv2.jpg/v1/fill/w_1200,h_700,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/7cdf7e_d262bbbae09748a3b8b027688a220fc9~mv2.jpg" alt="Gym floor filled with campaign visibility, after Gymshim" loading="lazy">
+        </div>
+        <div class="dm-compare-tag dm-compare-tag--before">Before</div>
+        <div class="dm-compare-tag dm-compare-tag--after">After</div>
+        <div class="dm-compare-handle" id="dmCompareHandle"><span>&#10094;&#10095;</span></div>
+        <input type="range" class="dm-compare-range" id="dmCompareRange" min="0" max="100" value="50" aria-label="Drag to compare before and after">
+      </div>
     </div>
   </section>
 
@@ -1590,21 +1812,54 @@ button{font-family:inherit;}
   <!-- ============================================================
       BRANDS WORKING WITH US
       ============================================================ -->
-  <section class="dm-offer-section" id="brands">
+  <section class="dm-offer-section dm-clients" id="brands">
     <div class="section-header reveal-up">
       <span class="eyebrow">Trusted Partners</span>
-      <h2>Brands Working With Us</h2>
+      <h2>Brands working with us</h2>
     </div>
-    <div class="dm-brands-grid">
-      <div class="dm-brand-slot" data-slot="brand-mankind"><img src="" alt="Mankind logo"><span>Mankind</span></div>
-      <div class="dm-brand-slot" data-slot="brand-pintola"><img src="" alt="Pintola logo"><span>Pintola</span></div>
-      <div class="dm-brand-slot" data-slot="brand-suprr"><img src="" alt="Suprr protein wafer logo"><span>Suprr</span></div>
-      <div class="dm-brand-slot" data-slot="brand-sleepyowl"><img src="" alt="Sleepy Owl logo"><span>Sleepy Owl</span></div>
-      <div class="dm-brand-slot" data-slot="brand-amul"><img src="" alt="Amul logo"><span>Amul</span></div>
-      <div class="dm-brand-slot" data-slot="brand-teafit"><img src="" alt="Tea Fit logo"><span>Tea Fit</span></div>
-      <div class="dm-brand-slot" data-slot="brand-aquatein"><img src="" alt="Aquatein logo"><span>Aquatein</span></div>
-      <div class="dm-brand-slot" data-slot="brand-nutrela"><img src="" alt="Patanjali Nutrela Nutrition logo"><span>Nutrela Nutrition</span></div>
-      <div class="dm-brand-slot" data-slot="brand-manmatters"><img src="" alt="Man Matters logo"><span>Man Matters</span></div>
+    <div class="dm-marquee">
+      <div class="dm-marquee-track" id="dmMarqueeTrack">
+        <span class="dm-marquee-item">Mankind</span>
+        <span class="dm-marquee-item">Pintola</span>
+        <span class="dm-marquee-item">Suprr</span>
+        <span class="dm-marquee-item">Sleepy Owl</span>
+        <span class="dm-marquee-item">Amul</span>
+        <span class="dm-marquee-item">Tea Fit</span>
+        <span class="dm-marquee-item">Aquatein</span>
+        <span class="dm-marquee-item">Nutrela Nutrition</span>
+        <span class="dm-marquee-item">Man Matters</span>
+        <span class="dm-marquee-item" aria-hidden="true">Mankind</span>
+        <span class="dm-marquee-item" aria-hidden="true">Pintola</span>
+        <span class="dm-marquee-item" aria-hidden="true">Suprr</span>
+        <span class="dm-marquee-item" aria-hidden="true">Sleepy Owl</span>
+        <span class="dm-marquee-item" aria-hidden="true">Amul</span>
+        <span class="dm-marquee-item" aria-hidden="true">Tea Fit</span>
+        <span class="dm-marquee-item" aria-hidden="true">Aquatein</span>
+        <span class="dm-marquee-item" aria-hidden="true">Nutrela Nutrition</span>
+        <span class="dm-marquee-item" aria-hidden="true">Man Matters</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="dm-offer-section dm-testimonials" id="testimonials">
+    <div class="section-header reveal-up">
+      <span class="eyebrow">Word on the floor</span>
+      <h2>What partners say</h2>
+    </div>
+    <div class="dm-testimonials-grid">
+      <div class="glass-card dm-testimonial-card reveal-up">
+        <p>&ldquo;Foot traffic on our kiosk ads was visible within the first week.&rdquo;</p>
+        <div class="dm-testimonial-person"><span class="dm-testimonial-avatar">MK</span><div><strong>Mankind</strong><span>Brand Team</span></div></div>
+      </div>
+      <div class="glass-card dm-testimonial-card reveal-up" style="--reveal-delay:.08s">
+        <p>&ldquo;Best cost-per-impression we've run in any gym network.&rdquo;</p>
+        <div class="dm-testimonial-person"><span class="dm-testimonial-avatar">PT</span><div><strong>Pintola</strong><span>Growth Team</span></div></div>
+      </div>
+      <div class="glass-card dm-testimonial-card reveal-up" style="--reveal-delay:.16s">
+        <p>&ldquo;Sampling counters sold out our trial packs in two days.&rdquo;</p>
+        <div class="dm-testimonial-person"><span class="dm-testimonial-avatar">SO</span><div><strong>Sleepy Owl</strong><span>Marketing Lead</span></div></div>
+      </div>
     </div>
   </section>
 
@@ -1625,13 +1880,27 @@ button{font-family:inherit;}
   </section>
 
   <!-- CTA -->
-  <section class="dm-cta">
+  <section class="dm-cta dm-cta--photo">
+    <div class="dm-cta-bg" style="background-image:url('https://static.wixstatic.com/media/7cdf7e_a56fc49dafe0442cb7bec2c42802be12~mv2.jpg')"></div>
+    <div class="dm-cta-overlay"></div>
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
-    <div class="reveal-up">
+    <div class="reveal-up dm-cta-content">
       <h2>Ready to fill<br>your gym floor?</h2>
-      <p>Book a short demo and we'll show you what your gym's mindshare zone could look like in 30 days.</p>
-      <a href="booking.html" class="glow-btn">Book a Demo</a>
+      <p>See your mindshare zone in 30 days.</p>
+      <a href="booking.html" class="glow-btn dm-magnetic">Book a Demo</a>
+
+      <form class="dm-cta-form" id="dmCtaForm" novalidate>
+        <div class="dm-cta-form-row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="tel" name="phone" placeholder="Phone number" required>
+        </div>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Tell us about your brand"></textarea>
+        <button type="submit" class="ghost-btn dm-magnetic">Send message</button>
+        <p class="dm-cta-form-note">We reply within one business day.</p>
+        <div class="dm-cta-form-success" id="dmCtaFormSuccess">&#10003;&nbsp; Thanks — we'll be in touch shortly.</div>
+      </form>
     </div>
   </section>
 
@@ -1783,6 +2052,7 @@ button{font-family:inherit;}
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lenis/1.1.13/lenis.min.js"></script>
   <script>
   /* Nav + services overlay */
   (() => {
@@ -2007,6 +2277,106 @@ button{font-family:inherit;}
     window.addEventListener('resize', () => requestAnimationFrame(build));
   })();
 
+  </script>
+  <script>
+  /* Page-load curtain transition */
+  (() => {
+    const curtain = document.getElementById('dmCurtain');
+    if (!curtain) return;
+    window.addEventListener('load', () => {
+      setTimeout(() => curtain.classList.add('dm-curtain--out'), 300);
+    });
+    setTimeout(() => curtain.classList.add('dm-curtain--out'), 2200);
+  })();
+
+  /* Final CTA contact form (front-end only — wire to your backend/CRM) */
+  (() => {
+    const form = document.getElementById('dmCtaForm');
+    const success = document.getElementById('dmCtaFormSuccess');
+    if (!form || !success) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      success.classList.add('show');
+      form.reset();
+      setTimeout(() => success.classList.remove('show'), 6000);
+    });
+  })();
+
+  /* Lenis smooth scroll */
+  (() => {
+    if (typeof Lenis === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    if (window.ScrollTrigger) lenis.on('scroll', ScrollTrigger.update);
+  })();
+
+  /* Magnetic buttons */
+  (() => {
+    document.querySelectorAll('.dm-magnetic').forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.22}px, ${y * 0.32}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
+    });
+  })();
+
+  /* Ripple effect on primary CTAs */
+  (() => {
+    document.querySelectorAll('.glow-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'dm-ripple';
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 650);
+      });
+    });
+  })();
+
+  /* Before / After compare slider */
+  (() => {
+    const compare = document.getElementById('dmCompare');
+    const after = document.getElementById('dmCompareAfter');
+    const handle = document.getElementById('dmCompareHandle');
+    const range = document.getElementById('dmCompareRange');
+    if (!compare || !after || !range) return;
+
+    function setImgWidth() {
+      const w = compare.getBoundingClientRect().width;
+      after.querySelector('img').style.setProperty('--w', w + 'px');
+      after.querySelector('img').style.width = w + 'px';
+    }
+    function update(val) {
+      after.style.width = val + '%';
+      handle.style.left = val + '%';
+    }
+    setImgWidth();
+    update(range.value);
+    range.addEventListener('input', () => update(range.value));
+    window.addEventListener('resize', setImgWidth);
+  })();
+
+  /* Card tilt on gallery items */
+  (() => {
+    document.querySelectorAll('.dm-gallery-item').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale(1.015)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  })();
   </script>
   <script src="./booking.js"></script>
 
