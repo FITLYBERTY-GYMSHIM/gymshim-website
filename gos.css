@@ -2330,3 +2330,404 @@ a { text-decoration: none; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .live-system * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
+/* ================================================================
+   PURCHASE CONFIRMATION — membership / attendance / receipt, on phone
+   ================================================================ */
+.gos-purchase {
+  position: relative;
+  overflow: hidden;
+  padding: 120px var(--space-md) 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.gos-purchase-glow-a, .gos-purchase-glow-b {
+  position: absolute;
+  z-index: 0;
+  width: 46vw;
+  height: 46vw;
+  max-width: 560px;
+  max-height: 560px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.22;
+  pointer-events: none;
+}
+.gos-purchase-glow-a { top: -10%; left: -14%; background: var(--accent-1); }
+.gos-purchase-glow-b { bottom: -16%; right: -12%; background: var(--gos-corner-glow); }
+
+/* -- toggle -- */
+.gos-purchase-toggle {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  gap: 4px;
+  padding: 5px;
+  margin: 8px 0 46px;
+  border-radius: 999px;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.gos-purchase-tab {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-sans, inherit);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.35s ease;
+}
+.gos-purchase-tab-icon { font-size: 15px; line-height: 1; }
+.gos-purchase-tab.active { color: var(--bg-dark); }
+.gos-purchase-tab-pill {
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  left: 0;
+  height: calc(100% - 10px);
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  box-shadow: 0 6px 18px -4px rgba(216,35,35,0.55);
+  transition: transform 0.45s cubic-bezier(0.65,0,0.35,1), width 0.45s cubic-bezier(0.65,0,0.35,1);
+  will-change: transform, width;
+}
+/* Position/width are set inline by JS (movePill), based on the active
+   tab's measured position — works for any number of tabs. */
+
+/* -- stage -- */
+.gos-purchase-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 620px;
+  width: 100%;
+}
+.gos-purchase-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  pointer-events: none;
+}
+.gos-purchase-ring-1 { width: 340px; height: 340px; animation: gos-purchase-ring-spin 26s linear infinite; }
+.gos-purchase-ring-2 { width: 460px; height: 460px; border-style: dashed; opacity: 0.5; animation: gos-purchase-ring-spin 40s linear infinite reverse; }
+@keyframes gos-purchase-ring-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.gos-purchase-particles { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.gos-purchase-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 8px var(--accent-1);
+  opacity: 0;
+  animation: gos-purchase-particle-burst 0.9s cubic-bezier(0.2,0.8,0.3,1) forwards;
+}
+@keyframes gos-purchase-particle-burst {
+  0%   { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--px), var(--py)) scale(0.3); }
+}
+
+/* -- phone -- */
+.gos-purchase-phone {
+  position: relative;
+  z-index: 2;
+  width: min(260px, 72vw);
+  opacity: 0;
+  transform: translateY(40px) scale(0.92);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2,0.9,0.3,1);
+}
+.gos-purchase-stage.in-view .gos-purchase-phone { opacity: 1; transform: translateY(0) scale(1); }
+.gos-purchase-screen-shell { padding: 0; overflow: hidden; }
+
+.gos-purchase-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 22px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow-y: auto;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* old Edge/IE */
+}
+.gos-purchase-panel::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+.gos-purchase-statusbar {
+  position: absolute;
+  top: 6px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--gos-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+.gos-purchase-signal { margin-left: 4px; }
+
+.gos-purchase-check-wrap { width: 54px; height: 54px; margin: 14px 0 8px; }
+.gos-purchase-check-svg { width: 100%; height: 100%; overflow: visible; }
+.gos-purchase-check-ring {
+  fill: none;
+  stroke: #2ecc71;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+  filter: drop-shadow(0 0 6px rgba(46,204,113,0.55));
+}
+.gos-purchase-check-mark {
+  fill: none;
+  stroke: #2ecc71;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+}
+.gos-purchase-panel.is-play .gos-purchase-check-ring {
+  animation: gos-purchase-draw 0.7s ease forwards;
+}
+.gos-purchase-panel.is-play .gos-purchase-check-mark {
+  animation: gos-purchase-draw-mark 0.4s ease 0.6s forwards;
+}
+@keyframes gos-purchase-draw { to { stroke-dashoffset: 0; } }
+@keyframes gos-purchase-draw-mark { to { stroke-dashoffset: 0; } }
+
+.gos-purchase-status-label {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  opacity: 0;
+}
+.gos-purchase-amount {
+  margin: 4px 0 0;
+  font-family: var(--gos-mono);
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--text-primary);
+  opacity: 0;
+}
+.gos-purchase-plan-name {
+  margin: 2px 0 12px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  opacity: 0;
+}
+.gos-purchase-panel.is-play .gos-purchase-status-label,
+.gos-purchase-panel.is-play .gos-purchase-amount,
+.gos-purchase-panel.is-play .gos-purchase-plan-name {
+  animation: gos-purchase-fade-up 0.55s ease forwards;
+  animation-delay: 0.75s;
+}
+.gos-purchase-panel.is-play .gos-purchase-amount { animation-delay: 0.85s; }
+.gos-purchase-panel.is-play .gos-purchase-plan-name { animation-delay: 0.95s; }
+@keyframes gos-purchase-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.gos-purchase-rows {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 4px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.gos-purchase-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 10px;
+  font-size: 10.5px;
+  opacity: 0;
+  transform: translateX(14px);
+}
+.gos-purchase-row span { color: var(--text-muted); }
+.gos-purchase-row strong { color: var(--text-primary); font-weight: 600; }
+.gos-purchase-panel.is-play .gos-purchase-row {
+  animation: gos-purchase-row-in 0.5s ease forwards;
+}
+.gos-purchase-panel.is-play .gos-purchase-row:nth-child(1) { animation-delay: 1.05s; }
+.gos-purchase-panel.is-play .gos-purchase-row:nth-child(2) { animation-delay: 1.13s; }
+.gos-purchase-panel.is-play .gos-purchase-row:nth-child(3) { animation-delay: 1.21s; }
+.gos-purchase-panel.is-play .gos-purchase-row:nth-child(4) { animation-delay: 1.29s; }
+.gos-purchase-panel.is-play .gos-purchase-row:nth-child(5) { animation-delay: 1.37s; }
+.gos-purchase-panel.is-play .gos-purchase-row:nth-child(6) { animation-delay: 1.45s; }
+@keyframes gos-purchase-row-in {
+  from { opacity: 0; transform: translateX(14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.gos-purchase-qr-wrap { opacity: 0; transform: scale(0.85); }
+.gos-purchase-panel.is-play .gos-purchase-qr-wrap {
+  animation: gos-purchase-pop-in 0.5s cubic-bezier(0.2,0.9,0.3,1.4) forwards;
+  animation-delay: 1.48s;
+}
+@keyframes gos-purchase-pop-in { to { opacity: 1; transform: scale(1); } }
+.gos-purchase-qr {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 6px;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 2px;
+  background: #fff;
+  border-radius: 8px;
+}
+.gos-purchase-qr span { background: #0a0a0c; border-radius: 1px; }
+.gos-purchase-qr span:nth-child(3n) { background: transparent; }
+.gos-purchase-qr span:nth-child(7n) { background: transparent; }
+.gos-purchase-qr-wrap p { margin: 0; font-size: 9.5px; color: var(--text-muted); }
+
+.gos-purchase-badge {
+  margin-top: auto;
+  padding-top: 12px;
+  font-family: var(--gos-mono);
+  font-size: 9.5px;
+  color: #2ecc71;
+  letter-spacing: 0.02em;
+  opacity: 0;
+}
+.gos-purchase-panel.is-play .gos-purchase-badge {
+  animation: gos-purchase-fade-up 0.5s ease forwards;
+  animation-delay: 1.62s;
+}
+
+@media (max-width: 700px) {
+  .gos-purchase-stage { min-height: 560px; }
+  .gos-purchase-ring-1 { width: 260px; height: 260px; }
+  .gos-purchase-ring-2 { width: 340px; height: 340px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gos-purchase-ring-1, .gos-purchase-ring-2, .gos-purchase-particle { animation: none !important; }
+  .gos-purchase-phone { transition: opacity 0.3s ease; transform: none !important; }
+  .gos-purchase-check-ring, .gos-purchase-check-mark, .gos-purchase-status-label,
+  .gos-purchase-amount, .gos-purchase-plan-name, .gos-purchase-row,
+  .gos-purchase-qr-wrap, .gos-purchase-badge, .gos-purchase-week span,
+  .gos-purchase-receipt-icon, .gos-purchase-barcode {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+.gos-purchase-panel[data-purchase-panel="membership"] .gos-purchase-check-wrap { margin-top: 6px; }
+
+/* -- static (non count-up) headline text, e.g. a time -- */
+.gos-purchase-amount-text { font-size: 22px; }
+
+/* -- weekly attendance bars -- */
+.gos-purchase-week {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  width: 100%;
+  height: 46px;
+  margin: 6px 0 12px;
+  padding: 0 2px;
+}
+.gos-purchase-week span {
+  flex: 1;
+  height: var(--h, 40%);
+  border-radius: 3px 3px 1px 1px;
+  background: rgba(255,255,255,0.14);
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+.gos-purchase-week span.is-present {
+  background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+  box-shadow: 0 0 8px rgba(216,35,35,0.4);
+}
+.gos-purchase-panel.is-play .gos-purchase-week span {
+  animation: gos-purchase-bar-grow 0.5s cubic-bezier(0.3,1.4,0.4,1) forwards;
+}
+.gos-purchase-panel.is-play .gos-purchase-week span:nth-child(1) { animation-delay: 0.85s; }
+.gos-purchase-panel.is-play .gos-purchase-week span:nth-child(2) { animation-delay: 0.91s; }
+.gos-purchase-panel.is-play .gos-purchase-week span:nth-child(3) { animation-delay: 0.97s; }
+.gos-purchase-panel.is-play .gos-purchase-week span:nth-child(4) { animation-delay: 1.03s; }
+.gos-purchase-panel.is-play .gos-purchase-week span:nth-child(5) { animation-delay: 1.09s; }
+.gos-purchase-panel.is-play .gos-purchase-week span:nth-child(6) { animation-delay: 1.15s; }
+.gos-purchase-panel.is-play .gos-purchase-week span:nth-child(7) { animation-delay: 1.21s; }
+@keyframes gos-purchase-bar-grow { to { transform: scaleY(1); } }
+
+/* -- receipt panel specifics -- */
+.gos-purchase-receipt-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  line-height: 1;
+  opacity: 0;
+  transform: scale(0.6);
+}
+.gos-purchase-panel.is-play .gos-purchase-receipt-icon {
+  animation: gos-purchase-pop-in 0.5s cubic-bezier(0.2,0.9,0.3,1.4) forwards;
+  animation-delay: 0.3s;
+}
+.gos-purchase-receipt-rows .gos-purchase-row-total {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(255,255,255,0.18);
+}
+.gos-purchase-row-total span,
+.gos-purchase-row-total strong { color: var(--text-primary); font-weight: 700; font-size: 11.5px; }
+
+.gos-purchase-barcode {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  width: 100%;
+  height: 32px;
+  margin-top: 4px;
+  padding: 4px 8px;
+  background: #fff;
+  border-radius: 6px;
+  opacity: 0;
+  transform: scale(0.9);
+}
+.gos-purchase-panel.is-play .gos-purchase-barcode {
+  animation: gos-purchase-pop-in 0.5s cubic-bezier(0.2,0.9,0.3,1.4) forwards;
+  animation-delay: 1.55s;
+}
+.gos-purchase-barcode span { flex: 0 0 auto; width: 2px; background: #0a0a0c; }
+.gos-purchase-barcode span:nth-child(3n) { width: 3px; }
+.gos-purchase-barcode span:nth-child(5n) { width: 1px; }
+.gos-purchase-barcode span:nth-child(7n) { width: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gos-purchase-week span, .gos-purchase-receipt-icon, .gos-purchase-barcode {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="sales-kiosk.css">
     <link rel="stylesheet" href="booking.css">
+    <link rel="stylesheet" href="theme-toggle.css">
+<script src="theme-toggle.js"></script>
 
 <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.16/dist/lenis.css">
 <script src="https://unpkg.com/lenis@1.3.16/dist/lenis.min.js"></script>
@@ -29,33 +31,7 @@
 
 <div class="skx-page">
 
-    <header class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="logo">
-         <img src="assets/image/gymshim-logo-navbar.png" alt="Gymshim" class="logo-img">
-    </a>
-
-    <nav class="nav-links" id="navLinks">
-      <a href="index.html#plans">Business Booster</a>
-     <div class="nav-dropdown" id="servicesDropdown">
-        <button type="button" class="nav-dropdown-toggle" id="servicesToggle" aria-haspopup="true" aria-expanded="false">
-         Products &amp; Services <span class="nav-dropdown-caret">&#9662;</span>
-        </button>
-      </div>
-      <a href="about.html">About Us</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-
-    <div class="nav-actions">
-   <a href="booking.html" class="btn-primary">Book a Demo</a>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</div>
-
-    </div>
-</header>
-
+  <script src="navbar.js"></script>
 <div class="services-overlay" id="servicesOverlay" aria-hidden="true" data-lenis-prevent>
   <div class="services-overlay-backdrop" id="servicesOverlayBackdrop"></div>
 
@@ -253,7 +229,7 @@
 <section class="skx-hero">
   <div class="skx-hero-video-wrap">
     <video class="skx-hero-video" autoplay muted loop playsinline poster="assets/image/sales-kiosk-hero-poster.jpg">
-      <source src="assets/video/sales-kiosk-hero.mp4" type="video/mp4">
+      <source src="assets/video/kiosk.mp4" type="video/mp4">
     </video>
     <div class="skx-hero-video-overlay"></div>
   </div>
@@ -291,11 +267,11 @@
 
     <div class="skx-hero-visual skx-hero-visual--photo" id="skxHeroVisual">
       <div class="skx-hero-photo-glow"></div>
-      <img
+      <!-- <img
         class="skx-hero-photo"
         src="assets/image/board.png"
         alt="Gymshim sales kiosk — freestanding touchscreen display"
-        width="1200" height="2200" />
+        width="1200" height="2200" /> -->
 
       <div class="skx-float-badge skx-badge-1 skx-glass">⚡ <span>90-second signup</span></div>
       <div class="skx-float-badge skx-badge-2 skx-glass">🔒 <span>Secure payments</span></div>

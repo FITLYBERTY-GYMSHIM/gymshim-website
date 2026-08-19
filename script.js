@@ -12,13 +12,7 @@
 
 
 
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-  });
-
+  
 
   //pop up 
   const statObserver = new IntersectionObserver((entries) => {
@@ -324,47 +318,7 @@ fetch('services-mega.html')
     console.warn('If you opened this page directly as a file:// URL, the browser blocks fetch() for security reasons. Run a local server instead (e.g. "npx serve", or VS Code\'s Live Server extension) and reload.');
   });
 
-function initServicesOverlay() {
-  const servicesToggle = document.getElementById('servicesToggle');
-  const servicesOverlay = document.getElementById('servicesOverlay');
-  const servicesOverlayBackdrop = document.getElementById('servicesOverlayBackdrop');
-  const servicesOverlayClose = document.getElementById('servicesOverlayClose');
 
-  function openServicesOverlay() {
-    servicesOverlay.classList.add('open');
-    servicesOverlay.setAttribute('aria-hidden', 'false');
-    servicesToggle.setAttribute('aria-expanded', 'true');
-    document.documentElement.classList.add('services-modal-locked');
-    document.body.classList.add('services-modal-locked');
-    if (window.lenis) window.lenis.stop();
-  }
-
-  function closeServicesOverlay() {
-    servicesOverlay.classList.remove('open');
-    servicesOverlay.setAttribute('aria-hidden', 'true');
-    servicesToggle.setAttribute('aria-expanded', 'false');
-    document.documentElement.classList.remove('services-modal-locked');
-    document.body.classList.remove('services-modal-locked');
-    if (window.lenis) window.lenis.start();
-  }
-
-  if (servicesToggle && servicesOverlay) {
-    servicesToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = servicesOverlay.classList.contains('open');
-      isOpen ? closeServicesOverlay() : openServicesOverlay();
-    });
-
-    servicesOverlayBackdrop.addEventListener('click', closeServicesOverlay);
-    servicesOverlayClose.addEventListener('click', closeServicesOverlay);
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && servicesOverlay.classList.contains('open')) {
-        closeServicesOverlay();
-      }
-    });
-  }
-}
 
 
 

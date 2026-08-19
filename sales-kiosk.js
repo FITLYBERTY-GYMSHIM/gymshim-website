@@ -175,14 +175,7 @@ if (skxHeroEl && heroVisual) {
   });
 }
 
-/* ================================================================
-   Hamburger menu
-   ================================================================ */
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-if (hamburger && navLinks) {
-  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-}
+
 
 /* ================================================================
    Generic scroll-reveal for .reveal-up
@@ -385,35 +378,3 @@ if (newsletterForm) {
   });
 }
 
-/* ================================================================
-   Services overlay (unchanged behaviour)
-   ================================================================ */
-const servicesToggle = document.getElementById('servicesToggle');
-const servicesOverlay = document.getElementById('servicesOverlay');
-const servicesOverlayBackdrop = document.getElementById('servicesOverlayBackdrop');
-const servicesOverlayClose = document.getElementById('servicesOverlayClose');
-
-function openServicesOverlay() {
-  servicesOverlay.classList.add('open');
-  servicesOverlay.setAttribute('aria-hidden', 'false');
-  servicesToggle.setAttribute('aria-expanded', 'true');
-  document.body.style.overflow = 'hidden';
-}
-function closeServicesOverlay() {
-  servicesOverlay.classList.remove('open');
-  servicesOverlay.setAttribute('aria-hidden', 'true');
-  servicesToggle.setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
-}
-if (servicesToggle && servicesOverlay) {
-  servicesToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = servicesOverlay.classList.contains('open');
-    isOpen ? closeServicesOverlay() : openServicesOverlay();
-  });
-  servicesOverlayBackdrop.addEventListener('click', closeServicesOverlay);
-  servicesOverlayClose.addEventListener('click', closeServicesOverlay);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && servicesOverlay.classList.contains('open')) closeServicesOverlay();
-  });
-}
