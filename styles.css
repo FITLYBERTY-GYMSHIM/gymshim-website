@@ -1627,3 +1627,567 @@ body.services-modal-locked {
 
     line-height:1.8;
 }
+
+/* workout+ */
+/* ------------------------------------------------------------ */
+/* Scroll Reveal */
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ------------------------------------------------------------ */
+/* Workout Showcase */
+
+.workout-showcase {
+  padding: var(--space-xl) var(--space-md);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+
+/* ------------------------------------------------------------ */
+/* Showcase Media */
+
+.showcase-image-box {
+  aspect-ratio: 4 / 3;
+
+  border-radius: var(--radius-lg);
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.showcase-video {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  border-radius: var(--radius-lg);
+}
+
+
+/* ------------------------------------------------------------ */
+/* Showcase Text */
+
+.showcase-copy h2 {
+  margin: var(--space-xs) 0;
+}
+
+.showcase-copy p {
+  margin: 0;
+}
+
+.showcase-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  margin-top: var(--space-md);
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.showcase-actions .btn-primary,
+.showcase-actions .btn-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--text-primary);
+    isolation: isolate;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.showcase-actions .btn-primary::before,
+.showcase-actions .btn-secondary::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from var(--border-angle), transparent 0%, var(--accent-1) 15%, transparent 30%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.showcase-actions .btn-primary:hover,
+.showcase-actions .btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.showcase-actions .btn-primary:hover::before,
+.showcase-actions .btn-secondary:hover::before {
+  opacity: 1;
+  animation: border-spin 2.2s linear infinite;
+}
+
+.showcase-actions .btn-primary,
+.showcase-actions .btn-secondary {
+  background: #D2042D;
+  border-color: #D2042D;
+  color: #ffffff;
+}
+
+.showcase-actions .btn-primary:hover,
+.showcase-actions .btn-secondary:hover {
+  background: #B8022A;
+  border-color: #B8022A;
+}
+
+@keyframes border-spin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+@media (min-width: 480px) {
+  .showcase-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* ------------------------------------------------------------ */
+/* Desktop */
+
+@media (min-width: 900px) {
+
+  .showcase-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* ------------------------------------------------------------ */
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .workout-showcase {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .showcase-grid {
+    gap: var(--space-md);
+  }
+
+}
+
+
+
+/* =============================================================
+   ADVERTISE WITH US — combined offers section on the homepage
+   (Media Offerings / Software Ads / In-Gym Product Sampling)
+   Compact strip layout, sits right after the Sales Kiosk
+   features block. Uses the --skx-* tokens (from sales-kiosk.css,
+   already loaded on this page) so it matches the section above it.
+   ============================================================= */
+.dmo-section {
+  padding: 90px var(--space-md, 24px);
+  background: var(--skx-bg-2);
+}
+@media (max-width: 760px) { .dmo-section { padding: 64px 18px; } }
+
+.dmo-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dmo-strip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 18px 28px 18px 18px;
+  border-radius: var(--skx-radius-lg);
+  background: linear-gradient(160deg, rgba(240,246,255,0.05), rgba(240,246,255,0.015));
+  border: 1px solid var(--skx-border);
+  overflow: hidden;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+.dmo-strip::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, rgba(58,160,255,0), rgba(58,160,255,0.35), rgba(58,160,255,0));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.dmo-strip:hover {
+  border-color: rgba(58,160,255,0.35);
+  box-shadow: var(--skx-glow-blue);
+  transform: translateY(-3px);
+}
+.dmo-strip:hover::before { opacity: 1; }
+
+.dmo-strip-media {
+  position: relative;
+  flex-shrink: 0;
+  width: 168px;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--skx-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--skx-border);
+  background: var(--skx-panel);
+  box-shadow: 0 16px 32px -18px rgba(0,0,0,0.65);
+}
+.dmo-strip-media img,
+.dmo-strip-media video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--skx-ease);
+}
+.dmo-strip:hover .dmo-strip-media img,
+.dmo-strip:hover .dmo-strip-media video { transform: scale(1.08); }
+
+.dmo-strip-media::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(5,7,12,0.55) 100%);
+  pointer-events: none;
+}
+
+.dmo-media-badge {
+  position: absolute;
+  bottom: 10px; right: 10px;
+  z-index: 1;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--skx-accent), var(--skx-accent-4));
+  color: var(--skx-ink);
+  box-shadow: 0 6px 18px -4px rgba(58,160,255,0.65);
+}
+
+@media (max-width: 760px) {
+  .dmo-strip-media { width: 120px; }
+}
+@media (max-width: 560px) {
+  .dmo-strip { flex-wrap: wrap; padding: 16px; gap: 16px; }
+  .dmo-strip-media { width: 100%; aspect-ratio: 16 / 9; }
+}
+
+.dmo-strip-divider {
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--skx-border-soft) 20%, var(--skx-border-soft) 80%, transparent);
+}
+@media (max-width: 560px) { .dmo-strip-divider { display: none; } }
+
+.dmo-strip-body { flex: 1; min-width: 0; }
+
+.dmo-card-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--skx-mono);
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--skx-accent-soft);
+  margin-bottom: 6px;
+}
+.dmo-card-tag::before {
+  content: '';
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--skx-accent);
+  box-shadow: 0 0 6px rgba(58,160,255,0.7);
+}
+
+.dmo-strip-body h3 {
+  font-family: var(--skx-display);
+  font-size: 20px;
+  color: var(--skx-text);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.dmo-strip-body p {
+  color: var(--skx-text-muted);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 46ch;
+}
+
+.dmo-strip-price {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(58,160,255,0.35);
+}
+.dmo-strip-price strong {
+  font-family: var(--skx-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: #3AA0FF;
+  white-space: nowrap;
+  line-height: 1;
+}
+.dmo-strip-price span {
+  font-family: var(--skx-font);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--skx-text-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .dmo-strip-price {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 6px;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+/* ============================================================
+   WHY IT WORKS — HERO HEAD (badge + heading + kiosk screenshot)
+   Added alongside the existing .skx-features-grid cards.
+   ============================================================ */
+
+.why-head{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 80px;
+}
+
+.why-head-copy{
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+}
+
+.why-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.04);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.why-badge-dot{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 10px var(--accent-1);
+}
+
+.why-head-copy h2{
+  margin: 0 0 20px;
+}
+
+.why-head-copy p{
+  margin: 0;
+  max-width: 480px;
+}
+
+/* ---- Visual: kiosk device with real screenshot ---- */
+
+.why-head-visual{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 24px;
+}
+
+.why-glow{
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  right: 10%;
+  top: -60px;
+  background: radial-gradient(circle, var(--accent-1) 0%, transparent 70%);
+  opacity: 0.28;
+  filter: blur(90px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.kiosk-device{
+  position: relative;
+  z-index: 2;
+  width: min(300px, 78vw);
+  transition: transform 0.5s ease;
+}
+
+.why-head-visual:hover .kiosk-device{
+  transform: translateY(-6px);
+}
+
+.kiosk-screen{
+  position: relative;
+  border-radius: 26px;
+  border: 6px solid #1a1d24;
+  background: #0b0d11;
+  overflow: hidden;
+  box-shadow:
+    0 30px 60px -20px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(255,255,255,0.05),
+    0 0 60px rgba(216,35,74,0.15);
+  aspect-ratio: 960 / 1536;
+}
+
+.kiosk-screen img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.kiosk-stand{
+  width: 10px;
+  height: 46px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #1a1d24, #0b0d11);
+  border-radius: 0 0 4px 4px;
+}
+
+.kiosk-base{
+  width: 130px;
+  height: 14px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
+  opacity: 0.85;
+  filter: blur(1px);
+  box-shadow: 0 0 24px 4px var(--accent-1);
+}
+
+/* ---- Responsive ---- */
+
+/* Text column keeps the default fade-up (.reveal-up).
+   The kiosk screen instead swipes in from the right. */
+#features .why-head-visual.reveal-up{
+  transform: translateX(90px) !important;
+}
+#features .why-head-visual.reveal-up.in-view{
+  transform: translateX(0) !important;
+}
+
+@media (max-width: 900px){
+  .why-head{
+    grid-template-columns: 1fr;
+    gap: 48px;
+    text-align: center;
+  }
+   #features .why-head-visual.reveal-up{
+    transform: translateY(28px) !important;
+  }
+  #features .why-head-visual.reveal-up.in-view{
+    transform: translateY(0) !important;
+  }
+  .why-head-copy{
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .why-head-copy p{ margin: 0 auto; }
+  .why-head-visual{ padding-top: 0; }
+  .why-glow{ right: 50%; transform: translateX(50%); top: -20px; }
+}
+
+@media (max-width: 480px){
+  .kiosk-device{ width: min(230px, 70vw); }
+  .kiosk-screen{ border-radius: 20px; border-width: 5px; }
+}
+/* ============================================================
+   GOS SHOWCASE — background match to Solution section
+   Dark maroon base + subtle red radial glow behind laptop/phone.
+
+   IMPORTANT: both gradients use background-attachment: fixed with
+   the EXACT same position/stops. .launch-showcase is 550vh tall, so
+   a gradient positioned relative to ITS OWN box (the old approach)
+   only looks "lit" near that box's vertical center — by the time
+   you scroll to the bottom of it (where .solution begins), the glow
+   had already faded back to flat #0c0508. Meanwhile .solution's
+   gradient was centered near ITS OWN top, so it started bright again
+   right away. Same base color, very different glow intensity right
+   at the join — that mismatch is what reads as a hard line.
+   Anchoring both to the viewport instead means whatever pixel is on
+   screen at the exact handoff moment is identical on both sides, so
+   there's nothing to see a seam between — it reads as one page. */
+/* The device showcase and solution content live inside this single
+   parent section, so the background cannot break between them. */
+section.gos-section#showcase {
+  background: #0c0508 !important;
+}
+section.gos-section#showcase .showcase-glow {
+  background: radial-gradient(circle, rgba(210, 4, 45, 0.45), rgba(210, 4, 45, 0.12) 45%, transparent 70%) !important;
+}
+
+/* GSAP ScrollTrigger's pin-spacer for .launch-showcase can leave a
+   sub-pixel gap right where it hands off to .solution below it. That
+   gap shows the page's default body background (--bg-dark, a
+   blue-black) instead of page content, which reads as a hard line
+   between the two maroon sections. Matching the body color here
+   makes any such seam invisible instead of trying to chase the
+   gap itself. */
+body {
+  background-color: #0c0508 !important;
+}

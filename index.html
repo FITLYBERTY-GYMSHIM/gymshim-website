@@ -6,13 +6,18 @@
     <title>Gymshim | Gym Business Booster Plan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+     <!-- Fonts needed for the "Why It Works" features section copied from sales-kiosk.html -->
+     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 
      <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
 
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sales-kiosk.css">
   <link rel="stylesheet" href="booking.css">
+  <link rel="stylesheet" href="gos-showcase.css">
   <link rel="stylesheet" href="theme-toggle.css">
 <script src="theme-toggle.js"></script>
 
@@ -340,6 +345,278 @@
   </div>
 </div>
 </section>
+
+
+<!-- Workout+ -->
+ <section class="workout-showcase">
+
+  <h2 class="product-name-shine workout-section-heading">Workout+</h2>
+
+  <div class="showcase-grid">
+    <div class="showcase-media reveal-up">
+      <div class="showcase-image-box" id="showcaseImageBox">
+        
+  <video id="showcaseVideo" class="showcase-video" autoplay muted loop playsinline>
+    <source src="assets/video/kiosk.mp4" type="video/mp4">
+  </video>
+        <!-- <span class="showcase-placeholder-icon">🖥️</span>
+        <span class="showcase-placeholder-label" id="showcaseLabel">Side View</span>
+        <span class="showcase-placeholder-hint">Drop image in — replace this box with &lt;img&gt;</span> -->
+      </div>
+      <!-- <div class="showcase-thumbs">
+        <button class="showcase-thumb active" data-view="Side View">Side View</button>
+        <button class="showcase-thumb" data-view="Top View">Top View</button>
+      </div> -->
+    </div>
+
+    <div class="showcase-copy reveal-up">
+           <span class="hero-tag">The kiosk</span>
+      <h2>A touchscreen your members will actually use</h2>
+      <p>Compact, self-serviced, and installed right on your gym floor — WPK combines interactive workouts with a display members engage with every visit.</p>
+      <div class="showcase-actions">
+        <a href="workout.html" class="btn-secondary">Explore More -></a>
+        <a href="booking.html" class="btn-primary">Book a Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     GOS — DEVICE SHOWCASE (page 3)
+     Copied as-is from gos.html — the pinned laptop + phone section
+     with the "Live sync" / "Real-time alerts" badges.
+     ============================================================ -->
+<section class="gos-section" id="showcase">
+  <div class="launch-showcase">
+  <div class="showcase-pin" id="showcasePin">
+
+    <div class="showcase-glow" aria-hidden="true"></div>
+
+    <h3 class="product-name-shine showcase-heading">GymShim Operating System</h3>
+
+    <span class="showcase-badge showcase-badge-a js-float">● Live sync</span>
+    <span class="showcase-badge showcase-badge-b js-float">Real-time alerts</span>
+
+    <!-- LAPTOP MOCKUP — built with CSS (bezel, hinge, base) rather
+         than a modeled 3D asset, since no 3D model files exist for
+         this project. Tilts in 3D via mouse + scroll (see JS). -->
+    <div class="device device-laptop" id="deviceLaptop">
+      <div class="device-laptop-lid">
+        <div class="device-laptop-bezel">
+          <div class="device-laptop-cam"></div>
+          <div class="device-laptop-screen" id="laptopScreen">
+            <img class="dash-screenshot"
+                 src="assets/image/gos-dashboard2.png"
+                 alt="GymShim GOS home dashboard — active members, follow-ups, sales, and collections at a glance">
+          </div>
+        </div>
+      </div>
+      <div class="device-laptop-hinge"></div>
+      <div class="device-laptop-base"></div>
+    </div>
+
+    <!-- PHONE MOCKUP -->
+    <div class="device device-phone" id="devicePhone">
+      <div class="device-phone-frame">
+        <div class="device-phone-notch"></div>
+   <div class="device-phone-screen">
+          <img class="phone-screenshot" src="assets/image/gos-dashboard.png" alt="GymShim GOS mobile dashboard">
+        </div>
+      </div>
+      <div class="device-phone-shadow"></div>
+    </div>
+
+  </div>
+  </div>
+
+
+<!-- ============================================================
+     GOS — SOLUTION / COMPETITIVE EDGE (page 4)
+     Copied as-is from gos.html.
+     ============================================================ -->
+<div class="solution" id="solution">
+  <div class="solution-inner">
+    <div class="solution-copy">
+      <span class="launch-eyebrow js-reveal">The solution</span>
+      <h2 class="solution-title js-reveal">Give your business the <span class="launch-line-gradient">competitive edge</span></h2>
+      <p class="js-reveal">GymShim GOS is a one-of-a-kind fitness technology system designed to help gym owners streamline day-to-day activities and processes.</p>
+      <p class="js-reveal">The GOS Ecosystem assists gym owners in taking care of their logistics and keeps them ready to meet the changing lifestyle demands of their customers.</p>
+      <p class="js-reveal">India's #1 Gym Operating System — an ultimate solution to every problem affecting your gym, built to increase your funnel size, retention, and referrals, and sell memberships at a premium.</p>
+
+      <div class="showcase-actions js-reveal">
+        <a href="gos.html" class="btn-secondary">Explore More -></a>
+        <a href="booking.html" class="btn-primary">Book a Demo</a>
+      </div>
+    </div>
+
+    <div class="solution-card glass js-reveal">
+      <div class="solution-item">
+        <span class="solution-num">1</span>
+        <p>Increase <strong>Cash Flow</strong> with the help of in-house access controlled system.</p>
+      </div>
+      <div class="solution-item">
+        <span class="solution-num">2</span>
+        <p>Increase <strong>Conversions</strong> with the help of better enquiry management.</p>
+      </div>
+      <div class="solution-item">
+        <span class="solution-num">3</span>
+        <p>Increase <strong>Retention</strong> with the help of Follow up Engine / Pool feature.</p>
+      </div>
+      <div class="solution-item">
+        <span class="solution-num">4</span>
+        <p>Increase <strong>Member Engagement</strong> with reminders and app notifications.</p>
+      </div>
+      <div class="solution-item">
+        <span class="solution-num">5</span>
+        <p>Increase <strong>Admin Efficiency</strong> with easy-to-use, multipurpose CRM software.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     WHY IT WORKS — FEATURES (page 6)
+     Copied as-is from sales-kiosk.html, placed right after the
+     Solution section (page 4).
+     ============================================================ -->
+<section class="skx-features skx-band" id="features">
+  <div class="skx-container">
+
+    <h2 class="product-name-shine workout-section-heading sales-kiosk-heading">Sales Kiosk</h2>
+
+    <div class="why-head">
+      <div class="why-head-visual reveal-up">
+        <div class="why-glow"></div>
+        <div class="kiosk-device">
+          <div class="kiosk-screen">
+            <img src="assets/image/sk.png" alt="GYMSHIM kiosk dashboard showing today's offer, plans, classes and stats" loading="lazy">
+          </div>
+          <div class="kiosk-stand"></div>
+          <div class="kiosk-base"></div>
+        </div>
+      </div>
+
+      <div class="why-head-copy reveal-up">
+        <span class="why-badge"><span class="why-badge-dot"></span>Why It Works</span>
+        <h2>Built to sell, not just to check people in.</h2>
+        <p>Everything your front desk does manually, the kiosk does automatically — around the clock.</p>
+      </div>
+    </div>
+
+    <div class="skx-features-grid">
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">🧑‍💼</div>
+        <h3>Less Staff Workload</h3>
+        <p>Plans, forms, payments and receipts — handled without a rep at the desk.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">📈</div>
+        <h3>Higher Conversion</h3>
+        <p>Limited-time offers and bundles surface automatically at the moment of decision.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">🧲</div>
+        <h3>Better Lead Capture</h3>
+        <p>Not ready to join? Name, phone and goals are saved for a same-day follow-up.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">🕐</div>
+        <h3>24/7 Membership Sales</h3>
+        <p>Sells memberships after hours and during rush, with zero staff involved.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">📊</div>
+        <h3>Analytics &amp; Insights</h3>
+        <p>Visitors, conversion rate, peak hours and top plans — tracked automatically.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">💰</div>
+        <h3>Lower Operating Costs</h3>
+        <p>One kiosk absorbs the busy-period workload of an extra front-desk hire.</p>
+      </div>
+      <div class="skx-feature-card skx-tilt">
+        <div class="skx-feature-icon">🏆</div>
+        <h3>A Sharper Brand Image</h3>
+        <p>A modern touchscreen at the door signals a gym worth joining before they even talk to staff.</p>
+      </div>
+    </div>
+
+    <div class="showcase-actions js-reveal" style="flex-direction: row; justify-content: center; align-items: center; margin: 56px auto 0;">
+      <a href="sales-kiosk.html" class="btn-secondary">Explore More -></a>
+      <a href="booking.html" class="btn-primary">Book a Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ADVERTISE WITH US — MEDIA OFFERINGS / SOFTWARE ADS /
+     IN-GYM PRODUCT SAMPLING (page 7)
+     Compact combined design, sits right after the Sales Kiosk
+     features section. Explore More opens the full advertisement
+     page (digital-marketing.html); Book a Demo opens the booking flow.
+     ============================================================ -->
+<section class="dmo-section" id="digital-marketing">
+  <div class="skx-container">
+    <h2 class="product-name-shine workout-section-heading">Advertisement</h2>
+    <div class="skx-section-head reveal-up" style="margin-bottom: 40px;">
+      <span class="skx-eyebrow">Advertise With Us</span>
+      <h2>Turn gym floors into your brand's front row.</h2>
+      <p>Three ways to put your brand in front of members who are already paying attention.</p>
+    </div>
+
+    <div class="dmo-row">
+      <div class="dmo-strip skx-tilt reveal-up">
+        <div class="dmo-strip-media">
+          <video src="assets/video/resolute2mp4.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <span class="dmo-media-badge" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+        <div class="dmo-strip-body">
+          <span class="dmo-card-tag">Kiosk Advertising</span>
+          <h3>Media Offerings</h3>
+          <p>Video &amp; static ads on Workout Plus kiosks, right at check-in.</p>
+        </div>
+        <div class="dmo-strip-divider"></div>
+        <div class="dmo-strip-price"><strong>&#8377;5,000</strong><span>/ kiosk / mo</span></div>
+      </div>
+
+      <div class="dmo-strip skx-tilt reveal-up" style="--reveal-delay:.08s">
+        <div class="dmo-strip-media">
+          <img src="assets/image/wp2.png" alt="Gymshim Care in-app banner ad" loading="lazy">
+        </div>
+        <div class="dmo-strip-body">
+          <span class="dmo-card-tag">In-App Advertising</span>
+          <h3>Software Ads</h3>
+          <p>In-app banners &amp; branded WhatsApp workout reminders.</p>
+        </div>
+        <div class="dmo-strip-divider"></div>
+        <div class="dmo-strip-price"><strong>&#8377;5,000</strong><span>/ gym / mo</span></div>
+      </div>
+
+      <div class="dmo-strip skx-tilt reveal-up" style="--reveal-delay:.16s">
+        <div class="dmo-strip-media">
+          <img src="assets/image/HD_gymshim_photo_1.jpg" alt="In-gym sampling counter" loading="lazy">
+        </div>
+        <div class="dmo-strip-body">
+          <span class="dmo-card-tag">On-Ground Activation</span>
+          <h3>In-Gym Product Sampling</h3>
+          <p>Direct handouts &amp; live demos, 2–5 days a month.</p>
+        </div>
+        <div class="dmo-strip-divider"></div>
+        <div class="dmo-strip-price"><strong>&#8377;5,000</strong><span>/ gym / mo</span></div>
+      </div>
+    </div>
+
+    <div class="showcase-actions js-reveal" style="flex-direction: row; justify-content: center; align-items: center; margin: 40px auto 0;">
+      <a href="digital-marketing.html" class="btn-secondary">Explore More -></a>
+      <a href="booking.html" class="btn-primary">Book a Demo</a>
+    </div>
+  </div>
+</section>
+
 <!-- Gift Page -->
 <!-- <section class="plans" id="plans">
   <video class="plans-video" autoplay muted loop playsinline poster="assets/images/plans-poster.jpg">
@@ -482,80 +759,7 @@
 
 
 
-<section class="how-it-works">
 
-  <!-- Sticky Background Video -->
-<div class="how-video-wrap">
-  <video
-      class="how-video"
-      muted
-      playsinline
-      preload="auto">
-
-      <source src="assets/video/how-bg.mp4" type="video/mp4">
-
-  </video>
-
-  <div class="how-video-overlay"></div>
-</div>
-
-  <!-- Decorative Blobs -->
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-  <!-- Content -->
-  <div class="how-it-works-inner">
-
-    <!-- Left Side -->
-    <div class="section-header reveal-up how-sticky">
-      <span class="hero-tag">How It Works</span>
-
-      <h2>From walk-in to loyal member</h2>
-
-      <p>
-        Five simple steps take a walk-in visitor to a loyal,
-        saving, returning member.
-      </p>
-    </div>
-
-    <!-- Right Side -->
-    <div class="steps">
-
-      <div class="step reveal-up">
-        <div class="step-number">01</div>
-        <h3>Member walks in</h3>
-        <p>A potential member visits your gym.</p>
-      </div>
-
-      <div class="step reveal-up">
-        <div class="step-number">02</div>
-        <h3>Purchases membership</h3>
-        <p>They sign up for a gym membership.</p>
-      </div>
-
-      <div class="step reveal-up">
-        <div class="step-number">03</div>
-        <h3>Gets free gifts</h3>
-        <p>Receives a bunch of free gifts on signup.</p>
-      </div>
-
-      <div class="step reveal-up">
-        <div class="step-number">04</div>
-        <h3>Unlocks the app</h3>
-        <p>Access to 1000s of deals inside the Gymshim app.</p>
-      </div>
-
-      <div class="step reveal-up">
-        <div class="step-number">05</div>
-        <h3>Saves &amp; stays</h3>
-        <p>Saves thousands on purchases — and keeps coming back.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
 <!-- ................................................................... -->
  
 <!-- ........................................................... -->
@@ -740,8 +944,7 @@
 </div>
 
 <script src="script.js"></script>
+<script src="gos-showcase.js"></script>
 <script src="booking.js"></script>
 </body>
 </html>
-
-

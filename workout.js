@@ -138,3 +138,4 @@ document.querySelectorAll('.showcase-thumb').forEach(thumb => {
     }
   });
 });
+

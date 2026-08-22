@@ -1,4 +1,4 @@
-  // Lenis smooth scroll — default config, same as lenis.dev
+// Lenis smooth scroll — default config, same as lenis.dev
   window.lenis = new Lenis();
 
   function raf(time) {
@@ -300,6 +300,38 @@ form.addEventListener("submit", async (e) => {
 }
 
 
+
+// ================================================================
+// "Why It Works" features section (copied from sales-kiosk.html)
+// — 3D tilt on the feature cards + GSAP scroll reveal
+// ================================================================
+document.querySelectorAll('.skx-tilt').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty('--rx', `${px * 8}deg`);
+    card.style.setProperty('--ry', `${-py * 8}deg`);
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.setProperty('--rx', '0deg');
+    card.style.setProperty('--ry', '0deg');
+  });
+});
+
+if (window.gsap && window.ScrollTrigger) {
+  gsap.utils.toArray('.skx-feature-card').forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 34, filter: 'blur(6px)' });
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 88%',
+      once: true,
+      onEnter: () => {
+        gsap.to(el, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6, delay: (i % 4) * 0.06, ease: 'power3.out' });
+      }
+    });
+  });
+}
 
 // Products & Services — full-page overlay
 // Products & Services — full-page overlay (loaded on demand from service-mega.html)

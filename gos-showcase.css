@@ -29,7 +29,7 @@
 .launch-showcase {
   position: relative;
   z-index: 2;
-  height: 750vh; /* scroll distance that drives the pinned timeline — extra-stretched so the fade/scale from hidden to fully visible needs noticeably more scrolling */
+  height: 550vh; /* scroll distance that drives the pinned timeline — stretched out so the animation plays out more slowly as you scroll */
 }
 .showcase-pin {
   position: sticky;
@@ -290,8 +290,10 @@
 
 .solution {
   position: relative;
-  z-index: 2;
-  padding: 140px clamp(20px, 5vw, 64px);
+  z-index: 3;
+  /* Pull the solution into the unused lower area of the pinned showcase. */
+  margin-top: -120px;
+  padding: 0 clamp(20px, 5vw, 64px) 140px;
 }
 .solution-inner {
   max-width: 1200px;
@@ -421,3 +423,6 @@
 @media (prefers-reduced-motion: reduce) {
   .product-name-shine { animation: none; }
 }
+
+/* Fine-tune only the Sales Kiosk title. */
+.sales-kiosk-heading { transform: translateY(-25px); }
