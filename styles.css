@@ -631,10 +631,10 @@ align-self: center;
 }
 
 .marquee-track img {
-  height: 40px;
+  height: 90px;
   width: auto;
-  opacity: 0.6;
-  filter: grayscale(100%);
+  opacity: 1;
+  filter: none;
   transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
@@ -2102,22 +2102,23 @@ body.services-modal-locked {
 }
 
 .kiosk-stand{
-  width: 10px;
-  height: 46px;
+  width: 40px;
+  height: 55px;
   margin: 0 auto;
-  background: linear-gradient(180deg, #1a1d24, #0b0d11);
-  border-radius: 0 0 4px 4px;
+  background: linear-gradient(180deg, #3a3d44, #1a1d22);
+  border-radius: 0 0 10px 10px;
+  box-shadow: 4px 6px 20px rgba(0,0,0,0.7);
 }
 
 .kiosk-base{
-  width: 130px;
-  height: 14px;
+  width: 240px;
+  height: 26px;
   margin: 0 auto;
   border-radius: 999px;
   background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
-  opacity: 0.85;
+  opacity: 1;
   filter: blur(1px);
-  box-shadow: 0 0 24px 4px var(--accent-1);
+  box-shadow: 0 0 48px 10px var(--accent-1);
 }
 
 /* ---- Responsive ---- */

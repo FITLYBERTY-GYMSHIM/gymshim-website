@@ -46,9 +46,47 @@
      Same behaviour as every other page on the site (this page didn't
      have the real navbar wired up before, so this was missing).
      --------------------------------------------------------------- */
- 
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  }
 
-  
+  const servicesToggle = document.getElementById('servicesToggle');
+  const servicesOverlay = document.getElementById('servicesOverlay');
+  const servicesOverlayBackdrop = document.getElementById('servicesOverlayBackdrop');
+  const servicesOverlayClose = document.getElementById('servicesOverlayClose');
+
+  function openServicesOverlay() {
+    servicesOverlay.classList.add('open');
+    servicesOverlay.setAttribute('aria-hidden', 'false');
+    servicesToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeServicesOverlay() {
+    servicesOverlay.classList.remove('open');
+    servicesOverlay.setAttribute('aria-hidden', 'true');
+    servicesToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  if (servicesToggle && servicesOverlay) {
+    servicesToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = servicesOverlay.classList.contains('open');
+      isOpen ? closeServicesOverlay() : openServicesOverlay();
+    });
+
+    servicesOverlayBackdrop.addEventListener('click', closeServicesOverlay);
+    servicesOverlayClose.addEventListener('click', closeServicesOverlay);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && servicesOverlay.classList.contains('open')) {
+        closeServicesOverlay();
+      }
+    });
+  }
   /* ---------------------------------------------------------------
      2. CURSOR GLOW — follows the pointer with a lerped delay so it
      feels like a soft light rather than snapping to the cursor.
@@ -1165,130 +1203,4 @@
       onLeaveBack: () => master.pause()
     });
   }
-})();
-/* ================= 4. PURCHASE CONFIRMATION (membership / attendance / receipt) ================= */
-(function () {
-  'use strict';
-
-  const section = document.getElementById('gosPurchase');
-  if (!section) return;
-
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const stage = document.getElementById('gosPurchaseStage');
-  const toggle = document.getElementById('gosPurchaseToggle');
-  const pill = document.getElementById('gosPurchaseTabPill');
-  const particlesHost = document.getElementById('gosPurchaseParticles');
-  const tabs = section.querySelectorAll('.gos-purchase-tab');
-  const panels = section.querySelectorAll('.gos-purchase-panel');
-
-  /* Moves/resizes the pill to sit exactly behind whichever tab is
-     active — measured, not hardcoded, so it keeps working no matter
-     how many tabs there are or how wide their labels are. */
-  function movePill() {
-    if (!pill || !toggle) return;
-    const activeTab = section.querySelector('.gos-purchase-tab.active');
-    if (!activeTab) return;
-    const toggleRect = toggle.getBoundingClientRect();
-    const tabRect = activeTab.getBoundingClientRect();
-    pill.style.transform = 'translateX(' + (tabRect.left - toggleRect.left) + 'px)';
-    pill.style.width = tabRect.width + 'px';
-  }
-
-  function burstParticles() {
-    if (reducedMotion || !particlesHost) return;
-    const count = 14;
-    for (let i = 0; i < count; i++) {
-      const p = document.createElement('span');
-      p.className = 'gos-purchase-particle';
-      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
-      const dist = 60 + Math.random() * 70;
-      p.style.setProperty('--px', Math.cos(angle) * dist + 'px');
-      p.style.setProperty('--py', Math.sin(angle) * dist + 'px');
-      p.style.animationDelay = (Math.random() * 0.1) + 's';
-      particlesHost.appendChild(p);
-      p.addEventListener('animationend', () => p.remove());
-    }
-  }
-
-  function countUp(el) {
-    if (!el || !el.hasAttribute('data-count-to')) return;
-    const target = parseInt(el.getAttribute('data-count-to') || '0', 10);
-    const prefix = el.getAttribute('data-prefix') || '';
-    if (reducedMotion) { el.textContent = prefix + target.toLocaleString('en-IN'); return; }
-    const duration = 900;
-    const delay = 780;
-    const start = performance.now() + delay;
-    function tick(now) {
-      const p = Math.min(1, Math.max(0, (now - start) / duration));
-      if (p <= 0) { requestAnimationFrame(tick); return; }
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = prefix + Math.round(target * eased).toLocaleString('en-IN');
-      if (p < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  function playPanel(panel) {
-    if (!panel) return;
-    panel.classList.remove('is-play');
-    // force reflow so the animation can restart from scratch
-    void panel.offsetWidth;
-    panel.classList.add('is-play');
-    countUp(panel.querySelector('.gos-purchase-amount'));
-  }
-
-  function activateTab(name) {
-    tabs.forEach(t => {
-      const active = t.getAttribute('data-purchase-tab') === name;
-      t.classList.toggle('active', active);
-      t.setAttribute('aria-selected', active ? 'true' : 'false');
-    });
-    if (toggle) toggle.setAttribute('data-active', name);
-    movePill();
-
-    panels.forEach(p => {
-      const match = p.getAttribute('data-purchase-panel') === name;
-      p.hidden = !match;
-      p.classList.toggle('is-active', match);
-      if (match) playPanel(p);
-      else p.classList.remove('is-play');
-    });
-
-    burstParticles();
-  }
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const name = tab.getAttribute('data-purchase-tab');
-      if (tab.classList.contains('active')) return;
-      activateTab(name);
-    });
-  });
-
-  window.addEventListener('load', movePill);
-  let resizeT;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeT);
-    resizeT = setTimeout(movePill, 120);
-  });
-  // Run once now too, in case fonts/layout are already settled.
-  movePill();
-
-  let played = false;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !played) {
-        played = true;
-        stage.classList.add('in-view');
-        setTimeout(() => {
-          const active = section.querySelector('.gos-purchase-panel.is-active') || panels[0];
-          playPanel(active);
-          burstParticles();
-        }, reducedMotion ? 0 : 250);
-        observer.unobserve(section);
-      }
-    });
-  }, { threshold: 0.35 });
-
-  if (stage) observer.observe(section);
 })();
