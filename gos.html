@@ -1050,98 +1050,14 @@
        BOOKING MODAL
        ============================================================ -->
 <!-- BOOKING MODAL -->
-<div class="booking-modal-overlay" id="bookingModalOverlay" aria-hidden="true">
-  <div class="booking-modal-box" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
-    <button class="booking-modal-close" id="bookingModalClose" aria-label="Close">&times;</button>
-    <div class="booking-modal-head">
-      <h2 id="bookingModalTitle">Book a Demo</h2>
-      <p id="bookingModalSubtitle">Pick a date and time that works for you.</p>
-    </div>
-    <div class="booking-step-indicator">
-      <span class="step-dot active" id="stepDot1">1</span>
-      <span class="step-label active" id="stepLabel1">Date &amp; Time</span>
-      <span class="step-line" id="stepLine"></span>
-      <span class="step-dot" id="stepDot2">2</span>
-      <span class="step-label" id="stepLabel2">Your Details</span>
-    </div>
-    <div class="booking-step-panel" data-step-panel="1">
-      <div class="booking-modal-grid">
-        <div class="calendar-panel">
-          <div class="calendar-nav">
-            <button class="calendar-nav-btn" id="prevMonthBtn" type="button" aria-label="Previous month">&#8249;</button>
-            <span class="calendar-month-label" id="calendarMonthLabel"></span>
-            <button class="calendar-nav-btn" id="nextMonthBtn" type="button" aria-label="Next month">&#8250;</button>
-          </div>
-          <div class="calendar-weekdays">
-            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
-          </div>
-          <div class="calendar-grid" id="calendarGrid"></div>
-        </div>
-        <div class="details-panel">
-          <h3>Selected</h3>
-          <p class="selected-date-label placeholder" id="selectedDateLabel">Choose a date to see open times</p>
-          <div class="time-slot-grid" id="timeSlotGrid"></div>
-        </div>
-      </div>
-      <div class="booking-step-actions">
-        <button class="btn-primary next-btn single-action" id="toStep2Btn" type="button" disabled>Continue</button>
-      </div>
-    </div>
-    <div class="booking-step-panel" data-step-panel="2" hidden>
-      <div class="booking-modal-grid">
-        <div class="form-panel">
-          <form class="login-form" id="bookingForm" novalidate>
-            <label>Name * <input type="text" name="name" id="bookingName" required autocomplete="name"></label>
-            <label>Email * <input type="email" name="email" id="bookingEmail" required autocomplete="email"></label>
-            <label>Phone Number *
-              <div class="phone-input">
-                <span class="phone-code">+91</span>
-                <input type="tel" name="phone" id="bookingPhone" required autocomplete="tel" placeholder="98765 43210">
-              </div>
-            </label>
-            <label>Gym Name <input type="text" name="gymName" id="bookingGymName" autocomplete="organization"></label>
-          </form>
-        </div>
-        <div class="booking-details-panel">
-          <h3>Booking Details</h3>
-          <p class="booking-summary-title">Online Demo</p>
-          <p class="selected-date-label" id="bookingSummaryDateTime"></p>
-          <span class="detail-pill">Available Online</span>
-          <div class="booking-summary-meta">
-            <p>Online Meetup (Google Meet)</p>
-            <p>Gymshim</p>
-            <p>1 hr</p>
-          </div>
-          <button class="details-toggle" id="detailsToggleBtn" type="button">
-            <span id="detailsToggleText">More details</span> <span class="chevron">&#9662;</span>
-          </button>
-          <div class="details-expand" id="detailsExpand">
-            <p>Duration: 30 minutes</p>
-            <p>Format: In-person at your gym, or video call</p>
-            <p>Free — no card required</p>
-          </div>
-          <p class="booking-agreement">By completing your booking, you agree to receive related phone notifications.</p>
-          <button class="btn-primary next-btn" id="submitBookingBtn" type="button">Book Now</button>
-        </div>
-      </div>
-      <div class="booking-step-actions">
-        <button class="btn-secondary single-action" id="backToStep1Btn" type="button">Back</button>
-      </div>
-    </div>
-    <div class="booking-success" id="bookingSuccess">
-      <div class="booking-success-icon">&#10003;</div>
-      <h3>You're booked!</h3>
-      <p id="bookingSuccessDetail">We'll see you then. A confirmation has been sent to your email.</p>
-    </div>
-  </div>
-</div>
+<div class="booking-modal-overlay" id="bookingModalOverlay" aria-hidden="true"><div class="booking-modal-box" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle"><button class="booking-modal-close" id="bookingModalClose" aria-label="Close">&times;</button><div class="booking-modal-head"><h2 id="bookingModalTitle">Book a Demo</h2><p id="bookingModalSubtitle">Choose a demo type to get started.</p></div><div class="booking-step-indicator"><span class="step-dot active" id="stepDot1">1</span><span class="step-label active" id="stepLabel1">Type</span><span class="step-line" id="stepLine1"></span><span class="step-dot" id="stepDot2">2</span><span class="step-label" id="stepLabel2">Location</span><span class="step-line" id="stepLine2"></span><span class="step-dot" id="stepDot3">3</span><span class="step-label" id="stepLabel3">Date &amp; Time</span><span class="step-line" id="stepLine3"></span><span class="step-dot" id="stepDot4">4</span><span class="step-label" id="stepLabel4">Details</span></div><div class="booking-step-panel" data-step-panel="1"><h3 class="demo-type-heading">Select Demo Type</h3><div class="demo-type-grid" id="demoTypeGrid"><button class="demo-type-card" data-demo-type="CRM Kiosk" type="button"><span class="demo-type-icon">&#x1F4CB;</span><span class="demo-type-name">CRM Kiosk</span><span class="demo-type-desc">Manage leads, members &amp; follow-ups</span></button><button class="demo-type-card" data-demo-type="Workout+ Kiosk" type="button"><span class="demo-type-icon">&#x1F4AA;</span><span class="demo-type-name">Workout+ Kiosk</span><span class="demo-type-desc">Smart workout tracking &amp; scheduling</span></button><button class="demo-type-card" data-demo-type="Sales Kiosk" type="button"><span class="demo-type-icon">&#x1F4B0;</span><span class="demo-type-name">Sales Kiosk</span><span class="demo-type-desc">Boost sales with interactive displays</span></button><button class="demo-type-card" data-demo-type="Advertisement" type="button"><span class="demo-type-icon">&#x1F4FA;</span><span class="demo-type-name">Advertisement</span><span class="demo-type-desc">Digital signage &amp; promotional content</span></button></div><div class="booking-step-actions"><button class="btn-primary next-btn single-action" id="toStep2FromType" type="button" disabled>Continue</button></div></div><div class="booking-step-panel" data-step-panel="2" hidden><div class="location-form"><label>State *<select name="state" id="bookingState" required><option value="" disabled selected>Select your state</option></select></label><label>City *<select name="city" id="bookingCity" required disabled><option value="" disabled selected>Select your city</option></select></label></div><div class="booking-step-actions"><button class="btn-secondary" id="backToStep1FromLocation" type="button">Back</button><button class="btn-primary next-btn" id="toStep3FromLocation" type="button" disabled>Continue</button></div></div><div class="booking-step-panel" data-step-panel="3" hidden><div class="booking-modal-grid"><div class="calendar-panel"><div class="calendar-nav"><button class="calendar-nav-btn" id="prevMonthBtn" type="button">&#8249;</button><span class="calendar-month-label" id="calendarMonthLabel"></span><button class="calendar-nav-btn" id="nextMonthBtn" type="button">&#8250;</button></div><div class="calendar-weekdays"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div><div class="calendar-grid" id="calendarGrid"></div></div><div class="details-panel"><h3>Selected</h3><p class="selected-date-label placeholder" id="selectedDateLabel">Choose a date to see open times</p><div class="time-slot-grid" id="timeSlotGrid"></div></div></div><div class="booking-step-actions"><button class="btn-secondary" id="backToStep2FromTime" type="button">Back</button><button class="btn-primary next-btn" id="toStep4FromTime" type="button" disabled>Continue</button></div></div><div class="booking-step-panel" data-step-panel="4" hidden><div class="booking-modal-grid"><div class="form-panel"><form class="login-form" id="bookingForm" novalidate><label>Name *<input type="text" name="name" id="bookingName" required></label><label>Email *<input type="email" name="email" id="bookingEmail" required></label><label>Phone Number *<div class="phone-input"><span class="phone-code">+91</span><input type="tel" name="phone" id="bookingPhone" required placeholder="98765 43210"></div></label><label>Gym Name<input type="text" name="gymName" id="bookingGymName"></label></form></div><div class="booking-details-panel"><h3>Booking Details</h3><p class="booking-summary-title" id="bookingSummaryType">Online Demo</p><p class="booking-summary-location" id="bookingSummaryLocation"></p><p class="selected-date-label" id="bookingSummaryDateTime"></p><span class="detail-pill" id="bookingSummaryPill">30 min</span><div class="booking-summary-meta"><p>Online Meetup (Google Meet)</p><p>Gymshim</p><p>30 minutes</p></div><button class="details-toggle" id="detailsToggleBtn" type="button"><span id="detailsToggleText">More details</span> <span class="chevron">&#9662;</span></button><div class="details-expand" id="detailsExpand"><p>Duration: 30 minutes</p><p>Format: In-person at your gym, or video call</p><p>Free - no card required</p></div><p class="booking-agreement">By completing your booking, you agree to receive related phone notifications.</p><button class="btn-primary next-btn" id="submitBookingBtn" type="button">Book Now</button></div></div><div class="booking-step-actions"><button class="btn-secondary single-action" id="backToStep3FromDetails" type="button">Back</button></div></div><div class="booking-success" id="bookingSuccess"><div class="booking-success-icon">&#10003;</div><h3>You are booked!</h3><p id="bookingSuccessDetail">We will see you then. A confirmation has been sent to your email.</p><a class="btn-primary google-calendar-link" id="googleCalendarLink" href="#" target="_blank" rel="noopener">&#x1F4C5; Add to Google Calendar</a></div></div></div>
 
-  <!-- Lenis (smooth scroll), GSAP + ScrollTrigger + MotionPathPlugin -->
-  <script src="https://unpkg.com/lenis@1.3.16/dist/lenis.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/MotionPathPlugin.min.js"></script>
-  <script src="gos.js"></script>
-  <script src="booking.js"></script>
+<script src="https://unpkg.com/lenis@1.3.16/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/MotionPathPlugin.min.js"></script>
+<script src="gos.js"></script>
+<script src="booking-locations.js"></script>
+<script src="booking.js"></script>
 </body>
 </html>
