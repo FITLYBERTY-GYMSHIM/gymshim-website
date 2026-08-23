@@ -291,6 +291,12 @@ align-self: center;
   width: 100%;
 }
 
+/* The base primary-button rule hides buttons on mobile for the nav.
+   Keep the hero CTA visible on the Business Booster landing screen. */
+.hero-actions .btn-primary {
+  display: inline-flex;
+}
+
 .btn-secondary {
   color: var(--text-primary);
   text-decoration: none;
