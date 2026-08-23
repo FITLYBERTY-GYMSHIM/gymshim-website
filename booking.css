@@ -1084,6 +1084,91 @@ body.booking-modal-locked {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* ── Mobile layout ── */
+@media (max-width: 600px) {
+  .booking-modal-overlay {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+  }
+
+  .booking-modal-box {
+    max-height: calc(100dvh - 24px);
+    margin: auto 0;
+    padding: 24px 18px 28px;
+    border-radius: 18px;
+  }
+
+  .booking-modal-close {
+    top: 10px;
+    right: 10px;
+  }
+
+  .booking-modal-head h2 {
+    font-size: 25px;
+    padding-right: 34px;
+  }
+
+  .booking-modal-head p {
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+
+  .booking-step-indicator {
+    gap: 6px;
+    margin-bottom: 24px;
+    padding: 10px 8px;
+  }
+
+  .step-label { display: none; }
+  .step-line { min-width: 0; }
+
+  .demo-type-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .booking-modal-grid {
+    gap: 24px;
+  }
+
+  .booking-step-actions {
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .booking-step-actions .btn-primary,
+  .booking-step-actions .btn-secondary {
+    flex: 1;
+    min-height: 46px;
+    padding-inline: 16px;
+  }
+
+  .booking-step-actions .single-action {
+    width: 100%;
+  }
+
+  .location-form select,
+  .login-form input,
+  .phone-input input {
+    font-size: 16px; /* prevents iOS from zooming the viewport on focus */
+  }
+
+  .calendar-grid button {
+    font-size: 12px;
+  }
+
+  .time-slot-grid button {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 360px) {
+  .booking-modal-box { padding-inline: 14px; }
+  .booking-step-indicator { padding-inline: 6px; }
+  .step-dot { width: 26px; height: 26px; }
+}
+
 /* ── Loading Spinner ── */
 .booking-loading-spinner {
   display: inline-block;

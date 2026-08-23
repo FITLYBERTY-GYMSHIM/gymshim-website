@@ -1299,7 +1299,7 @@ top:47px;
 
 
   </style>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=1787419124437">
   <link rel="stylesheet" href="booking.css">
   <link rel="stylesheet" href="theme-toggle.css">
   <script src="theme-toggle.js"></script>
@@ -1933,12 +1933,393 @@ top:47px;
 
 
     <!-- Booking MODAL -->
-  <div class="booking-modal-overlay" id="bookingModalOverlay" aria-hidden="true"><div class="booking-modal-box" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle"><button class="booking-modal-close" id="bookingModalClose" aria-label="Close">&times;</button><div class="booking-modal-head"><h2 id="bookingModalTitle">Book a Demo</h2><p id="bookingModalSubtitle">Choose a demo type to get started.</p></div><div class="booking-step-indicator"><span class="step-dot active" id="stepDot1">1</span><span class="step-label active" id="stepLabel1">Type</span><span class="step-line" id="stepLine1"></span><span class="step-dot" id="stepDot2">2</span><span class="step-label" id="stepLabel2">Location</span><span class="step-line" id="stepLine2"></span><span class="step-dot" id="stepDot3">3</span><span class="step-label" id="stepLabel3">Date &amp; Time</span><span class="step-line" id="stepLine3"></span><span class="step-dot" id="stepDot4">4</span><span class="step-label" id="stepLabel4">Details</span></div><div class="booking-step-panel" data-step-panel="1"><h3 class="demo-type-heading">Select Demo Type</h3><div class="demo-type-grid" id="demoTypeGrid"><button class="demo-type-card" data-demo-type="CRM Kiosk" type="button"><span class="demo-type-icon">&#x1F4CB;</span><span class="demo-type-name">CRM Kiosk</span><span class="demo-type-desc">Manage leads, members &amp; follow-ups</span></button><button class="demo-type-card" data-demo-type="Workout+ Kiosk" type="button"><span class="demo-type-icon">&#x1F4AA;</span><span class="demo-type-name">Workout+ Kiosk</span><span class="demo-type-desc">Smart workout tracking &amp; scheduling</span></button><button class="demo-type-card" data-demo-type="Sales Kiosk" type="button"><span class="demo-type-icon">&#x1F4B0;</span><span class="demo-type-name">Sales Kiosk</span><span class="demo-type-desc">Boost sales with interactive displays</span></button><button class="demo-type-card" data-demo-type="Advertisement" type="button"><span class="demo-type-icon">&#x1F4FA;</span><span class="demo-type-name">Advertisement</span><span class="demo-type-desc">Digital signage &amp; promotional content</span></button></div><div class="booking-step-actions"><button class="btn-primary next-btn single-action" id="toStep2FromType" type="button" disabled>Continue</button></div></div><div class="booking-step-panel" data-step-panel="2" hidden><div class="location-form"><label>State *<select name="state" id="bookingState" required><option value="" disabled selected>Select your state</option></select></label><label>City *<select name="city" id="bookingCity" required disabled><option value="" disabled selected>Select your city</option></select></label></div><div class="booking-step-actions"><button class="btn-secondary" id="backToStep1FromLocation" type="button">Back</button><button class="btn-primary next-btn" id="toStep3FromLocation" type="button" disabled>Continue</button></div></div><div class="booking-step-panel" data-step-panel="3" hidden><div class="booking-modal-grid"><div class="calendar-panel"><div class="calendar-nav"><button class="calendar-nav-btn" id="prevMonthBtn" type="button">&#8249;</button><span class="calendar-month-label" id="calendarMonthLabel"></span><button class="calendar-nav-btn" id="nextMonthBtn" type="button">&#8250;</button></div><div class="calendar-weekdays"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div><div class="calendar-grid" id="calendarGrid"></div></div><div class="details-panel"><h3>Selected</h3><p class="selected-date-label placeholder" id="selectedDateLabel">Choose a date to see open times</p><div class="time-slot-grid" id="timeSlotGrid"></div></div></div><div class="booking-step-actions"><button class="btn-secondary" id="backToStep2FromTime" type="button">Back</button><button class="btn-primary next-btn" id="toStep4FromTime" type="button" disabled>Continue</button></div></div><div class="booking-step-panel" data-step-panel="4" hidden><div class="booking-modal-grid"><div class="form-panel"><form class="login-form" id="bookingForm" novalidate><label>Name *<input type="text" name="name" id="bookingName" required></label><label>Email *<input type="email" name="email" id="bookingEmail" required></label><label>Phone Number *<div class="phone-input"><span class="phone-code">+91</span><input type="tel" name="phone" id="bookingPhone" required placeholder="98765 43210"></div></label><label>Gym Name<input type="text" name="gymName" id="bookingGymName"></label></form></div><div class="booking-details-panel"><h3>Booking Details</h3><p class="booking-summary-title" id="bookingSummaryType">Online Demo</p><p class="booking-summary-location" id="bookingSummaryLocation"></p><p class="selected-date-label" id="bookingSummaryDateTime"></p><span class="detail-pill" id="bookingSummaryPill">30 min</span><div class="booking-summary-meta"><p>Online Meetup (Google Meet)</p><p>Gymshim</p><p>30 minutes</p></div><button class="details-toggle" id="detailsToggleBtn" type="button"><span id="detailsToggleText">More details</span> <span class="chevron">&#9662;</span></button><div class="details-expand" id="detailsExpand"><p>Duration: 30 minutes</p><p>Format: In-person at your gym, or video call</p><p>Free - no card required</p></div><p class="booking-agreement">By completing your booking, you agree to receive related phone notifications.</p><button class="btn-primary next-btn" id="submitBookingBtn" type="button">Book Now</button></div></div><div class="booking-step-actions"><button class="btn-secondary single-action" id="backToStep3FromDetails" type="button">Back</button></div></div><div class="booking-success" id="bookingSuccess"><div class="booking-success-icon">&#10003;</div><h3>You are booked!</h3><p id="bookingSuccessDetail">We will see you then. A confirmation has been sent to your email.</p><a class="btn-primary google-calendar-link" id="googleCalendarLink" href="#" target="_blank" rel="noopener">&#x1F4C5; Add to Google Calendar</a></div></div></div>
+  <canvas id="confettiCanvas"></canvas>
+<div class="booking-particles" id="bookingParticles"></div>
 
+<div class="booking-modal-overlay" id="bookingModalOverlay" aria-hidden="true">
+  <div class="booking-modal-box" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
+    <button class="booking-modal-close" id="bookingModalClose" aria-label="Close">&times;</button>
+
+    <div class="booking-modal-glow" aria-hidden="true"></div>
+
+    <div class="booking-modal-head">
+      <h2 id="bookingModalTitle">Book a Demo</h2>
+      <p id="bookingModalSubtitle">Choose a demo type to get started.</p>
+    </div>
+
+    <div class="booking-step-indicator">
+      <span class="step-dot active" id="stepDot1">1</span>
+      <span class="step-label active" id="stepLabel1">Type</span>
+      <span class="step-line" id="stepLine1"></span>
+      <span class="step-dot" id="stepDot2">2</span>
+      <span class="step-label" id="stepLabel2">Location</span>
+      <span class="step-line" id="stepLine2"></span>
+      <span class="step-dot" id="stepDot3">3</span>
+      <span class="step-label" id="stepLabel3">Date &amp; Time</span>
+      <span class="step-line" id="stepLine3"></span>
+      <span class="step-dot" id="stepDot4">4</span>
+      <span class="step-label" id="stepLabel4">Details</span>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="booking-step-panel" data-step-panel="1">
+      <h3 class="demo-type-heading">Select Demo Type</h3>
+      <div class="demo-type-grid" id="demoTypeGrid">
+        <button class="demo-type-card" data-demo-type="CRM Kiosk" type="button">
+          <span class="demo-type-icon-wrap"><span class="demo-type-icon">📋</span></span>
+          <span class="demo-type-name">CRM Kiosk</span>
+          <span class="demo-type-desc">Manage leads, members &amp; follow-ups</span>
+        </button>
+        <button class="demo-type-card" data-demo-type="Workout+ Kiosk" type="button">
+          <span class="demo-type-icon-wrap"><span class="demo-type-icon">💪</span></span>
+          <span class="demo-type-name">Workout+ Kiosk</span>
+          <span class="demo-type-desc">Smart workout tracking &amp; scheduling</span>
+        </button>
+        <button class="demo-type-card" data-demo-type="Sales Kiosk" type="button">
+          <span class="demo-type-icon-wrap"><span class="demo-type-icon">💰</span></span>
+          <span class="demo-type-name">Sales Kiosk</span>
+          <span class="demo-type-desc">Boost sales with interactive displays</span>
+        </button>
+        <button class="demo-type-card" data-demo-type="Advertisement" type="button">
+          <span class="demo-type-icon-wrap"><span class="demo-type-icon">📺</span></span>
+          <span class="demo-type-name">Advertisement</span>
+          <span class="demo-type-desc">Digital signage &amp; promotional content</span>
+        </button>
+      </div>
+      <div class="booking-step-actions">
+        <button class="btn-primary next-btn single-action booking-continue-btn" id="toStep2FromType" type="button" disabled>
+          <span class="btn-text">Continue</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="booking-step-panel" data-step-panel="2" hidden>
+      <div class="location-form">
+        <label>State *
+          <select name="state" id="bookingState" required>
+            <option value="" disabled selected>Select your state</option>
+          </select>
+        </label>
+        <label>City *
+          <select name="city" id="bookingCity" required disabled>
+            <option value="" disabled selected>Select your city</option>
+          </select>
+        </label>
+      </div>
+      <div class="booking-step-actions">
+        <button class="btn-secondary booking-back-btn" id="backToStep1FromLocation" type="button">
+          <span class="btn-arrow">←</span> Back
+        </button>
+        <button class="btn-primary next-btn booking-continue-btn" id="toStep3FromLocation" type="button" disabled>
+          <span class="btn-text">Continue</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="booking-step-panel" data-step-panel="3" hidden>
+      <div class="booking-modal-grid">
+        <div class="calendar-panel">
+          <div class="calendar-nav">
+            <button class="calendar-nav-btn" id="prevMonthBtn" type="button" aria-label="Previous month">&#8249;</button>
+            <span class="calendar-month-label" id="calendarMonthLabel"></span>
+            <button class="calendar-nav-btn" id="nextMonthBtn" type="button" aria-label="Next month">&#8250;</button>
+          </div>
+          <div class="calendar-weekdays">
+            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+        <div class="details-panel">
+          <h3>Selected</h3>
+          <p class="selected-date-label placeholder" id="selectedDateLabel">Choose a date to see open times</p>
+          <div class="time-slot-grid" id="timeSlotGrid"></div>
+        </div>
+      </div>
+      <div class="booking-step-actions">
+        <button class="btn-secondary booking-back-btn" id="backToStep2FromTime" type="button">
+          <span class="btn-arrow">←</span> Back
+        </button>
+        <button class="btn-primary next-btn booking-continue-btn" id="toStep4FromTime" type="button" disabled>
+          <span class="btn-text">Continue</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="booking-step-panel" data-step-panel="4" hidden>
+      <div class="booking-modal-grid">
+        <div class="form-panel">
+          <form class="login-form" id="bookingForm" novalidate>
+            <label>Name *
+              <input type="text" name="name" id="bookingName" required autocomplete="name" placeholder="John Doe">
+              <span class="field-error" id="nameError"></span>
+            </label>
+            <label>Email *
+              <input type="email" name="email" id="bookingEmail" required autocomplete="email" placeholder="john@example.com">
+              <span class="field-error" id="emailError"></span>
+            </label>
+            <label>Phone Number *
+              <div class="phone-input">
+                <span class="phone-code">+91</span>
+                <input type="tel" name="phone" id="bookingPhone" required autocomplete="tel" placeholder="98765 43210" maxlength="10">
+              </div>
+              <span class="field-error" id="phoneError"></span>
+            </label>
+            <label>Gym Name
+              <input type="text" name="gymName" id="bookingGymName" autocomplete="organization" placeholder="Your gym name (optional)">
+            </label>
+          </form>
+        </div>
+        <div class="booking-details-panel">
+          <h3>Booking Details</h3>
+          <p class="booking-summary-title" id="bookingSummaryType">Online Demo</p>
+          <p class="booking-summary-location" id="bookingSummaryLocation"></p>
+          <p class="selected-date-label" id="bookingSummaryDateTime"></p>
+          <span class="detail-pill" id="bookingSummaryPill">30 min</span>
+          <div class="booking-summary-meta">
+            <p>Online Meetup (Google Meet)</p>
+            <p>Gymshim</p>
+            <p>30 minutes</p>
+          </div>
+          <button class="details-toggle" id="detailsToggleBtn" type="button">
+            <span id="detailsToggleText">More details</span> <span class="chevron">&#9662;</span>
+          </button>
+          <div class="details-expand" id="detailsExpand">
+            <p>Duration: 30 minutes</p>
+            <p>Format: In-person at your gym, or video call</p>
+            <p>Free — no card required</p>
+          </div>
+          <p class="booking-agreement">By completing your booking, you agree to receive related phone notifications.</p>
+          <button class="btn-primary next-btn booking-submit-btn" id="submitBookingBtn" type="button">
+            <span class="btn-text">Book Now</span>
+            <span class="btn-spinner" id="submitSpinner"></span>
+          </button>
+        </div>
+      </div>
+      <div class="booking-step-actions">
+        <button class="btn-secondary single-action booking-back-btn" id="backToStep3FromDetails" type="button">
+          <span class="btn-arrow">←</span> Back
+        </button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="booking-success" id="bookingSuccess">
+      <div class="booking-success-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3>You're booked! 🎉</h3>
+      <p id="bookingSuccessDetail">We'll see you then. A confirmation has been sent to your email.</p>
+      <a class="btn-primary google-calendar-link booking-calendar-btn" id="googleCalendarLink" href="#" target="_blank" rel="noopener">
+        <span>📅 Add to Google Calendar</span>
+      </a>
+    </div>
+
+  </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+    
+    /* Scroll reveal */
+    (() => {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.reveal-up').forEach((el) => io.observe(el));
+    })();
+
+    /* Hero 3D parallax tilt */
+    (() => {
+      const visual = document.getElementById('dmHeroVisual');
+      const inner = document.getElementById('dmHeroVisualInner');
+      if (!visual || !inner) return;
+      visual.addEventListener('mousemove', (e) => {
+        const rect = visual.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        inner.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+      });
+      visual.addEventListener('mouseleave', () => { inner.style.transform = 'rotateY(0) rotateX(0)'; });
+    })();
+
+    /* Stat counter */
+    (() => {
+      const statEl = document.getElementById('dmStatNum');
+      if (!statEl) return;
+      let done = false;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !done) {
+            done = true;
+            const target = 444;
+            let current = 0;
+            const step = () => {
+              current += Math.max(1, Math.round((target - current) / 8));
+              if (current >= target) current = target;
+              statEl.textContent = current;
+              if (current < target) requestAnimationFrame(step);
+            };
+            step();
+          }
+        });
+      }, { threshold: 0.5 });
+      io.observe(statEl);
+    })();
+
+    /* Gallery lightbox */
+    (() => {
+      const lightbox = document.getElementById('dmLightbox');
+      const lightboxImg = document.getElementById('dmLightboxImg');
+      const closeBtn = document.getElementById('dmLightboxClose');
+      if (!lightbox || !lightboxImg) return;
+      function open(src, alt) {
+        lightboxImg.src = src; lightboxImg.alt = alt || '';
+        lightbox.classList.add('open'); lightbox.setAttribute('aria-hidden', 'false');
+      }
+      function close() { lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden', 'true'); }
+      document.querySelectorAll('.dm-gallery-item').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const full = btn.dataset.full || btn.querySelector('img').src;
+          open(full, btn.querySelector('img').alt);
+        });
+      });
+      closeBtn.addEventListener('click', close);
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    })();
+
+    /* Competitive Advantages: scroll reveal */
+    (() => {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+        });
+      }, { threshold: .18 });
+      document.querySelectorAll('#caHeading, .ca-card, #caStatsGrid').forEach(el => io.observe(el));
+    })();
+
+    /* Competitive Advantages: counter animation */
+    (() => {
+      const counters = document.querySelectorAll('.ca-counter');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          if (el.dataset.done) return;
+          el.dataset.done = '1';
+          const target = parseFloat(el.dataset.target);
+          const suffix = el.dataset.suffix || '';
+          const dur = 1400;
+          const start = performance.now();
+          function step(now){
+            const p = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            const val = Math.round(target * eased);
+            el.textContent = val + suffix;
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+          io.unobserve(el);
+        });
+      }, { threshold: .6 });
+      counters.forEach(el => io.observe(el));
+    })();
+
+    /* Competitive Advantages: parallax tilt on the visual */
+    (() => {
+      const visual = document.getElementById('caVisual');
+      const holder = document.getElementById('caFigureHolder');
+      if (!visual || !holder) return;
+      visual.addEventListener('mousemove', (e) => {
+        const rect = visual.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        if (window.gsap) {
+          gsap.to(holder, { x: x * 14, y: y * 8, rotateZ: x * 1.6, duration: .7, ease: 'power3.out' });
+        } else {
+          holder.style.transform = `translate(${x * 14}px, ${y * 8}px)`;
+        }
+      });
+      visual.addEventListener('mouseleave', () => {
+        if (window.gsap) gsap.to(holder, { x: 0, y: 0, rotateZ: 0, duration: .7, ease: 'power3.out' });
+        else holder.style.transform = 'translate(0,0)';
+      });
+    })();
+
+    /* Competitive Advantages: animated ecosystem connector (jogged, like a wiring diagram) */
+    (() => {
+      const svg = document.getElementById('caConnector');
+      const cardsBox = document.getElementById('caCards');
+      if (!svg || !cardsBox) return;
+
+      function build() {
+        svg.innerHTML = '';
+        const boxRect = cardsBox.parentElement.getBoundingClientRect();
+        svg.setAttribute('viewBox', `0 0 ${boxRect.width} ${boxRect.height}`);
+
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+      defs.innerHTML = `<linearGradient id="caLineGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2563ff" stop-opacity=".15"/>
+      <stop offset="50%" stop-color="#5b8bff" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#2563ff" stop-opacity=".15"/>
+    </linearGradient>`;
+        svg.appendChild(defs);
+
+        const icons = cardsBox.querySelectorAll('.ca-card-icon');
+        const jog = [0, -26, 10, -18];
+        const baseX = 6;
+        let prev = null;
+
+        icons.forEach((icon, i) => {
+          const r = icon.getBoundingClientRect();
+          const cy = r.top + r.height / 2 - boxRect.top;
+          const cx = baseX + (jog[i] || 0);
+
+          if (prev) {
+            const midY = (prev.y + cy) / 2;
+            const d = `M ${prev.x} ${prev.y} C ${prev.x} ${midY}, ${cx} ${midY}, ${cx} ${cy}`;
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', d);
+            svg.appendChild(path);
+            const flow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            flow.setAttribute('d', d);
+            flow.setAttribute('class', 'ca-flow');
+            svg.appendChild(flow);
+          }
+
+          const iconLeft = r.left - boxRect.left;
+          const branch = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          branch.setAttribute('d', `M ${cx} ${cy} L ${iconLeft - 14} ${cy}`);
+          svg.appendChild(branch);
+
+          const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          dot.setAttribute('cx', cx);
+          dot.setAttribute('cy', cy);
+          dot.setAttribute('r', 3.4);
+          dot.setAttribute('class', 'ca-node-dot');
+          svg.appendChild(dot);
+
+          prev = { x: cx, y: cy };
+        });
+      }
+
+      build();
+      window.addEventListener('resize', () => requestAnimationFrame(build));
+    })();
+
+    </script>
     <script src="booking-locations.js"></script>
-    <script src="./booking.js"></script>
-</body>
+<script src="./booking.js"></script>
+
+
+    </body>
 
   </html>
