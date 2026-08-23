@@ -291,12 +291,6 @@ align-self: center;
   width: 100%;
 }
 
-/* The base primary-button rule hides buttons on mobile for the nav.
-   Keep the hero CTA visible on the Business Booster landing screen. */
-.hero-actions .btn-primary {
-  display: inline-flex;
-}
-
 .btn-secondary {
   color: var(--text-primary);
   text-decoration: none;
@@ -637,10 +631,10 @@ align-self: center;
 }
 
 .marquee-track img {
-  height: 90px;
+  height: 40px;
   width: auto;
-  opacity: 1;
-  filter: none;
+  opacity: 0.6;
+  filter: grayscale(100%);
   transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
@@ -975,29 +969,25 @@ align-self: center;
 }
 
 /* Mobile */
-@media (max-width: 767px) {
+@media (max-width: 767px) { 
+ .hero-logo-overlay {
+  width: 100vw;
+  margin-top: -85px;
+  transform: translateX(-50%) scale(1.1);
+}
 
-  .hero-logo-overlay{
-    /* left: 100%; */
-    width: 200vw;
-    /* max-width: 700px; */
+.hero-logo-overlay.visible {
+  transform: translateX(-50%) scale(1.1);
+}
+ 
+  .logo-img { 
+    height: 25px; 
+    width: auto; 
+  } 
 
-    margin-top: -70px;
-
-    transform: translateX(-50%) scale(0.65);
-    transform-origin: center;
+  .hero-actions .btn-primary {
+    display: inline-block;
   }
-
-  .hero-logo-overlay.visible{
-    transform: translateX(-50%) scale(0.65);
-  }
-
-  .logo-img{
-    height: 25px;
-    width:auto;
-  }
-
-
 
 }
 
@@ -2108,23 +2098,22 @@ body.services-modal-locked {
 }
 
 .kiosk-stand{
-  width: 40px;
-  height: 55px;
+  width: 10px;
+  height: 46px;
   margin: 0 auto;
-  background: linear-gradient(180deg, #3a3d44, #1a1d22);
-  border-radius: 0 0 10px 10px;
-  box-shadow: 4px 6px 20px rgba(0,0,0,0.7);
+  background: linear-gradient(180deg, #1a1d24, #0b0d11);
+  border-radius: 0 0 4px 4px;
 }
 
 .kiosk-base{
-  width: 240px;
-  height: 26px;
+  width: 130px;
+  height: 14px;
   margin: 0 auto;
   border-radius: 999px;
   background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
-  opacity: 1;
+  opacity: 0.85;
   filter: blur(1px);
-  box-shadow: 0 0 48px 10px var(--accent-1);
+  box-shadow: 0 0 24px 4px var(--accent-1);
 }
 
 /* ---- Responsive ---- */
@@ -2182,10 +2171,25 @@ body.services-modal-locked {
 /* The device showcase and solution content live inside this single
    parent section, so the background cannot break between them. */
 section.gos-section#showcase {
-  background: #0c0508 !important;
+  background-color: #0c0508 !important;
+  background-image: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(210, 4, 45, 0.28), transparent 62%) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  background-position: center center !important;
 }
 section.gos-section#showcase .showcase-glow {
   background: radial-gradient(circle, rgba(210, 4, 45, 0.45), rgba(210, 4, 45, 0.12) 45%, transparent 70%) !important;
+}
+
+/* Fallback for browsers/contexts where a fixed background inside a
+   transformed/perspective ancestor (.showcase-pin has perspective)
+   doesn't render as fixed — Chrome and Firefox both handle this fine
+   in practice, but if it ever doesn't, both sections still share the
+   identical flat #0c0508 base color so there's no color jump either way. */
+@supports not (background-attachment: fixed) {
+  section.gos-section#showcase {
+    background-attachment: scroll !important;
+  }
 }
 
 /* GSAP ScrollTrigger's pin-spacer for .launch-showcase can leave a
