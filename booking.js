@@ -850,6 +850,18 @@
      ══════════════════════════════════════════════════════════════ */
 
   function openModal() {
+    /* iOS-Safari-safe scroll lock: plain overflow:hidden on body does not
+       reliably block background scroll on iOS, and can fail to restore the
+       scroll position afterward. Pin body with position:fixed instead and
+       remember the offset so we can put it back exactly on close. */
+    var scrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.dataset.scrollLockY = String(scrollY);
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + scrollY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+
     /* Stop Lenis smooth scroll from hijacking wheel events */
     if (window.lenis) { try { window.lenis.stop(); } catch(e) {} }
     /* Add lenis-prevent attribute for good measure */
@@ -864,23 +876,33 @@ function closeModal() {
       destroyThree();
       resetModal();
 
-      /* Fully restore page scrolling */
+      /* Fully restore page scrolling — undo the position:fixed lock and
+         jump back to the exact scroll offset we were at before opening. */
       document.body.classList.remove('booking-modal-locked');
       document.documentElement.classList.remove('lenis-stopped');
+
+      var lockedY = parseInt(document.body.dataset.scrollLockY || '0', 10);
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      delete document.body.dataset.scrollLockY;
 
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
 
-      /* Let the reflow from removing overflow:hidden settle (scrollbar
-         reappearing shifts layout) BEFORE waking Lenis back up, otherwise
-         Lenis resumes from a stale internal scroll position/target that no
+      window.scrollTo(0, lockedY);
+
+      /* Let the reflow settle BEFORE waking Lenis back up, otherwise Lenis
+         resumes from a stale internal scroll position/target that no
          longer matches the real DOM and swallows the next scroll input. */
       requestAnimationFrame(function () {
         if (window.lenis) {
           try {
             window.lenis.resize();          // re-measure content height
             window.lenis.start();
-            window.lenis.scrollTo(window.scrollY, { immediate: true }); // resync internal target to real position
+            window.lenis.scrollTo(lockedY, { immediate: true }); // resync internal target to real position
           } catch (e) {}
         }
         if (window.ScrollTrigger) {
