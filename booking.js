@@ -561,7 +561,7 @@
   function isSameDay(a, b) { return !!a && !!b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
   function maxBookableDate() { return startOfDay(addDays(new Date(), MAX_DAYS_AHEAD)); }
   function formatTime(date) { var h = date.getHours(), m = String(date.getMinutes()).padStart(2, '0'), ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return h + ':' + m + ' ' + ap; }
-  function formatDateLong(date) { return date.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }); }
+  function formatDateLong(date) { if (!date) return ''; return date.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }); }
   function timeKeyToDate(midnight, key) { var p = key.split(':').map(Number), d = new Date(midnight); d.setHours(p[0], p[1], 0, 0); return d; }
 
   /* ══════════════════════════════════════════════════════════════
@@ -606,13 +606,17 @@
 
     updateStepIndicator(step);
 
-    var sub = {
-      1: 'Choose a demo type to get started.',
-      2: (selectedDemoType ? selectedDemoType + DASH : '') + 'Select your location.',
-      3: 'Pick a date and time that works for you.',
-      4: formatDateLong(selectedDate) + ' at ' + formatTime(timeKeyToDate(selectedDate, selectedTime)) + DASH + 'just need a few details.'
-    };
-    subtitle.textContent = sub[step] || '';
+    var sub;
+    if (step === 4) {
+      sub = formatDateLong(selectedDate) + ' at ' + formatTime(timeKeyToDate(selectedDate, selectedTime)) + DASH + 'just need a few details.';
+    } else {
+      sub = {
+        1: 'Choose a demo type to get started.',
+        2: (selectedDemoType ? selectedDemoType + DASH : '') + 'Select your location.',
+        3: 'Pick a date and time that works for you.'
+      }[step] || '';
+    }
+    subtitle.textContent = sub;
 
     if (step === 4 && selectedDate && selectedTime) {
       var se = document.getElementById('bookingSummaryDateTime');
@@ -855,14 +859,36 @@
     document.addEventListener('keydown', onKeydown);
   }
 
-  function closeModal() {
+function closeModal() {
     animateModalClose(function () {
       destroyThree();
       resetModal();
-      /* Restart Lenis after modal closes */
-      if (window.lenis) { try { window.lenis.start(); } catch(e) {} }
+
+      /* Fully restore page scrolling */
+      document.body.classList.remove('booking-modal-locked');
+      document.documentElement.classList.remove('lenis-stopped');
+
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+
+      /* Let the reflow from removing overflow:hidden settle (scrollbar
+         reappearing shifts layout) BEFORE waking Lenis back up, otherwise
+         Lenis resumes from a stale internal scroll position/target that no
+         longer matches the real DOM and swallows the next scroll input. */
+      requestAnimationFrame(function () {
+        if (window.lenis) {
+          try {
+            window.lenis.resize();          // re-measure content height
+            window.lenis.start();
+            window.lenis.scrollTo(window.scrollY, { immediate: true }); // resync internal target to real position
+          } catch (e) {}
+        }
+        if (window.ScrollTrigger) {
+          try { window.ScrollTrigger.refresh(); } catch (e) {}
+        }
+      });
     });
-  }
+}
 
   function resetModal() {
     currentStep = 1;
