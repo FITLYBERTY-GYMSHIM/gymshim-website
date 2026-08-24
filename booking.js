@@ -1043,4 +1043,4 @@ function closeModal() {
   updateContinueState3();
 })();
 
-var BOOKING_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-BnUgmJn-FvX8FLunnPnQF1bQq8nixXRBn6ofihUPYvZa-M-hghmvb2EbGksW-xtJ/exec';
+var BOOKING_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-BnUgmJn-FvX8FLunnPnQF1bQq8nixXRBn6ofihUPYvZa-M-hghmvb2EbGksW-xtJ/exec';  

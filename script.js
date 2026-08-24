@@ -178,6 +178,12 @@
     });
   });
 
+  document.querySelectorAll('.team-grid').forEach(grid => {
+    [...grid.children].forEach((card, i) => {
+      card.style.setProperty('--reveal-delay', `${i * 0.08}s`);
+    });
+  });
+
   document.querySelectorAll('.steps').forEach(stepsGrid => {
     [...stepsGrid.children].forEach((step, i) => {
       step.style.setProperty('--reveal-delay', `${i * 0.1}s`);
@@ -319,6 +325,61 @@ document.querySelectorAll('.skx-tilt').forEach(card => {
   });
 });
 
+// ================================================================
+// "Our Team" section — GSAP entrance + 3D tilt on the circular photos
+// ================================================================
+document.querySelectorAll('.team-card').forEach((card, i) => {
+  const wrap = card.querySelector('.team-photo-wrap');
+  if (!wrap) return;
+
+  wrap.addEventListener('mousemove', (e) => {
+    const rect = wrap.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty('--ry', `${px * 22}deg`);
+    card.style.setProperty('--rx', `${-py * 22}deg`);
+  });
+
+  wrap.addEventListener('mouseleave', () => {
+    card.style.setProperty('--rx', '0deg');
+    card.style.setProperty('--ry', '0deg');
+  });
+});
+
+if (window.gsap && window.ScrollTrigger) {
+  gsap.utils.toArray('.team-card').forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 50, scale: 0.75, rotate: (i % 2 === 0 ? -6 : 6), filter: 'blur(8px)' });
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 90%',
+      once: true,
+      onEnter: () => {
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotate: 0,
+          filter: 'blur(0px)',
+          duration: 0.85,
+          delay: (i % 5) * 0.1,
+          ease: 'back.out(1.6)'
+        });
+      }
+    });
+  });
+
+  const teamTag = document.querySelector('.team .hero-tag');
+  if (teamTag) {
+    gsap.set(teamTag, { opacity: 0, y: -16 });
+    ScrollTrigger.create({
+      trigger: '.team',
+      start: 'top 85%',
+      once: true,
+      onEnter: () => gsap.to(teamTag, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+    });
+  }
+}
+
 if (window.gsap && window.ScrollTrigger) {
   gsap.utils.toArray('.skx-feature-card').forEach((el, i) => {
     gsap.set(el, { opacity: 0, y: 34, filter: 'blur(6px)' });
@@ -419,3 +480,54 @@ fetch('services-mega.html')
 //         start:"top 80%"
 //     }
 // });
+
+
+
+// testimonial 
+
+/* ============================================================
+   TESTIMONIAL VIDEO SWITCHER
+   ============================================================ */
+
+const testimonialThumbs =
+    document.querySelectorAll(".testimonial-thumb");
+
+const testimonialMainVideo =
+    document.getElementById("testimonialMainVideo");
+
+
+testimonialThumbs.forEach((thumb) => {
+
+    thumb.addEventListener("click", () => {
+
+        const videoSrc =
+            thumb.getAttribute("data-video");
+
+
+        /* Active thumbnail */
+
+        testimonialThumbs.forEach(item => {
+            item.classList.remove("active");
+            const icon = item.querySelector(".testimonial-play");
+            if (icon) icon.textContent = "▶";
+        });
+
+        thumb.classList.add("active");
+
+        const activeIcon = thumb.querySelector(".testimonial-play");
+        if (activeIcon) activeIcon.textContent = "⏸";
+
+
+        /* Change main video */
+
+        testimonialMainVideo.pause();
+
+        testimonialMainVideo.src = videoSrc;
+
+        testimonialMainVideo.load();
+
+        testimonialMainVideo.play().catch(() => {});
+
+    });
+
+});
