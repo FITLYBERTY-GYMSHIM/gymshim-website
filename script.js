@@ -111,6 +111,7 @@
   });
   // ...............................................................................
   const heroSection = document.querySelector('.hero');
+  let heroAutoMuted = false; // tracks whether WE muted it (vs the user's own toggle)
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
@@ -121,6 +122,28 @@
     heroSection.style.opacity = 1 - progress;
     heroSection.style.transform = `scale(${1 - progress * 0.1}) translateY(${progress * 40}px)`;
   });
+
+  // Auto-mute the hero video the moment it's fully scrolled out of view
+  // (i.e. you've reached the 2nd section) — works the same on desktop
+  // and mobile since it's based on actual visibility, not scroll math.
+  const heroMuteObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        if (!heroVideo.muted) {
+          heroVideo.muted = true;
+          heroAutoMuted = true;
+          soundToggle.textContent = '🔇';
+        }
+      } else if (heroAutoMuted) {
+        // Scrolled back up to the hero — restore the sound we auto-muted
+        heroVideo.muted = false;
+        heroAutoMuted = false;
+        soundToggle.textContent = '🔊';
+      }
+    });
+  }, { threshold: 0 });
+
+  heroMuteObserver.observe(heroSection);
 
 
   // Plans section — fade/scale out as it exits, same feel as hero
@@ -490,14 +513,37 @@ fetch('services-mega.html')
    ============================================================ */
 
 (() => {
+  const slider = document.querySelector('.testimonial-mobile-slider');
   const track = document.querySelector('.testimonial-slide-track');
-  if (!track) return;
+  if (!slider || !track) return;
 
   const slides = [...track.querySelectorAll('.testimonial-slide')];
   const dots = [...document.querySelectorAll('.testimonial-dots .testimonial-dot')];
   const videos = slides.map(s => s.querySelector('video'));
 
-  // Play only the slide in view, pause the rest — saves bandwidth/battery
+  let activeIndex = 0;
+  let sectionInView = false;
+
+  function tryPlayWithSound(video) {
+    video.muted = false;
+    const p = video.play();
+    if (p !== undefined) {
+      p.catch(() => {
+        // Browser blocked unmuted autoplay — fall back to muted so it
+        // still plays; the video's own controls let the user unmute.
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
+  }
+
+  function stopVideo(video) {
+    video.pause();
+    video.muted = true;
+    video.currentTime = 0;
+  }
+
+  // Which slide is centered as the user swipes left/right
   const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const i = slides.indexOf(entry.target);
@@ -506,15 +552,32 @@ fetch('services-mega.html')
       if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
         dots.forEach(d => d.classList.remove('active'));
         if (dots[i]) dots[i].classList.add('active');
+        activeIndex = i;
 
-        videos[i].play().catch(() => {});
+        if (sectionInView) tryPlayWithSound(videos[i]);
       } else {
-        videos[i].pause();
+        stopVideo(videos[i]);
       }
     });
   }, { root: track, threshold: [0, 0.6, 1] });
 
   slides.forEach(slide => slideObserver.observe(slide));
+
+  // Section-level: start sound when this slider scrolls into view,
+  // turn it off automatically when the user scrolls to another section
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+        sectionInView = true;
+        tryPlayWithSound(videos[activeIndex]);
+      } else {
+        sectionInView = false;
+        videos.forEach(stopVideo);
+      }
+    });
+  }, { threshold: [0, 0.4] });
+
+  sectionObserver.observe(slider);
 
   // Tapping a dot scrolls to that slide
   dots.forEach((dot, i) => {
