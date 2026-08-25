@@ -486,6 +486,46 @@ fetch('services-mega.html')
 // testimonial 
 
 /* ============================================================
+   TESTIMONIAL — MOBILE SWIPE SLIDER
+   ============================================================ */
+
+(() => {
+  const track = document.querySelector('.testimonial-slide-track');
+  if (!track) return;
+
+  const slides = [...track.querySelectorAll('.testimonial-slide')];
+  const dots = [...document.querySelectorAll('.testimonial-dots .testimonial-dot')];
+  const videos = slides.map(s => s.querySelector('video'));
+
+  // Play only the slide in view, pause the rest — saves bandwidth/battery
+  const slideObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const i = slides.indexOf(entry.target);
+      if (i === -1) return;
+
+      if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+        dots.forEach(d => d.classList.remove('active'));
+        if (dots[i]) dots[i].classList.add('active');
+
+        videos[i].play().catch(() => {});
+      } else {
+        videos[i].pause();
+      }
+    });
+  }, { root: track, threshold: [0, 0.6, 1] });
+
+  slides.forEach(slide => slideObserver.observe(slide));
+
+  // Tapping a dot scrolls to that slide
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      slides[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    });
+  });
+})();
+
+
+/* ============================================================
    TESTIMONIAL VIDEO SWITCHER
    ============================================================ */
 
