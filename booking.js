@@ -57,7 +57,7 @@
 
   /* ── Constants ── */
   var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var MAX_DAYS_AHEAD = 60, SLOT_START_HOUR = 9, SLOT_END_HOUR = 18, SLOT_INTERVAL_MIN = 30, MIN_LEAD_MIN = 30, DEMO_DURATION_MIN = 30;
+  var MAX_DAYS_AHEAD = 60, SLOT_START_HOUR = 10, SLOT_END_HOUR = 20, SLOT_INTERVAL_MIN = 30, MIN_LEAD_MIN = 30, DEMO_DURATION_MIN = 30;
 
   /* ── State ── */
   var currentStep = 1, selectedDemoType = null, selectedState = null, selectedCity = null;
@@ -728,6 +728,7 @@
     var now = new Date(), itd = isSameDay(selectedDate, now), slots = [];
     for (var h = SLOT_START_HOUR; h < SLOT_END_HOUR; h++) {
       for (var m = 0; m < 60; m += SLOT_INTERVAL_MIN) {
+        if (h === SLOT_END_HOUR - 1 && m > 0) break;
         var sd = new Date(selectedDate);
         sd.setHours(h, m, 0, 0);
         if (itd && (sd - now) / 60000 < MIN_LEAD_MIN) continue;
@@ -1043,4 +1044,4 @@ function closeModal() {
   updateContinueState3();
 })();
 
-var BOOKING_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-BnUgmJn-FvX8FLunnPnQF1bQq8nixXRBn6ofihUPYvZa-M-hghmvb2EbGksW-xtJ/exec';  
+var BOOKING_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHtyoBO-KgtiB8dOQqJCT9J8m_CP0XpQAqUikJ5Ddqjr22Ud5mwpE9CNtaNWncrX_0/exec';  

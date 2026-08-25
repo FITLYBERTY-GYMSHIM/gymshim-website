@@ -94,3 +94,112 @@
   text-align: center;
   box-sizing: border-box;
 }
+
+/* ------------------------------------------------------------ */
+/* Location map */
+.contact-map-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-md) var(--space-xl);
+}
+.contact-map-inner {
+  padding: var(--space-lg);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+@media (min-width: 900px) {
+  .contact-map-inner { grid-template-columns: 1fr 1.4fr; align-items: stretch; }
+}
+
+.contact-map-info { display: flex; flex-direction: column; }
+.contact-map-info h2 { color: var(--text-primary); margin: 0 0 var(--space-xs); }
+.contact-map-address {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 var(--space-md);
+}
+.contact-map-directions {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 10px 20px;
+}
+
+.contact-map-embed {
+  width: 100%;
+  min-height: 280px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.contact-map-embed iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  display: block;
+}
+@media (min-width: 900px) {
+  .contact-map-embed { min-height: 340px; }
+  .contact-map-embed iframe { min-height: 340px; }
+}
+
+/* ------------------------------------------------------------ */
+/* Mobile refinements (<900px) */
+@media (max-width: 899px) {
+  html { overflow-x: hidden; }
+
+  /* Hero — desktop's 160px top padding is excessive once the nav
+     collapses on mobile; tighten the whole block. */
+  .contact-hero {
+    padding: 96px var(--space-md) var(--space-md);
+  }
+  .contact-hero h1 { font-size: clamp(26px, 7vw, 32px); }
+  .contact-hero p { font-size: 15px; }
+
+  /* Form + info grid */
+  .contact-wrap {
+    padding: 0 var(--space-sm) var(--space-lg);
+    gap: var(--space-xl);
+  }
+  .contact-form-panel {
+    padding: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+  .contact-info-panel { gap: var(--space-sm); }
+  .contact-info-card { padding: var(--space-md); }
+
+  /* Submit button gets a full-width, thumb-friendly tap target */
+  #contactSubmitBtn { width: 100%; }
+
+  /* Map card */
+  .contact-map-section { padding: 0 var(--space-sm) var(--space-lg); }
+  .contact-map-inner {
+    padding: var(--space-md);
+    gap: var(--space-md);
+  }
+  .contact-map-info h2 { font-size: 20px; }
+
+  /* Taller map on small screens so panning/zooming with a thumb
+     is actually usable, and the address panel sits above it. */
+  .contact-map-embed,
+  .contact-map-embed iframe {
+    min-height: 260px;
+  }
+
+  /* Match the full-width CTA pattern used elsewhere on mobile
+     (contact-book-btn, contactSubmitBtn) for consistent, easy-to-tap
+     buttons instead of a small inline link. */
+  .contact-map-directions {
+    width: 100%;
+    text-align: center;
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 420px) {
+  .contact-hero { padding-top: 84px; }
+  .contact-form-panel,
+  .contact-info-card,
+  .contact-map-inner { padding: var(--space-sm); }
+}

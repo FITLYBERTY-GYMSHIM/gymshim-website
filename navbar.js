@@ -28,7 +28,7 @@
          Products &amp; Services <span class="nav-dropdown-caret">&#9662;</span>
         </button>
       </div>
-      <a href="about.html">About Us</a>
+    
       <a href="contact.html">Contact</a>
     </nav>
 

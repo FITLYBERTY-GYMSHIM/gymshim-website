@@ -12,7 +12,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
 
 // Contact form submit — sends to Google Sheets
-const CONTACT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzk7IOqYCAUyG3ocaE8lBJxfgzNGT6I_fUA9VlK1ksJJx1Noqu3tQ7XdUOHBSl5FkSe/exec";
+const CONTACT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHtyoBO-KgtiB8dOQqJCT9J8m_CP0XpQAqUikJ5Ddqjr22Ud5mwpE9CNtaNWncrX_0/exec";
 
 const contactForm = document.getElementById('contactForm');
 const contactSuccess = document.getElementById('contactSuccess');
