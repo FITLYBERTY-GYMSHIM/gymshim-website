@@ -353,6 +353,7 @@ function closeLightbox() {
 document.getElementById('skxLightboxClose')?.addEventListener('click', closeLightbox);
 document.getElementById('skxLightboxBackdrop')?.addEventListener('click', closeLightbox);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+/* Close lightbox when Book a Demo is clicked */lightbox?.querySelectorAll('a[href="booking.html"]').forEach(a => {  a.addEventListener('click', () => { closeLightbox(); });});
 
 /* ================================================================
    CTA form (front-end only — swap for a real endpoint later)

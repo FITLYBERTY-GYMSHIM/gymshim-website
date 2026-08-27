@@ -606,6 +606,7 @@ section.skx-band { padding: 148px var(--space-md, 24px); }
 }
 .skx-feature-card:hover { border-color: rgba(58,160,255,0.45); box-shadow: var(--skx-glow-blue); transform: translateY(-6px); }
 .skx-feature-icon {
+  .skx-feature-icon svg { width: 24px; height: 24px; stroke: var(--skx-accent); }
   width: 48px; height: 48px; border-radius: 14px; margin-bottom: 18px;
   display: flex; align-items: center; justify-content: center; font-size: 21px;
   background: linear-gradient(135deg, rgba(58,160,255,0.25), rgba(255,255,255,0.12));
@@ -613,6 +614,15 @@ section.skx-band { padding: 148px var(--space-md, 24px); }
 }
 .skx-feature-card h3 { font-family: var(--skx-display); font-size: 17px; color: var(--skx-text); margin: 0 0 8px; }
 .skx-feature-card p { color: var(--skx-text-muted); font-size: 14px; line-height: 1.6; margin: 0; }
+/* Staggered card animation */
+.skx-feature-card { opacity: 0; transform: translateY(30px); animation: skxFadeUp 0.5s ease forwards; animation-delay: var(--delay, 0s); }
+@keyframes skxFadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Card hover glow pulse */
+.skx-feature-card:hover .skx-feature-icon { transform: scale(1.15); }
+  .skx-feature-icon svg { width: 24px; height: 24px; stroke: var(--skx-accent); }
+.skx-feature-icon { transition: transform 0.3s ease; }
+  .skx-feature-icon svg { width: 24px; height: 24px; stroke: var(--skx-accent); }
 
 /* =============================================================
    BUNDLE OFFER

@@ -625,6 +625,23 @@
       if (te) te.textContent = selectedDemoType || 'Online Demo';
       var le = document.getElementById('bookingSummaryLocation');
       if (le) le.textContent = (selectedState || '') + (selectedCity ? ', ' + selectedCity : '');
+
+      /* Dynamically change "Gym Name" to "Brand Name" for Advertisement */
+      var gymNameInput = document.getElementById('bookingGymName');
+      if (gymNameInput) {
+        var gymNameLabel = gymNameInput.closest('label');
+        if (gymNameLabel) {
+          var labelText = (selectedDemoType === 'Advertisement') ? 'Brand Name' : 'Gym Name';
+          /* Preserve the input element, replace only the text node */
+          for (var n = 0; n < gymNameLabel.childNodes.length; n++) {
+            if (gymNameLabel.childNodes[n].nodeType === 3 && gymNameLabel.childNodes[n].textContent.trim()) {
+              gymNameLabel.childNodes[n].textContent = labelText + '\n';
+              break;
+            }
+          }
+          gymNameInput.placeholder = (selectedDemoType === 'Advertisement') ? 'Your brand name (optional)' : 'Your gym name (optional)';
+        }
+      }
     }
     box.scrollTop = 0;
   }
@@ -1044,4 +1061,4 @@ function closeModal() {
   updateContinueState3();
 })();
 
-var BOOKING_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxHtyoBO-KgtiB8dOQqJCT9J8m_CP0XpQAqUikJ5Ddqjr22Ud5mwpE9CNtaNWncrX_0/exec';  
+var BOOKING_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxRtadtgBQT5N2xcEDAlIredmvdPhmAhJ2frSd-V_AoUrr1h7dhadhuwjYMx5bdoH7R/exec';  

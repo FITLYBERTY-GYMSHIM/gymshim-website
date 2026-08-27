@@ -342,7 +342,7 @@
   <div class="hero-actions">
     <!-- <a href="#book" class="btn-primary ">Book a Demo</a> -->
     <a href="booking.html" class="btn-primary">Book a Demo</a>
-    <a href="#plans" class="btn-secondary">See how it works</a>
+    <!-- <a href="#plans" class="btn-secondary">See how it works</a> -->
   </div>
 </div>
 </section>
@@ -1253,5 +1253,111 @@
 <script src="gos-showcase.js"></script>
 <script src="booking-locations.js"></script>
 <script src="booking.js"></script>
+
+<!-- ═══ Book a Demo Popup ═══ -->
+<div class="demo-popup-overlay" id="demoPopupOverlay">
+  <div class="demo-popup-box" id="demoPopupBox">
+    <button class="demo-popup-close" id="demoPopupClose" aria-label="Close">&times;</button>
+    <div class="demo-popup-glow"></div>
+    <div class="demo-popup-content">
+      <div class="demo-popup-badge">🔥 Limited Offer</div>
+      <h2 class="demo-popup-title">Book Your <span class="accent">Free Demo</span></h2>
+      <p class="demo-popup-desc">See how Gymshim can boost your gym memberships by 3x. No commitment required.</p>
+      <ul class="demo-popup-perks">
+        <li>✓ 30-min live walkthrough</li>
+        <li>✓ Custom setup for your gym</li>
+        <li>✓ Get results in just 7 days</li>
+      </ul>
+      <button class="demo-popup-btn" id="demoPopupBtn">Book a Demo →</button>
+      <p class="demo-popup-note">Join 500+ gym owners already growing with Gymshim</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var popup = document.getElementById('demoPopupOverlay');
+  var popupBox = document.getElementById('demoPopupBox');
+  var closeBtn = document.getElementById('demoPopupClose');
+  var bookBtn = document.getElementById('demoPopupBtn');
+  if (!popup) return;
+
+  var shown = false;
+  var heroEl = document.querySelector('.hero');
+  var section2 = document.querySelector('.workout-showcase');
+
+  function showPopup() {
+    if (shown) return;
+    shown = true;
+    popup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hidePopup() {
+    popup.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  /* Close handlers */
+  closeBtn.addEventListener('click', hidePopup);
+  popup.addEventListener('click', function (e) {
+    if (e.target === popup) hidePopup();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && popup.classList.contains('active')) hidePopup();
+  });
+
+  /* Open booking modal when clicking Book a Demo */
+  bookBtn.addEventListener('click', function () {
+    hidePopup();
+    /* Trigger the existing booking modal's openModal via link click */
+    var bookingLink = document.querySelector('a[href="booking.html"]');
+    if (bookingLink) bookingLink.click();
+  });
+
+  /* ── Trigger 1: 5-second timer on hero section ── */
+  var heroTimer = null;
+
+  function startHeroTimer() {
+    if (shown) return;
+    heroTimer = setTimeout(function () {
+      showPopup();
+    }, 5000);
+  }
+
+  function clearHeroTimer() {
+    if (heroTimer) { clearTimeout(heroTimer); heroTimer = null; }
+  }
+
+  /* Track if user is on hero section */
+  if (heroEl) {
+    var heroObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          startHeroTimer();
+        } else {
+          clearHeroTimer();
+        }
+      });
+    }, { threshold: 0.5 });
+    heroObs.observe(heroEl);
+  }
+
+  /* ── Trigger 2: Scroll to 2nd section (Workout+) ── */
+  if (section2) {
+    var sectionObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          showPopup();
+          clearHeroTimer();
+        }
+      });
+    }, { threshold: 0.3 });
+    sectionObs.observe(section2);
+  }
+})();
+</script>
 </body>
 </html>

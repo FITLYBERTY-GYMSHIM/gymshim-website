@@ -634,22 +634,22 @@ top:47px;
   .ca-figure{width:min(92%, 360px);filter:drop-shadow(0 30px 46px rgba(0,0,0,.6));display:block;}
 
   .ca-badge{
-    position:absolute;right:2%;bottom:6%;z-index:4;
-    display:flex;align-items:center;gap:14px;
-    padding:15px 20px;border-radius:16px;
+    position:absolute;right:15%;bottom:15%;z-index:4;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;
+    padding:24px 28px;border-radius:20px;
     background:linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
     border:1px solid var(--line-strong);
     backdrop-filter:blur(18px);
     box-shadow:0 18px 40px -12px rgba(0,0,0,.6);
   }
   .ca-badge-icon{
-    width:40px;height:40px;flex:0 0 auto;border-radius:12px;
+    width:64px;height:64px;flex:0 0 auto;border-radius:18px;
     display:flex;align-items:center;justify-content:center;
     background:rgba(216,35,74,.14);color:var(--red-light);
     box-shadow:inset 0 0 0 1px rgba(216,35,74,.3);
    
   }
-    .ca-badge-icon svg{width:40px;height:19px;}
+    .ca-badge-icon svg{width:32px;height:32px;}
     .ca-badge strong{display:block;font-family:var(--display);font-size:21px;font-weight:800;line-height:1;}
     .ca-badge span{display:block;margin-top:4px;font-size:12px;color:var(--muted);line-height:1.3;}
    
@@ -935,6 +935,8 @@ top:47px;
   .dm-brand-slot[data-slot="brand-aquatein"]{--logo-scale:1.6;}
   .dm-brand-slot[data-slot="brand-nutrela"]{--logo-scale:1.4;}
   .dm-brand-slot[data-slot="brand-manmatters"]{--logo-scale:1.55;}
+  .dm-brand-slot[data-slot="brand-resolute"]{--logo-scale:1.2;}
+  .dm-brand-slot[data-slot="brand-resolute"] img{mix-blend-mode:multiply;background:#fff;border-radius:8px;}
 
 
   /* Mobile View */
@@ -968,6 +970,9 @@ top:47px;
     --logo-scale:20;
   }
   .dm-brand-slot[data-slot="brand-manmatters"] {
+    --logo-scale:20;
+  }
+  .dm-brand-slot[data-slot="brand-resolute"] {
     --logo-scale:20;
   }
 
@@ -1859,6 +1864,7 @@ top:47px;
         <div class="dm-brand-slot" data-slot="brand-aquatein"><img src="./assets/image/aquatien.png" alt="Aquatein logo"><span>Aquatein</span></div>
         <div class="dm-brand-slot" data-slot="brand-nutrela"><img src="./assets/image/patanjali-nutrition.png" alt="Patanjali Nutrela Nutrition logo"><span>Nutrela Nutrition</span></div>
         <div class="dm-brand-slot" data-slot="brand-manmatters"><img src="./assets/image/man-matters.png" alt="Man Matters logo"><span>Man Matters</span></div>
+        <div class="dm-brand-slot" data-slot="brand-resolute"><img src="./assets/image/resolute.png" alt="Resolute logo"><span>Resolute</span></div>
       </div>
     </section>
 
