@@ -10,6 +10,7 @@
   /* Dual accent instead of one — more advanced/modern than cult.fit */
   --accent-1: #d8234a;   /* warm gold — pops against red */
 --accent-2:   #ffffff;   /* electric teal — kept, already contrasts well */
+--accent-3:   #148809; 
   --gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
 
   /* Spacing scale */
@@ -227,7 +228,7 @@ body {
 
 .hero {
   position: relative;
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
