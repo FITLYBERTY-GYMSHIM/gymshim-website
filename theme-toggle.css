@@ -189,3 +189,17 @@ html[data-theme="light"] .navbar {
     transparent 100%
   );
 }
+
+
+/* Fix click/focus white line — navbar/theme controls only */
+.navbar button,
+.navbar a,
+.theme-toggle {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.navbar button:focus,
+.navbar a:focus,
+.theme-toggle:focus {
+  outline: none;
+}
