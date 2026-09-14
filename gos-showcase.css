@@ -29,7 +29,7 @@
 .launch-showcase {
   position: relative;
   z-index: 2;
-  height: 550vh; /* scroll distance that drives the pinned timeline — stretched out so the animation plays out more slowly as you scroll */
+  height: 230vh; /* scroll distance that drives the pinned timeline — stretched out so the animation plays out more slowly as you scroll */
 }
 .showcase-pin {
   position: sticky;
@@ -426,3 +426,128 @@
 
 /* Fine-tune only the Sales Kiosk title. */
 .sales-kiosk-heading { transform: translateY(-25px); }
+
+
+
+
+.gos-appish{max-width:1100px;margin:0 auto;padding:0 clamp(20px,5vw,64px) 70px;position:relative;z-index:3}
+.gos-appish-card{background:#fff;color:#23235f;border-radius:28px;padding:34px 34px 0;box-shadow:0 40px 90px -30px rgba(10,10,40,.35);text-align:center;overflow:hidden}
+.gos-appish-topbar{display:flex;align-items:center;gap:14px;font-size:12px;margin-bottom:26px;text-align:left}
+.gos-appish-brand{font-weight:800;font-size:13px;letter-spacing:.02em}
+.gos-appish-brand i{display:inline-block;width:10px;height:10px;border-radius:3px;background:#2f6bff;margin-right:6px}
+.gos-appish-menu{margin-left:auto;color:#55556e}
+.gos-appish-dl{background:#2f6bff;color:#fff;padding:8px 18px;border-radius:999px;text-decoration:none;font-weight:700;margin-left:14px;white-space:nowrap}
+.gos-appish-card h2{font-size:clamp(26px,3.4vw,40px);line-height:1.18;margin:0 auto 12px;max-width:640px;font-weight:800}
+.gos-appish-sub{color:#6b6b85;font-size:13.5px;max-width:600px;margin:0 auto}
+.gos-appish-badges{display:flex;gap:10px;justify-content:center;margin:16px 0 4px}
+.gos-appish-badges img{height:42px}
+.gos-appish-badges a[aria-disabled="true"]{opacity:.95;cursor:default}
+.gos-appish-phones{position:relative;display:flex;justify-content:center;align-items:flex-end;margin-top:22px;min-height:400px}
+.gos-appish-blob{position:absolute;border-radius:50%;pointer-events:none}
+.gos-appish-blob.blue{width:330px;height:330px;background:#2f6bff;right:9%;bottom:-30px}
+.gos-appish-blob.coral{width:120px;height:120px;background:#ff8a7a;left:17%;bottom:50px}
+.gos-appish-phone{position:relative;width:27%;max-width:210px;aspect-ratio:9/19;object-fit:cover;object-position:top center;background:#fff;border-radius:26px;border:1px solid #e6e8f2;box-shadow:0 26px 55px -20px rgba(20,20,60,.35)}
+.gos-appish-phone.p-center{z-index:2;transform:scale(1.05)}
+.gos-appish-phone.p-left{transform:rotate(-9deg);margin-right:-22px}
+.gos-appish-phone.p-right{transform:rotate(9deg);margin-left:-22px;animation-delay:-2.5s}
+@media(max-width:900px){.gos-appish-phones{min-height:320px}.gos-appish-blob.blue{width:250px;height:250px}}
+@media(max-width:600px){.gos-appish-card{padding:24px 16px 0}.gos-appish-menu{display:none}.gos-appish-phones{min-height:230px}.gos-appish-phone{width:33%;border-radius:18px}.gos-appish-phone.p-left{margin-right:-12px}.gos-appish-phone.p-right{margin-left:-12px}.gos-appish-blob.blue{width:180px;height:180px;right:2%}.gos-appish-blob.coral{width:80px;height:80px}}
+
+.gos-appish-phones{position:relative;display:flex;justify-content:center;align-items:flex-end;margin-top:26px;padding:20px 0 46px;min-height:0}
+.gos-appish-circle{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+.gos-appish-circle.c-blue{width:min(340px,42%);aspect-ratio:1/1;background:#2f6bff;right:8%;bottom:10px}
+.gos-appish-circle.c-red{width:min(130px,16%);aspect-ratio:1/1;background:#ff8a7a;left:15%;bottom:70px}
+.gos-appish-phone{position:relative;z-index:1;width:27%;max-width:215px;height:auto;aspect-ratio:auto;object-fit:contain;background:#fff;border-radius:26px;border:1px solid #e6e8f2;box-shadow:0 26px 55px -20px rgba(20,20,60,.35)}
+.gos-appish-phone.center{z-index:2;transform:scale(1.07)}
+.gos-appish-phone.left{transform:rotate(-9deg);margin-right:-24px}
+.gos-appish-phone.right{transform:rotate(9deg);margin-left:-24px;animation-delay:-2.5s}
+@media(max-width:900px){.gos-appish-phone{width:28%}.gos-appish-circle.c-blue{width:250px}.gos-appish-circle.c-red{width:100px}}
+@media(max-width:600px){.gos-appish-phones{padding-bottom:34px}.gos-appish-phone{width:32%;border-radius:18px}.gos-appish-phone.left{margin-right:-14px;transform:rotate(-7deg)}.gos-appish-phone.right{margin-left:-14px;transform:rotate(7deg)}.gos-appish-phone.center{transform:scale(1.05)}}
+
+
+
+/* 3-phone composition only - reuses existing classes */
+.gos-appish-phones{position:relative;display:flex;justify-content:center;align-items:flex-end;margin-top:26px;padding:24px 0 60px}
+.gos-appish-circle{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+.gos-appish-circle.c-blue{width:min(340px,44%);aspect-ratio:1/1;background:#2f6bff;right:7%;bottom:14px}
+.gos-appish-circle.c-red{width:min(130px,17%);aspect-ratio:1/1;background:#ff8a7a;left:14%;bottom:80px}
+.gos-appish-phone{position:relative;height:auto;object-fit:contain;background:#fff;border-radius:26px;border:1px solid #e6e8f2;box-shadow:0 26px 55px -20px rgba(20,20,60,.35)}
+.gos-appish-phone.left{width:26%;max-width:205px;z-index:1;transform:rotate(-12deg);margin-right:-28px}
+.gos-appish-phone.center{width:29%;max-width:230px;z-index:3;transform:scale(1.08)}
+.gos-appish-phone.right{width:26%;max-width:205px;z-index:1;transform:rotate(12deg);margin-left:-28px;animation-delay:-2.5s}
+@media(max-width:900px){.gos-appish-phone.left{margin-right:-20px}.gos-appish-phone.right{margin-left:-20px}.gos-appish-circle.c-blue{width:250px}.gos-appish-circle.c-red{width:100px}}
+@media(max-width:600px){.gos-appish-phones{padding-bottom:44px}.gos-appish-phone{border-radius:18px}.gos-appish-phone.left{transform:rotate(-8deg);margin-right:-14px}.gos-appish-phone.right{transform:rotate(8deg);margin-left:-14px}.gos-appish-phone.center{transform:scale(1.05)}}
+
+/* fix: clear fixed navbar + restore coral blob */
+.gos-appish{padding-top:96px}
+.gos-appish-card{overflow:hidden}
+.gos-appish-circle.c-red{width:150px;height:150px;left:11%;bottom:44px;z-index:0}
+.gos-appish-phone.left,.gos-appish-phone.center,.gos-appish-phone.right{z-index:1}
+.gos-appish-phone.center{z-index:2}
+@media(max-width:600px){.gos-appish{padding-top:84px}}
+
+
+/* 3-phone fix - exact existing selectors, phones only */
+.gos-appish-phones{padding-bottom:60px !important}
+.gos-appish-blob.blue{width:min(340px,44%) !important;aspect-ratio:1/1 !important;background:#2f6bff !important;right:7% !important;bottom:14px !important;z-index:0 !important}
+.gos-appish-blob.coral{width:min(130px,17%) !important;aspect-ratio:1/1 !important;background:#ff8a7a !important;left:14% !important;bottom:80px !important;z-index:0 !important}
+img.gos-appish-phone.p-left{width:26% !important;max-width:205px !important;height:auto !important;object-fit:contain !important;z-index:1 !important;transform:rotate(-12deg) !important;margin-right:-28px !important;animation:none !important}
+img.gos-appish-phone.p-center{width:29% !important;max-width:230px !important;height:auto !important;object-fit:contain !important;z-index:3 !important;transform:scale(1.08) !important}
+img.gos-appish-phone.p-right{width:26% !important;max-width:205px !important;height:auto !important;object-fit:contain !important;z-index:1 !important;transform:rotate(12deg) !important;margin-left:-28px !important;animation:none !important}
+@media(max-width:600px){img.gos-appish-phone.p-left{transform:rotate(-8deg) !important;margin-right:-14px !important}img.gos-appish-phone.p-right{transform:rotate(8deg) !important;margin-left:-14px !important}img.gos-appish-phone.p-center{transform:scale(1.05) !important}}
+
+
+.gos-appish-plain h2{color:#fff !important}
+.gos-appish-plain .gos-appish-sub{color:#b8b8c8 !important}
+.gos-appish-plain .gos-appish-menu{color:#a0a0b8 !important}
+
+
+.gos-appish-plain h2{text-align:center !important;font-size:clamp(30px,4.2vw,48px) !important;line-height:1.15 !important;max-width:760px !important;margin:0 auto 12px !important}
+/* 
+.gos-appish{padding-top:24px !important} */
+
+.gos-appish{padding-top:0 !important}
+
+.gos-appish{margin-top:-50px !important}
+.gos-appish-plain{padding-top:0 !important}
+.gos-appish-plain h2{margin-top:0 !important;padding-top:0 !important}
+
+.gos-appish-plain .gos-appish-sub{font-size:clamp(15px,2vw,19px) !important;line-height:1.6 !important}
+
+.gos-appish-badges img{height:60px !important}
+
+
+.gos-appish-badges{position:relative !important;top:5px !important}
+
+.gos-appish-badges{margin-top:50px !important;margin-bottom:50px !important;padding:0 !important}
+
+
+@media(max-width:600px){.gos-appish-plain .gos-appish-sub{text-align:center !important;max-width:92% !important;margin-left:auto !important;margin-right:auto !important}}
+
+@media(max-width:600px){img.gos-appish-phone.p-left,img.gos-appish-phone.p-center,img.gos-appish-phone.p-right{border-radius:10px !important}}
+
+@media(max-width:600px){img.gos-appish-phone.p-left,img.gos-appish-phone.p-center,img.gos-appish-phone.p-right{border-radius:10px !important}}
+
+img.gos-appish-phone.p-left,img.gos-appish-phone.p-center,img.gos-appish-phone.p-right{border-width:2px !important;border-color:rgba(0, 0, 0, 0.35) !important}
+
+
+img.gos-appish-phone.p-left,img.gos-appish-phone.p-center,img.gos-appish-phone.p-right{border:none !important;box-shadow:0 26px 55px -20px rgba(20,20,60,.35) !important}
+
+img.gos-appish-phone.p-left,img.gos-appish-phone.p-center,img.gos-appish-phone.p-right{box-shadow:0 30px 70px -18px rgba(0,0,0,.55) !important}
+
+img.gos-appish-phone.p-left,img.gos-appish-phone.p-center,img.gos-appish-phone.p-right{box-shadow:0 45px 100px -20px rgba(0,0,0,.75) !important}
+
+.gos-appish{box-shadow:0 50px 120px -30px rgba(0,0,0,.8) !important;border-radius:50px !important}
+
+img.gos-appish-phone.p-left,img.gos-appish-phone.p-center,img.gos-appish-phone.p-right{border-radius:20px !important}  
+
+@media(max-width:600px){img.gos-appish-phone.p-left,img.gos-appish-phone.p-center,img.gos-appish-phone.p-right{border-radius:8px !important}}
+
+.gos-appish-badges img{filter:drop-shadow(0 0 16px rgba(78, 146, 255, 0.9)) !important}
+
+.gos-appish-badges img{transition:filter 1.6s ease-in-out !important} 
+
+@media(max-width:600px){
+  #solution .showcase-actions{flex-direction:column !important;align-items:center !important}
+  #solution .showcase-actions a{width:220px !important;text-align:center !important;justify-content:center !important}
+}

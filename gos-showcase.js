@@ -164,3 +164,22 @@
     }, 1800);
   }
 })();
+
+
+
+
+/* Play badge slow glow blink - app section only */
+(function () {
+  'use strict';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var b = document.querySelector('.gos-appish-badges img');
+  if (!b) return;
+  var on = true;
+  setInterval(function () {
+    on = !on;
+       b.style.setProperty('filter',
+      on ? 'drop-shadow(0 0 16px rgba(66,133,244,.9))'
+         : 'drop-shadow(0 0 4px rgba(66,133,244,.25))',
+      'important');
+  }, 1600);
+})();
