@@ -438,7 +438,7 @@
 .gos-appish-menu{margin-left:auto;color:#55556e}
 .gos-appish-dl{background:#2f6bff;color:#fff;padding:8px 18px;border-radius:999px;text-decoration:none;font-weight:700;margin-left:14px;white-space:nowrap}
 .gos-appish-card h2{font-size:clamp(26px,3.4vw,40px);line-height:1.18;margin:0 auto 12px;max-width:640px;font-weight:800}
-.gos-appish-sub{color:#6b6b85;font-size:13.5px;max-width:600px;margin:0 auto}
+.gos-appish-sub{color:#6b6b85;font-size:13.5px;max-width:600px;margin:0 auto;text-align:center}
 .gos-appish-badges{display:flex;gap:10px;justify-content:center;margin:16px 0 4px}
 .gos-appish-badges img{height:42px}
 .gos-appish-badges a[aria-disabled="true"]{opacity:.95;cursor:default}
@@ -506,13 +506,13 @@ img.gos-appish-phone.p-right{width:26% !important;max-width:205px !important;hei
 /* 
 .gos-appish{padding-top:24px !important} */
 
-.gos-appish{padding-top:0 !important}
+.gos-appish{padding-top:96px !important}
 
-.gos-appish{margin-top:-50px !important}
-.gos-appish-plain{padding-top:0 !important}
+.gos-appish{margin-top:0 !important}
+.gos-appish-plain{padding-top:0 !important;text-align:center !important}
 .gos-appish-plain h2{margin-top:0 !important;padding-top:0 !important}
 
-.gos-appish-plain .gos-appish-sub{font-size:clamp(15px,2vw,19px) !important;line-height:1.6 !important}
+.gos-appish-plain .gos-appish-sub{font-size:clamp(15px,2vw,19px) !important;line-height:1.6 !important;text-align:center !important;max-width:680px !important;margin:0 auto !important;display:block !important;white-space:normal !important}
 
 .gos-appish-badges img{height:60px !important}
 
@@ -522,7 +522,10 @@ img.gos-appish-phone.p-right{width:26% !important;max-width:205px !important;hei
 .gos-appish-badges{margin-top:50px !important;margin-bottom:50px !important;padding:0 !important}
 
 
-@media(max-width:600px){.gos-appish-plain .gos-appish-sub{text-align:center !important;max-width:92% !important;margin-left:auto !important;margin-right:auto !important}}
+@media(max-width:900px){.gos-appish-plain .gos-appish-sub{white-space:normal !important;width:auto !important;max-width:600px !important}}
+@media(max-width:600px){.gos-appish-plain .gos-appish-sub{text-align:center !important;max-width:92% !important;margin-left:auto !important;margin-right:auto !important;white-space:normal !important}}
+/* desktop: same centered stacking as mobile */
+@media(min-width:901px){.gos-appish-plain .gos-appish-sub{text-align:center !important;margin-left:auto !important;margin-right:auto !important}}
 
 @media(max-width:600px){img.gos-appish-phone.p-left,img.gos-appish-phone.p-center,img.gos-appish-phone.p-right{border-radius:10px !important}}
 
