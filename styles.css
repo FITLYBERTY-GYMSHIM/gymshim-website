@@ -3095,3 +3095,333 @@ margin-top: -10%;
     }
 }
 
+/* ============================================================
+   MEMBER INJURY PROTECTION — advanced split section (bip3-)
+   Floating-card layout with interactive coverage tabs and a
+   "live support" badge, inspired by modern insurance-hero UI.
+   Uses base tokens, follows the light/dark theme toggle.
+   ============================================================ */
+
+@property --bip3-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.bip3-section{
+  position: relative;
+  padding: clamp(70px, 9vw, 120px) var(--space-md);
+  background: var(--bg-dark);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---- Layered background: faded grid + dual glows ---- */
+.bip3-bg{ position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.bip3-grid{
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 30%, transparent 75%);
+}
+.bip3-glow{ position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.5; }
+.bip3-glow-red{ width: 540px; height: 540px; left: -170px; top: -130px; background: var(--accent-1); }
+.bip3-glow-green{ width: 480px; height: 480px; right: -150px; bottom: -170px; background: var(--accent-3); opacity: 0.32; }
+
+/* ---- Elevated floating card that holds the whole section ---- */
+.bip3-card{
+  position: relative; z-index: 1;
+  max-width: 1280px; margin: 0 auto;
+  padding: clamp(28px, 4vw, 56px);
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+
+.bip3-inner{
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(36px, 5vw, 72px);
+  align-items: center;
+}
+
+/* ---- Eyebrow badge ---- */
+.bip3-eyebrow{
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 9px 18px; border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.14);
+  margin-bottom: 24px;
+}
+.bip3-live-dot{
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent-3);
+  animation: bip3-pulse 2s ease-out infinite;
+}
+@keyframes bip3-pulse{
+  0%{ box-shadow: 0 0 0 0 rgba(20,136,9,0.55); }
+  70%{ box-shadow: 0 0 0 12px rgba(20,136,9,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(20,136,9,0); }
+}
+
+/* ---- Copy ---- */
+.bip3-title{
+  font-size: clamp(28px, 4.2vw, 50px);
+  font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0 0 18px;
+}
+.bip3-grad{
+  background: linear-gradient(120deg, var(--accent-1), #ff7a59 55%, var(--accent-2));
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: bip3-grad-flow 6s ease-in-out infinite alternate;
+}
+@keyframes bip3-grad-flow{ from{ background-position: 0% 50%; } to{ background-position: 100% 50%; } }
+
+.bip3-sub{
+  max-width: 52ch; margin: 0 0 18px;
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 1.7; color: var(--text-muted);
+}
+
+/* ---- Underwriter logo strip (IndusInd) ---- */
+.bip3-underwriter{
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  margin: 0 0 28px;
+}
+.bip3-underwriter span{
+  font-size: 14px; font-weight: 600;
+  letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--text-muted); white-space: nowrap;
+}
+.bip3-underwriter img{
+  display: block; height: 72px; width: auto; max-width: 340px;
+  object-fit: contain;
+  background: #fff; border-radius: 12px; padding: 8px 18px;
+  box-shadow: 0 10px 26px -12px rgba(0,0,0,0.55);
+}
+
+/* ---- Coverage tabs (pill nav, like a category switcher) ---- */
+.bip3-tabs{
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 6px; margin-bottom: 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.09);
+  width: max-content; max-width: 100%;
+}
+.bip3-tab{
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: 999px;
+  font-family: inherit; font-size: 13.5px; font-weight: 600;
+  color: var(--text-muted);
+  background: transparent; border: 1px solid transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: background .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
+}
+.bip3-tab svg{ width: 15px; height: 15px; flex: 0 0 auto; }
+.bip3-tab:hover{ color: var(--text-primary); }
+.bip3-tab.is-active{
+  color: #fff;
+  background: linear-gradient(120deg, var(--accent-1), #ff7a59);
+  border-color: transparent;
+  box-shadow: 0 10px 24px -10px rgba(216,35,74,0.6);
+}
+
+.bip3-panels{ min-height: 44px; margin-bottom: 26px; }
+.bip3-panel{
+  display: none;
+  margin: 0; padding-top: 14px;
+  font-size: 14.5px; line-height: 1.7; color: var(--text-muted);
+  max-width: 48ch;
+}
+.bip3-panel.is-active{ display: block; animation: bip3-fade .35s ease; }
+@keyframes bip3-fade{ from{ opacity: 0; transform: translateY(4px); } to{ opacity: 1; transform: translateY(0); } }
+
+/* ---- Quick stat row ---- */
+.bip3-stats{
+  display: flex; align-items: center; gap: 18px;
+  margin-bottom: 32px;
+}
+.bip3-stat{ display: flex; flex-direction: column; gap: 2px; }
+.bip3-stat strong{ font-size: 20px; font-weight: 800; color: var(--text-primary); line-height: 1; }
+.bip3-stat span{ font-size: 12px; color: var(--text-muted); }
+.bip3-stat-div{ width: 1px; height: 28px; background: rgba(255,255,255,0.14); }
+
+.bip3-cta{ display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+/* ---- Visual ---- */
+.bip3-visual{
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .25s ease-out;
+  will-change: transform;
+  width: 100%;
+  max-width: 480px;
+  justify-self: end;
+}
+.bip3-frame-glow{
+  position: absolute; inset: -8%;
+  background: radial-gradient(circle at 60% 40%, rgba(216,35,74,0.35), transparent 60%);
+  filter: blur(70px);
+  z-index: 0; pointer-events: none;
+}
+
+/* Rotating gradient border (degrades to a static border) */
+.bip3-frame{
+  position: relative; z-index: 1;
+  margin: 0; padding: 10px;
+  border-radius: 20px;
+  border: 1.5px solid transparent;
+  overflow: hidden;
+  background:
+    linear-gradient(var(--bg-panel), var(--bg-panel)) padding-box,
+    conic-gradient(from var(--bip3-angle),
+      rgba(216,35,74,0.0) 0%,
+      rgba(216,35,74,0.9) 18%,
+      rgba(74,222,128,0.9) 38%,
+      rgba(255,255,255,0.15) 55%,
+      rgba(216,35,74,0.0) 100%) border-box;
+  box-shadow: 0 50px 100px -40px rgba(0,0,0,0.65);
+  animation: bip3-spin 6s linear infinite;
+}
+@keyframes bip3-spin{ to{ --bip3-angle: 360deg; } }
+
+.bip3-frame img{
+  display: block; width: 100%; height: 100%;
+  aspect-ratio: 12 / 17; object-fit: cover; object-position: top center;
+  max-height: 680px;
+  border-radius: 14px;
+  transition: transform .8s cubic-bezier(.2,.7,.2,1);
+}
+.bip3-visual:hover .bip3-frame img{ transform: scale(1.04); }
+
+.bip3-sheen{
+  position: absolute; top: 0; left: -60%;
+  width: 45%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.14), transparent);
+  transform: skewX(-18deg);
+  animation: bip3-sweep 5.5s ease-in-out infinite;
+  pointer-events: none; z-index: 2;
+}
+@keyframes bip3-sweep{
+  0%{ left: -60%; }
+  55%{ left: 130%; }
+  100%{ left: 130%; }
+}
+
+/* ---- Floating "LIVE 24/7" support card (top-left, overlaps image) ---- */
+.bip3-live-card{
+  position: absolute; z-index: 3; top: 20px; left: -110px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  padding: 14px 18px 12px; border-radius: 18px; min-width: 108px;
+  background: rgba(23,26,33,0.82);
+  border: 1px solid rgba(255,255,255,0.16);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 24px 50px -18px rgba(0,0,0,0.65);
+  color: var(--text-primary);
+}
+.bip3-live-badge{
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700; letter-spacing: 1.4px;
+  background: rgba(216,35,74,0.22); border: 1px solid rgba(216,35,74,0.55); color: #ff8fa8;
+}
+.bip3-live-badge-dot{
+  width: 6px; height: 6px; border-radius: 50%; background: #ff5c8a;
+  animation: bip3-pulse 1.6s ease-out infinite;
+}
+.bip3-live-card strong{ font-size: 22px; font-weight: 800; line-height: 1.1; }
+.bip3-live-card small{
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted);
+}
+
+/* ---- Floating glass chip (bottom-right, overlaps image) ---- */
+.bip3-chip{
+  position: absolute; z-index: 3; bottom: 24px; right: -22px;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 12px 18px; border-radius: 16px;
+  background: rgba(23,26,33,0.75);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 24px 50px -20px rgba(0,0,0,0.6);
+  color: var(--text-primary);
+  font-weight: 600; font-size: 14px; line-height: 1.25;
+}
+.bip3-chip small{
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; font-weight: 500; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.bip3-chip-icon{
+  width: 34px; height: 34px; border-radius: 10px; flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(20,136,9,0.16);
+  border: 1px solid rgba(20,136,9,0.5);
+  color: #4ade80;
+}
+.bip3-chip-icon svg{ width: 18px; height: 18px; }
+
+/* ---- Responsive ---- */
+@media (max-width: 960px){
+  .bip3-inner{ grid-template-columns: 1fr; gap: 52px; }
+  .bip3-visual{ max-width: 480px; margin: 0 auto; justify-self: center; }
+  .bip3-live-card{ left: 8px; }
+  .bip3-chip{ right: 8px; }
+}
+@media (max-width: 640px){
+  .bip3-tabs{ width: 100%; }
+  .bip3-tab{ flex: 1 1 auto; justify-content: center; }
+}
+@media (max-width: 520px){
+  .bip3-section{ padding: 60px var(--space-sm); }
+  .bip3-card{ padding: 20px; border-radius: 24px; }
+  .bip3-live-card{ padding: 10px 14px; min-width: 92px; }
+  .bip3-live-card strong{ font-size: 18px; }
+  .bip3-chip{ padding: 10px 14px; font-size: 13px; }
+  .bip3-stats{ gap: 12px; flex-wrap: wrap; }
+}
+
+/* ---- Light theme (theme toggle) ---- */
+html[data-theme="light"] .bip3-grid{
+  background-image:
+    linear-gradient(rgba(10,10,20,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,10,20,0.06) 1px, transparent 1px);
+}
+html[data-theme="light"] .bip3-glow{ opacity: 0.22; }
+html[data-theme="light"] .bip3-card{
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+html[data-theme="light"] .bip3-eyebrow{ background: rgba(10,10,20,0.04); border-color: rgba(10,10,20,0.14); }
+html[data-theme="light"] .bip3-tabs{ background: rgba(10,10,20,0.035); border-color: rgba(10,10,20,0.08); }
+html[data-theme="light"] .bip3-tab{ color: var(--text-muted); }
+html[data-theme="light"] .bip3-tab:hover{ color: var(--text-primary); }
+html[data-theme="light"] .bip3-stat-div{ background: rgba(10,10,20,0.12); }
+html[data-theme="light"] .bip3-frame{ box-shadow: 0 50px 100px -40px rgba(10,10,20,0.25); }
+html[data-theme="light"] .bip3-live-card,
+html[data-theme="light"] .bip3-chip{
+  background: rgba(255,255,255,0.85);
+  border-color: rgba(10,10,20,0.1);
+  box-shadow: 0 24px 50px -20px rgba(10,10,20,0.2);
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce){
+  .bip3-frame, .bip3-sheen, .bip3-live-dot, .bip3-live-badge-dot, .bip3-grad{ animation: none !important; }
+  .bip3-visual{ transform: none !important; }
+  .bip3-panel.is-active{ animation: none !important; }
+}
