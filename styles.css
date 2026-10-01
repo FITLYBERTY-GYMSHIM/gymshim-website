@@ -2297,7 +2297,7 @@ body.services-modal-locked {
     0 30px 60px -20px rgba(0,0,0,0.6),
     0 0 0 1px rgba(255,255,255,0.05),
     0 0 60px rgba(216,35,74,0.15);
-  aspect-ratio: 960 / 1536;
+  aspect-ratio: 960 / 1800;
 }
 
 .kiosk-screen img{
